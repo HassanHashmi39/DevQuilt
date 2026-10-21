@@ -53,18 +53,18 @@ const JobDetail = () => {
                 <div className="prose prose-lg max-w-none text-gray-700">
                     <h2 className="text-3xl font-bold text-black mb-6">About the Role</h2>
                     <p className="leading-relaxed border-l-4 border-lime-500 pl-4 mb-8 text-xl font-medium">
-                        Join our elite {job.dept} team at MADS. Help us push the boundaries of modern digital branding, utilizing striking color palettes such as bold black, stark white, and vibrant lime-400 accents.
+                        Join our engineering and creative team at DevQuilt. Help us push the boundaries of modern software engineering, crafting high-performance web applications, mobile platforms, and sleek digital experiences.
                     </p>
 
                     <h2 className="text-3xl font-bold text-black mb-6">What you bring</h2>
                     <ul className="list-disc pl-6 mb-12 space-y-3">
-                        <li>An uncompromising eye for perfection and fine craftsmanship.</li>
-                        <li>The ability to leverage our core colors (lime-400, black, white) into high-end aesthetics.</li>
-                        <li>Expertise executing in fast-paced collaborative environments.</li>
+                        <li>Solid foundations in modern software development and design patterns.</li>
+                        <li>Passion for clean architecture, responsive design, and intuitive user experiences.</li>
+                        <li>Ability to collaborate effectively in an agile, fast-paced team environment.</li>
                     </ul>
 
                     <div className="mt-12 group">
-                        <a href="mailto:careers@mads.agency" className="inline-flex items-center gap-4 bg-lime-400 text-black px-8 py-4 rounded-full font-bold text-lg hover:shadow-[5px_5px_0_0_#A3E635] border-2 border-transparent hover:border-black transition-all">
+                        <a href="mailto:careers@devquilt.com" className="inline-flex items-center gap-4 bg-lime-400 text-black px-8 py-4 rounded-full font-bold text-lg hover:shadow-[5px_5px_0_0_#A3E635] border-2 border-transparent hover:border-black transition-all">
                             Apply via Email
                             <svg className="w-6 h-6 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />

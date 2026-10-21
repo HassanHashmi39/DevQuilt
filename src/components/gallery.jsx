@@ -1,5 +1,6 @@
 import React from "react";
 import { motion } from "motion/react";
+import { useTheme } from "../context/ThemeContext";
 
 import img1 from "../assets/gallery/gallery_card_1_1772459959090.webp";
 import img2 from "../assets/gallery/gallery_card_2_1772460030044.webp";
@@ -18,15 +19,17 @@ const Gallery = () => {
         { id: 6, image: img6, rotation: 18, x: 180, y: 20 },
     ];
 
+    const { isDarkMode } = useTheme();
+
     return (
-        <section className="relative px-6 overflow-hidden bg-white">
+        <section className={`relative px-6 overflow-hidden transition-colors duration-300 ${isDarkMode ? 'bg-[#0a0a0a]' : 'bg-gray-50'}`}>
             <div className="max-w-7xl mx-auto text-center relative z-10">
                 <motion.h2
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.8, ease: "easeOut" }}
-                    className="text-4xl md:text-6xl font-bold text-gray-900 mb-4 tracking-tight"
+                    className={`text-4xl md:text-6xl font-bold mb-4 tracking-tight ${isDarkMode ? 'text-white' : 'text-gray-900'}`}
                 >
                     A place to display your <br className="hidden md:block" /> masterpiece.
                 </motion.h2>
@@ -62,6 +65,8 @@ const Gallery = () => {
                             <img
                                 src={card.image}
                                 alt={`Masterpiece ${card.id}`}
+                                loading="lazy"
+                                decoding="async"
                                 className="w-full h-full object-cover"
                             />
                             {/* Play Button Overlay on Center Card (Card 3) */}
@@ -95,7 +100,7 @@ const Gallery = () => {
 
             {/* Decorative Background Elements */}
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full pointer-events-none opacity-20">
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-r from-blue-100 to-purple-100 rounded-full blur-[120px]" />
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-r from-purple-900/30 to-violet-900/20 rounded-full blur-[120px]" />
             </div>
         </section>
     );

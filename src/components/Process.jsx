@@ -1,5 +1,6 @@
 import { useRef, useState, useEffect } from "react";
 import { motion, useInView, AnimatePresence } from "motion/react";
+import { useTheme } from "../context/ThemeContext";
 
 const TypingText = ({ text }) => {
     const [displayText, setDisplayText] = useState("");
@@ -20,6 +21,7 @@ const TypingText = ({ text }) => {
 const VideoButton = () => {
     const [isHovered, setIsHovered] = useState(false);
     const [isMobile, setIsMobile] = useState(false);
+    const { isDarkMode } = useTheme();
 
     useEffect(() => {
         const checkMobile = () => setIsMobile(window.innerWidth < 1024);
@@ -43,7 +45,11 @@ const VideoButton = () => {
                 onHoverStart={() => setIsHovered(true)}
                 onHoverEnd={() => setIsHovered(false)}
                 onClick={() => setIsHovered(!isHovered)}
-                className="absolute top-0 cursor-pointer overflow-hidden rounded-[28px] bg-[#1d1d1d] shadow-2xl w-[220px]"
+                className={`absolute top-0 cursor-pointer overflow-hidden rounded-[28px] shadow-2xl w-[220px] transition-colors duration-300 ${
+                    isDarkMode
+                        ? "bg-[#1d1d1d] border border-white/10"
+                        : "bg-white border border-gray-200 shadow-md"
+                }`}
                 animate={{
                     height: isHovered ? 320 : 56,
                 }}
@@ -60,30 +66,39 @@ const VideoButton = () => {
                     loop
                     muted
                     playsInline
-                    className="absolute inset-0 w-full h-full object-cover"
+                    className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-300 ${
+                        !isDarkMode && !isHovered ? "opacity-0" : "opacity-100"
+                    }`}
                 >
                     <source src="https://vjs.zencdn.net/v/oceans.mp4" type="video/mp4" />
                 </video>
 
                 {/* Overlays */}
-                <div className={`absolute inset-0 bg-black/30 transition-opacity duration-500 ${isHovered ? 'opacity-10' : 'opacity-40'}`} />
+                <div className={`absolute inset-0 transition-opacity duration-500 ${
+                    isDarkMode
+                        ? (isHovered ? 'bg-black/10' : 'bg-black/30 opacity-40')
+                        : (isHovered ? 'bg-black/20' : 'bg-white opacity-100')
+                }`} />
 
                 {/* Button Content (Collapsed) */}
                 <motion.div
-                    className="absolute inset-x-0 h-14 flex items-center justify-center gap-3 px-6"
+                    className="absolute inset-x-0 h-14 flex items-center justify-center gap-3 px-6 z-10"
                     animate={{
                         opacity: isHovered ? 0 : 1,
                         y: isHovered ? -20 : 0
                     }}
                     transition={{ duration: 0.3 }}
                 >
-                    <span className="text-white font-medium text-sm tracking-wide">How it works!</span>
-
+                    <span className={`font-semibold text-sm tracking-wide transition-colors ${
+                        isDarkMode ? "text-white" : "text-gray-900"
+                    }`}>
+                        How it works!
+                    </span>
                 </motion.div>
 
                 {/* Card Content (Expanded) */}
                 <motion.div
-                    className="absolute inset-0 flex items-center justify-center"
+                    className="absolute inset-0 flex items-center justify-center pointer-events-none"
                     initial={{ opacity: 0 }}
                     animate={{
                         opacity: isHovered ? 1 : 0,
@@ -91,17 +106,19 @@ const VideoButton = () => {
                     }}
                     transition={{ duration: 0.4, delay: isHovered ? 0.1 : 0 }}
                 >
-
                 </motion.div>
 
                 {/* Bottom Shine */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
+                {isDarkMode && (
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
+                )}
             </motion.div>
         </motion.div>
     );
 };
 
 export default function Process() {
+    const { isDarkMode } = useTheme();
     const ref = useRef(null);
     const isInView = useInView(ref, { amount: 0.2, once: false });
     const [hoveredStep, setHoveredStep] = useState(null);
@@ -109,81 +126,66 @@ export default function Process() {
     const steps = [
         {
             number: 1,
-            title: "Book a Call",
-            description: "Let’s Discuss Your Goals and Transform Your Online Presence",
+            title: "Discover",
+            description: "Understand your idea, audience, goals, and requirements before choosing a solution.",
             pos: { x: 100, y: 45 },
             align: "top",
-            color: "#7B61FF", // Purple
         },
         {
             number: 2,
-            title: "Discovery & Planning",
-            description: "It’s about understanding your brand & creating plan for your success.",
+            title: "Plan",
+            description: "Define the scope, priorities, timeline, and deliverables together.",
             pos: { x: 279, y: 60 },
             align: "bottom",
-            color: "#a3e635", // lime-400
         },
         {
             number: 3,
-            title: "Proposal & Agreement",
-            description: "This step ensures transparency & sets clear expectations for both of us.",
+            title: "Design",
+            description: "Shape the user experience and visual direction before development begins.",
             pos: { x: 500, y: 140 },
             align: "bottom",
-            color: "#ef4444", // Red
         },
         {
             number: 4,
-            title: "Launch & Support",
-            description: "Ensures you can use your new tools and strategies to achieve your goals.",
+            title: "Develop",
+            description: "Build, integrate, and test the solution with regular progress updates.",
             pos: { x: 700, y: 55 },
             align: "bottom",
-            color: "#3b82f6", // Blue
         },
         {
             number: 5,
-            title: "Execution",
-            description: "You’ll see your brand come to life with designs, strategies",
+            title: "Launch",
+            description: "Prepare, configure, and deploy the project for release — ready for real users.",
             pos: { x: 850, y: 45 },
             align: "top",
-            color: "#1d1d1d", // Black (using #1d1d1d for better feel)
         },
     ];
 
     const pathData = "M 50 100 C 150 20, 250 20, 350 100 S 550 180, 650 100 S 850 20, 950 100";
 
-    const isDarkBackground = hoveredStep && hoveredStep.color !== "#a3e635";
-
     return (
-        <motion.section
+        <section
             ref={ref}
-            animate={{
-                backgroundColor: hoveredStep ? hoveredStep.color : "#ffffff"
-            }}
-            transition={{ duration: 0.6, ease: "easeInOut" }}
-            className="relative w-full min-h-screen overflow-hidden z-0 font-tomato pt-24 pb-10 md:pt-12 transition-colors duration-500 flex flex-col items-center justify-start shadow-[0_-40px_80px_rgba(0,0,0,0.1),0_40px_80px_rgba(0,0,0,0.1)]"
+            className={`relative w-full min-h-screen overflow-hidden z-0 font-tomato pt-24 pb-10 md:pt-12 flex flex-col items-center justify-start transition-colors duration-300 shadow-[0_-40px_80px_rgba(0,0,0,0.1),0_40px_80px_rgba(0,0,0,0.1)] ${
+                isDarkMode ? "bg-[#0a0a0a] text-white" : "bg-[#f5f5f7] text-gray-900"
+            }`}
         >
 
             <div className="max-w-[1400px] mx-auto px-6 relative z-10" key={isInView ? "active" : "inactive"}>
                 <motion.h2
-                    initial={{ opacity: 0 }}
-                    animate={isInView ? (hoveredStep ? { opacity: 0, y: -20, pointerEvents: "none" } : { opacity: 1, y: 0, pointerEvents: "auto" }) : { opacity: 0 }}
+                    initial={{ opacity: 0, y: -20 }}
+                    animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: -20 }}
                     transition={{ duration: 0.5 }}
-                    className={`text-[28px] md:text-[54px] font-medium text-center lg:tracking-tight mb-4 md:mb-6 transition-colors duration-500 ${hoveredStep ? (isDarkBackground ? "text-white" : "text-black") : "text-[#1D1D1D]"
-                        }`}
+                    className={`text-[28px] md:text-[54px] font-medium text-center lg:tracking-tight mb-4 md:mb-6 ${
+                        isDarkMode ? "text-white" : "text-gray-900"
+                    }`}
                 >
-                    Here’s how to Start
+                    From First Conversation to Launch
                 </motion.h2>
 
-                <motion.div
-                    animate={{
-                        opacity: hoveredStep ? 0 : 1,
-                        scale: hoveredStep ? 0.95 : 1,
-                        pointerEvents: hoveredStep ? "none" : "auto"
-                    }}
-                    transition={{ duration: 0.4 }}
-                >
+                <div>
                     <VideoButton />
-                </motion.div>
+                </div>
 
 
                 {/* Desktop Curve */}
@@ -198,11 +200,11 @@ export default function Process() {
                         >
                             <defs>
                                 <linearGradient id="lineGrad" x1="0" y1="0" x2="1" y2="0">
-                                    <stop offset="0%" stopColor={hoveredStep ? (isDarkBackground ? "rgba(255,255,255,0.2)" : "rgba(0,0,0,0.1)") : "#e5e5e5"} />
-                                    <stop offset="25%" stopColor={hoveredStep ? (isDarkBackground ? "rgba(255,255,255,0.4)" : "rgba(0,0,0,0.3)") : "#a3a3a3"} />
-                                    <stop offset="50%" stopColor={hoveredStep ? (isDarkBackground ? "white" : "black") : "#000000"} />
-                                    <stop offset="75%" stopColor={hoveredStep ? (isDarkBackground ? "rgba(255,255,255,0.4)" : "rgba(0,0,0,0.3)") : "#a3a3a3"} />
-                                    <stop offset="100%" stopColor={hoveredStep ? (isDarkBackground ? "rgba(255,255,255,0.2)" : "rgba(0,0,0,0.1)") : "#e5e5e5"} />
+                                    <stop offset="0%" stopColor="#e5e5e5" />
+                                    <stop offset="25%" stopColor="#a3a3a3" />
+                                    <stop offset="50%" stopColor="#000000" />
+                                    <stop offset="75%" stopColor="#a3a3a3" />
+                                    <stop offset="100%" stopColor="#e5e5e5" />
                                 </linearGradient>
 
                                 {/* Static bold center mask */}
@@ -246,7 +248,7 @@ export default function Process() {
 
                             <motion.path
                                 d={pathData}
-                                stroke={hoveredStep ? (isDarkBackground ? "white" : "black") : "#555"}
+                                stroke="#555"
                                 strokeWidth="0.8"
                                 strokeLinecap="round"
                                 fill="none"
@@ -259,7 +261,7 @@ export default function Process() {
                             {/* Bold center — static mask, stays in middle */}
                             <motion.path
                                 d={pathData}
-                                stroke={hoveredStep ? (isDarkBackground ? "white" : "black") : "#111"}
+                                stroke="#111"
                                 strokeWidth="1.2"
                                 strokeLinecap="round"
                                 fill="none"
@@ -269,11 +271,11 @@ export default function Process() {
                                 transition={{ duration: 10, ease: [0.45, 0, 0.55, 1] }}
                             />
 
-                            {/* Barik moving header — 5-unit dash travels tip to end via dashoffset, stays at endpoint */}
+                            {/* Moving dash tip */}
                             <motion.path
                                 d={pathData}
                                 pathLength="100"
-                                stroke={hoveredStep ? (isDarkBackground ? "white" : "#111") : "#111"}
+                                stroke="#111"
                                 strokeWidth="0.1"
                                 strokeLinecap="round"
                                 strokeDasharray="5 100"
@@ -317,10 +319,9 @@ export default function Process() {
                                             ${step.align === "top" ? "-top-48" : "top-24"} 
                                             left-1/2 -translate-x-1/2`}
                                     >
-                                        <div className={`p-5 rounded-2xl backdrop-blur-2xl border shadow-2xl text-center ${isDarkBackground
-                                            ? "bg-white/10 border-white/20 text-white"
-                                            : "bg-black/5 border-black/10 text-black"
-                                            }`}>
+                                        <div className={`p-5 rounded-2xl backdrop-blur-2xl border shadow-2xl text-center ${
+                                            isDarkMode ? "bg-[#18181b]/95 border-white/10 text-white" : "bg-white/95 border-black/10 text-gray-900"
+                                        }`}>
                                             <h4 className="text-lg font-bold mb-2">{step.title}</h4>
                                             <p className="text-sm font-light leading-relaxed">
                                                 <TypingText text={step.description} />
@@ -332,22 +333,25 @@ export default function Process() {
 
                             {step.align === "top" && (
                                 <div className={`absolute -top-15 w-64 text-center transition-opacity duration-300 ${hoveredStep ? "opacity-0" : "opacity-100"}`}>
-                                    <h3 className="font-semibold text-xl">{step.title}</h3>
+                                    <h3 className={`font-semibold text-xl ${isDarkMode ? "text-white" : "text-gray-900"}`}>{step.title}</h3>
                                 </div>
                             )}
                             <div
-                                className={`w-[35px] h-[35px] rounded-full border-2 flex items-center justify-center text-xs font-bold shadow-sm z-10 transition-all duration-300 transform cursor-pointer ${hoveredStep?.number === step.number
-                                    ? "scale-125 bg-white text-black border-transparent shadow-xl"
-                                    : hoveredStep
-                                        ? "scale-90 opacity-40 bg-white/20 border-white/40 text-white"
-                                        : "bg-white/90 border-[#7B61FF] text-black hover:scale-110"
-                                    }`}
+                                className={`w-[35px] h-[35px] rounded-full border-2 ${
+                                    isDarkMode
+                                        ? "border-white/20 bg-[#18181b] text-white"
+                                        : "border-black/20 bg-white text-gray-900"
+                                } flex items-center justify-center text-xs font-bold shadow-sm z-10 transition-transform duration-300 transform cursor-pointer ${
+                                    hoveredStep?.number === step.number
+                                        ? "scale-125 shadow-md"
+                                        : "hover:scale-110"
+                                }`}
                             >
                                 {step.number}
                             </div>
                             {step.align === "bottom" && (
                                 <div className={`absolute top-16 w-64 text-center transition-opacity duration-300 ${hoveredStep ? "opacity-0" : "opacity-100"}`}>
-                                    <h3 className="font-semibold text-xl">
+                                    <h3 className={`font-semibold text-xl ${isDarkMode ? "text-white" : "text-gray-900"}`}>
                                         {step.title}
                                     </h3>
                                 </div>
@@ -358,7 +362,7 @@ export default function Process() {
 
                 {/* Mobile/Tablet Layout */}
                 <div className="lg:hidden space-y-8 md:space-y-16 relative py-6 md:py-12">
-                    <div className={`absolute left-[15px] top-4 bottom-4 w-[2px] transition-colors duration-500 ${hoveredStep ? (isDarkBackground ? "bg-white/20" : "bg-black/10") : "bg-gray-200"}`} />
+                    <div className={`absolute left-[15px] top-4 bottom-4 w-[2px] ${isDarkMode ? "bg-white/10" : "bg-black/10"}`} />
 
                     {steps.map((step, i) => (
                         <motion.div
@@ -370,17 +374,19 @@ export default function Process() {
                             onMouseEnter={() => setHoveredStep(step)}
                             onMouseLeave={() => setHoveredStep(null)}
                         >
-                            <div className={`w-[32px] h-[32px] shrink-0 rounded-full border-2 flex items-center justify-center text-xs font-bold shadow-sm z-10 relative transition-all duration-300 ${hoveredStep?.number === step.number
-                                ? "bg-white text-black border-transparent scale-110"
-                                : hoveredStep
-                                    ? "bg-white/20 border-white/40 text-white opacity-40"
-                                    : "border-[#7B61FF] bg-white text-[#7B61FF]"
-                                }`}>
+                            <div className={`w-[32px] h-[32px] shrink-0 rounded-full border-2 ${
+                                isDarkMode
+                                    ? "border-white/20 bg-[#18181b] text-white"
+                                    : "border-black/20 bg-white text-gray-900"
+                            } flex items-center justify-center text-xs font-bold shadow-sm z-10 relative transition-transform duration-300 ${
+                                hoveredStep?.number === step.number
+                                    ? "scale-110 shadow-md"
+                                    : ""
+                            }`}>
                                 {step.number}
                             </div>
                             <div className="flex flex-col pt-1 relative">
-                                <h3 className={`font-semibold text-xl transition-colors duration-500 ${hoveredStep ? (isDarkBackground ? "text-white" : "text-black") : "text-gray-900"
-                                    }`}>
+                                <h3 className={`font-semibold text-xl ${isDarkMode ? "text-white" : "text-gray-900"}`}>
                                     {step.title}
                                 </h3>
                                 <AnimatePresence>
@@ -389,10 +395,9 @@ export default function Process() {
                                             initial={{ opacity: 0, y: 10 }}
                                             animate={{ opacity: 1, y: 0 }}
                                             exit={{ opacity: 0, y: 10 }}
-                                            className={`mt-2 p-4 rounded-xl backdrop-blur-xl border shadow-lg max-w-[260px] ${isDarkBackground
-                                                ? "bg-white/10 border-white/20 text-white"
-                                                : "bg-black/5 border-black/10 text-black"
-                                                }`}
+                                            className={`mt-2 p-4 rounded-xl backdrop-blur-xl border shadow-lg max-w-[260px] ${
+                                                isDarkMode ? "bg-[#18181b]/95 border-white/10 text-white" : "bg-white/95 border-black/10 text-gray-900"
+                                            }`}
                                         >
                                             <p className="text-sm font-light leading-relaxed">
                                                 <TypingText text={step.description} />
@@ -408,19 +413,18 @@ export default function Process() {
                 {/* Bottom Quote Footer */}
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
-                    animate={isInView ? (hoveredStep ? { opacity: 0, y: 20, pointerEvents: "none" } : { opacity: 1, y: 0, pointerEvents: "auto" }) : { opacity: 0, y: 20 }}
+                    animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                     transition={{ duration: 0.5 }}
-                    className={`text-center mt-1 lg:mt-3 mb-4 max-w-5xl mx-auto transition-colors duration-500 ${hoveredStep ? (isDarkBackground ? "text-white" : "text-black") : "text-[#1D1D1D]"
-                        }`}
+                    className="text-center mt-1 lg:mt-3 mb-4 max-w-5xl mx-auto text-white"
                 >
-                    <p className="text-[15px] md:text-[26px] font-small leading-relaxed tracking-tight">
-                        With over 5 years of combined experience, we’ll help you become a
+                    <p className="text-[10px] md:text-[20px] font-small leading-relaxed tracking-tight">
+                        With over 5 years of combined experience, we'll help you become a
                         trusted expert in your field and turn your audience into potential
                         customers.
                     </p>
                 </motion.div>
             </div>
 
-        </motion.section>
+        </section>
     );
 }

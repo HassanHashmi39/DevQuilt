@@ -3,10 +3,10 @@ import { Link } from "react-router-dom";
 import { motion } from "motion/react";
 
 const jobs = [
-    { title: "Senior Digital Strategist", location: "Remote / London", type: "Full-Time", dept: "Marketing", id: "str-01" },
-    { title: "Creative Developer (WebGL/Three.js)", location: "New York", type: "Hybrid", dept: "Engineering", id: "eng-01" },
-    { title: "UI/UX Motion Designer", location: "Remote", type: "Full-Time", dept: "Design", id: "dsn-02" },
-    { title: "Content Marketing Manager", location: "Berlin", type: "On-Site", dept: "Marketing", id: "mkt-03" },
+    { title: "Full-Stack Web Engineer (React & Node.js)", location: "Remote / Lahore", type: "Full-Time", dept: "Engineering", id: "eng-01" },
+    { title: "Mobile App Developer (Flutter / React Native)", location: "Remote / Islamabad", type: "Full-Time", dept: "Mobile", id: "mob-02" },
+    { title: "Lead UI/UX Product Designer", location: "Remote / Karachi", type: "Full-Time", dept: "Design", id: "dsn-03" },
+    { title: "Digital Marketing & SEO Strategist", location: "Remote / Pakistan", type: "Full-Time", dept: "Marketing", id: "mkt-04" },
 ];
 
 const Careers = () => {

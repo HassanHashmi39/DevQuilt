@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence, useInView, useScroll, useTransform } from "motion/react";
 import { useScrollContainer } from "../context/ScrollContext";
+import { useTheme } from "../context/ThemeContext";
 
 // --- Custom Visuals ---
 const AnimatedNumber = ({ end }) => {
@@ -27,6 +28,7 @@ const AnimatedNumber = ({ end }) => {
 };
 
 const CounterVisual = ({ small = false }) => {
+    const { isDarkMode } = useTheme();
     const [count, setCount] = useState(0);
     const ref = useRef(null);
     const isInView = useInView(ref, { once: true, amount: 0.9 });
@@ -49,14 +51,18 @@ const CounterVisual = ({ small = false }) => {
     }, [isInView]);
 
     return (
-        <div ref={ref} className={`bg-[#111] rounded-2xl flex flex-col items-center justify-center text-center mt-auto shadow-inner relative overflow-hidden group ${small ? "p-3 h-24" : "p-6 h-48 sm:h-56"
-            }`}>
+        <div ref={ref} className={`${
+            isDarkMode ? "bg-[#111] text-white" : "bg-gray-100 text-gray-900 border border-gray-200"
+        } rounded-2xl flex flex-col items-center justify-center text-center mt-auto shadow-inner relative overflow-hidden group ${
+            small ? "p-3 h-24" : "p-6 h-48 sm:h-56"
+        }`}>
             <motion.div
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={isInView ? { opacity: 1, scale: 1 } : {}}
                 transition={{ duration: 0.8, ease: "easeOut" }}
-                className={`text-white font-bold font-mono tracking-tighter tabular-nums inline-block text-center ${small ? "text-3xl" : "text-5xl sm:text-7xl min-w-[4ch]"
-                    }`}
+                className={`${isDarkMode ? "text-white" : "text-gray-900"} font-bold font-mono tracking-tighter tabular-nums inline-block text-center ${
+                    small ? "text-3xl" : "text-5xl sm:text-7xl min-w-[4ch]"
+                }`}
             >
                 {count}
             </motion.div>
@@ -64,8 +70,9 @@ const CounterVisual = ({ small = false }) => {
                 initial={{ opacity: 0, y: 10 }}
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.8, delay: 0.2 }}
-                className={`text-white/60 mt-1 ${small ? "text-[10px]" : "text-sm sm:text-base max-w-[200px]"
-                    }`}
+                className={`${isDarkMode ? "text-white/60" : "text-gray-500"} mt-1 ${
+                    small ? "text-[10px]" : "text-sm sm:text-base max-w-[200px]"
+                }`}
             >
                 followers
             </motion.div>
@@ -153,14 +160,17 @@ const StatsSliderVisual = () => {
 };
 
 const CircleProgressVisual = () => {
+    const { isDarkMode } = useTheme();
     const ref = useRef(null);
     const isInView = useInView(ref, { once: true, amount: 0.9 });
 
     return (
-        <div ref={ref} className="bg-[#F8F9FA] pb-5 rounded-3xl p-4 flex flex-col items-center justify-center mt-auto h-48 sm:h-56 shadow-sm relative overflow-hidden group border border-gray-100">
+        <div ref={ref} className={`${
+            isDarkMode ? "bg-white/5 border-white/10" : "bg-[#F8F9FA] border-gray-100"
+        } pb-5 rounded-3xl p-4 flex flex-col items-center justify-center mt-auto h-48 sm:h-56 shadow-sm relative overflow-hidden group border`}>
             <div className="relative w-40 h-40 flex items-center justify-center">
                 <svg className="absolute inset-0 w-full h-full transform -rotate-90">
-                    <circle cx="80" cy="80" r="70" stroke="#f1f1f1" strokeWidth="8" fill="none" />
+                    <circle cx="80" cy="80" r="70" stroke={isDarkMode ? "rgba(255,255,255,0.1)" : "#f1f1f1"} strokeWidth="8" fill="none" />
                     <motion.circle cx="80" cy="80" r="70" stroke="url(#gradient)" strokeWidth="8" fill="none" strokeLinecap="round" strokeDasharray={440} strokeDashoffset={440} animate={isInView ? { strokeDashoffset: 440 - (440 * 0.75) } : { strokeDashoffset: 440 }} transition={{ duration: 2, ease: "easeOut" }} />
                     <defs>
                         <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -170,36 +180,61 @@ const CircleProgressVisual = () => {
                     </defs>
                 </svg>
                 <div className="flex flex-col items-center justify-center z-10 text-center">
-                    <motion.span initial={{ opacity: 0, scale: 0.8 }} animate={isInView ? { opacity: 1, scale: 1 } : {}} transition={{ delay: 0.9, duration: 0.9 }} className="text-[10px] text-gray-500 font-medium tracking-wide uppercase mb-1">
+                    <motion.span initial={{ opacity: 0, scale: 0.8 }} animate={isInView ? { opacity: 1, scale: 1 } : {}} transition={{ delay: 0.9, duration: 0.9 }} className={`text-[10px] ${isDarkMode ? "text-gray-400" : "text-gray-500"} font-medium tracking-wide uppercase mb-1`}>
                         Level 2<br />10 to 20 miles
                     </motion.span>
-                    <motion.span initial={{ opacity: 0, scale: 0.9 }} animate={isInView ? { opacity: 1, scale: 1 } : {}} transition={{ delay: 0.6, duration: 0.9 }} className="text-3xl font-bold text-gray-900 leading-none">
+                    <motion.span initial={{ opacity: 0, scale: 0.9 }} animate={isInView ? { opacity: 1, scale: 1 } : {}} transition={{ delay: 0.6, duration: 0.9 }} className={`text-3xl font-bold ${isDarkMode ? "text-white" : "text-gray-900"} leading-none`}>
                         191V
                     </motion.span>
                 </div>
-                <motion.div animate={isInView ? { opacity: 1, scale: 1, x: -30, y: -40 } : { opacity: 0, scale: 0, x: -10, y: -20 }} transition={{ delay: 0.8 }} className="absolute z-20 top-8 left-4 w-8 h-8 bg-white shadow-lg rounded-full flex items-center justify-center">
-                    <span className="text-gray-600 text-[10px]">✦</span>
+                <motion.div animate={isInView ? { opacity: 1, scale: 1, x: -30, y: -40 } : { opacity: 0, scale: 0, x: -10, y: -20 }} transition={{ delay: 0.8 }} className={`absolute z-20 top-8 left-4 w-8 h-8 ${isDarkMode ? "bg-[#222] text-white shadow-black/40" : "bg-white text-gray-600 shadow-lg"} rounded-full flex items-center justify-center shadow`}>
+                    <span className="text-[10px]">✦</span>
                 </motion.div>
-                <motion.div animate={isInView ? { opacity: 1, scale: 1, x: -45, y: 0 } : { opacity: 0, scale: 0, x: -5, y: -10 }} transition={{ delay: 1.0 }} className="absolute z-20 top-1/2 left-4 w-10 h-10 bg-white shadow-lg rounded-full flex items-center justify-center">
-                    <span className="text-gray-600 text-xs text-center w-full leading-none">❤️</span>
+                <motion.div animate={isInView ? { opacity: 1, scale: 1, x: -45, y: 0 } : { opacity: 0, scale: 0, x: -5, y: -10 }} transition={{ delay: 1.0 }} className={`absolute z-20 top-1/2 left-4 w-10 h-10 ${isDarkMode ? "bg-[#222] text-white shadow-black/40" : "bg-white text-gray-600 shadow-lg"} rounded-full flex items-center justify-center shadow`}>
+                    <span className="text-xs text-center w-full leading-none">❤️</span>
                 </motion.div>
             </div>
         </div>
     );
 };
 
-const ServiceCard = ({ title, description, tags, image, bgColor = "bg-white", textColor = "text-gray-900", tagBg = "bg-gray-100", tagText = "text-gray-600", sharedLayoutId, customVisual, small = false, fullBackground = false, showTags = true, showDescription = true }) => {
+const ServiceCard = ({ title, description, tags, image, bgColor, textColor, tagBg, tagText, sharedLayoutId, customVisual, small = false, fullBackground = false, showTags = true, showDescription = true }) => {
+    const { isDarkMode } = useTheme();
+
+    const isDarkCard = fullBackground || (bgColor ? (bgColor.includes("black") || bgColor.includes("[#1") || bgColor.includes("[#0")) : isDarkMode);
+
+    const resolvedBg = fullBackground
+        ? "bg-black"
+        : (bgColor || (isDarkMode ? "bg-[#111]" : "bg-white"));
+
+    const resolvedBorder = fullBackground
+        ? "border-white/10"
+        : (isDarkMode ? "border-white/10 shadow-lg" : "border-black/5 shadow-[0_10px_30px_rgba(0,0,0,0.06)]");
+
+    const resolvedText = isDarkCard
+        ? "text-white"
+        : (textColor || (isDarkMode ? "text-white" : "text-gray-900"));
+
+    const resolvedDesc = isDarkCard
+        ? "text-white/80"
+        : (isDarkMode ? "text-white/70" : "text-gray-600");
+
+    const resolvedTagBg = tagBg || (isDarkCard ? "bg-white/15 backdrop-blur-sm" : (isDarkMode ? "bg-white/10" : "bg-gray-100"));
+    const resolvedTagText = tagText || (isDarkCard ? "text-white" : (isDarkMode ? "text-white/80" : "text-gray-700"));
+
     return (
         <motion.div
             whileHover={{ y: -5, scale: 1.02 }}
             transition={{ duration: 1.3 }}
-            className={`${fullBackground ? "bg-black" : bgColor} ${small ? "p-4 rounded-[24px]" : "p-8 rounded-[40px]"} border border-gray-200 flex flex-col h-full hover:shadow-2xl cursor-pointer overflow-hidden relative group`}
+            className={`${resolvedBg} ${small ? "p-4 rounded-[24px]" : "p-8 rounded-[40px]"} border ${resolvedBorder} flex flex-col h-full hover:shadow-2xl cursor-pointer overflow-hidden relative group`}
         >
             {fullBackground && image && (
                 <div className="absolute inset-0 z-0">
                     <img
                         src={image}
                         alt={title}
+                        loading="lazy"
+                        decoding="async"
                         className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-60"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
@@ -213,7 +248,7 @@ const ServiceCard = ({ title, description, tags, image, bgColor = "bg-white", te
                         {tags.map((tag) => (
                             <span
                                 key={tag}
-                                className={`${small ? "px-2 py-0.5 text-[9px]" : "px-4 py-1.5 text-xs"} ${tagBg} ${tagText} font-medium rounded-full`}
+                                className={`${small ? "px-2 py-0.5 text-[9px]" : "px-4 py-1.5 text-xs"} ${resolvedTagBg} ${resolvedTagText} font-medium rounded-full`}
                             >
                                 {tag}
                             </span>
@@ -222,13 +257,13 @@ const ServiceCard = ({ title, description, tags, image, bgColor = "bg-white", te
                 )}
 
                 {/* Title */}
-                <h3 className={`${small ? "text-lg" : "text-3xl"} font-bold ${fullBackground ? "text-white" : textColor} ${small ? "mb-1.5" : "mb-3"}`}>
+                <h3 className={`${small ? "text-lg" : "text-3xl"} font-bold ${resolvedText} ${small ? "mb-1.5" : "mb-3"}`}>
                     {title}
                 </h3>
 
                 {/* Description */}
                 {showDescription && description && (
-                    <p className={`${fullBackground ? "text-white/80" : "text-gray-500"} ${small ? "text-[11px]" : "text-sm"} leading-relaxed`}>
+                    <p className={`${resolvedDesc} ${small ? "text-[11px]" : "text-sm"} leading-relaxed`}>
                         {description}
                     </p>
                 )}
@@ -242,6 +277,8 @@ const ServiceCard = ({ title, description, tags, image, bgColor = "bg-white", te
                         <img
                             src={image}
                             alt={title}
+                            loading="lazy"
+                            decoding="async"
                             className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                         />
                     </motion.div>
@@ -257,7 +294,7 @@ const ServiceCard = ({ title, description, tags, image, bgColor = "bg-white", te
                 {/* fallback Arrow for cards without image/visual */}
                 {!image && !customVisual && (
                     <div className={`${small ? "mt-4" : "mt-8"} self-end`}>
-                        <div className="w-10 h-10 rounded-full border border-gray-200 flex items-center justify-center">
+                        <div className={`w-10 h-10 rounded-full border ${isDarkCard ? "border-white/20 text-white" : "border-gray-200 text-gray-900"} flex items-center justify-center transition-colors`}>
                             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                                 <path d="M7 17L17 7M17 7H7M17 7V17" />
                             </svg>
@@ -269,36 +306,177 @@ const ServiceCard = ({ title, description, tags, image, bgColor = "bg-white", te
     );
 };
 
-const Tag = ({ children, icon, type, bgColor }) => {
-    const baseStyles = "flex-shrink-0  flex items-center whitespace-nowrap cursor-default";
+const ServiceIcons = {
+    laptop: (
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.3" strokeLinecap="round" strokeLinejoin="round">
+            <rect width="18" height="12" x="3" y="4" rx="2" />
+            <line x1="2" x2="22" y1="20" y2="20" />
+        </svg>
+    ),
+    sparkle: (
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.3" strokeLinecap="round" strokeLinejoin="round">
+            <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z" />
+        </svg>
+    ),
+    rocket: (
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.3" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z" />
+            <path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z" />
+            <path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0" />
+            <path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5" />
+        </svg>
+    ),
+    layers: (
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.3" strokeLinecap="round" strokeLinejoin="round">
+            <polygon points="12 2 2 7 12 12 22 7 12 2" />
+            <polyline points="2 17 12 22 22 17" />
+            <polyline points="2 12 12 17 22 12" />
+        </svg>
+    ),
+    bot: (
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.3" strokeLinecap="round" strokeLinejoin="round">
+            <rect width="18" height="12" x="3" y="6" rx="2" />
+            <circle cx="9" cy="12" r="1.5" fill="currentColor" />
+            <circle cx="15" cy="12" r="1.5" fill="currentColor" />
+            <path d="M12 2v4M2 12h1M21 12h1" />
+        </svg>
+    ),
+    palette: (
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.3" strokeLinecap="round" strokeLinejoin="round">
+            <circle cx="13.5" cy="6.5" r=".5" fill="currentColor" />
+            <circle cx="17.5" cy="10.5" r=".5" fill="currentColor" />
+            <circle cx="8.5" cy="7.5" r=".5" fill="currentColor" />
+            <circle cx="6.5" cy="12.5" r=".5" fill="currentColor" />
+            <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z" />
+        </svg>
+    ),
+    star: (
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.3" strokeLinecap="round" strokeLinejoin="round">
+            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+        </svg>
+    ),
+    mobile: (
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.3" strokeLinecap="round" strokeLinejoin="round">
+            <rect width="14" height="20" x="5" y="2" rx="2" />
+            <line x1="12" x2="12.01" y1="18" y2="18" />
+        </svg>
+    ),
+    gear: (
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.3" strokeLinecap="round" strokeLinejoin="round">
+            <circle cx="12" cy="12" r="3" />
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z" />
+        </svg>
+    ),
+    refresh: (
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.3" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8" />
+            <path d="M21 3v5h-5" />
+            <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16" />
+            <path d="M8 16H3v5" />
+        </svg>
+    ),
+    cloud: (
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.3" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z" />
+        </svg>
+    ),
+    link: (
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.3" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
+            <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
+        </svg>
+    ),
+    fileText: (
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.3" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+            <polyline points="14 2 14 8 20 8" />
+            <line x1="16" x2="8" y1="13" y2="13" />
+            <line x1="16" x2="8" y1="17" y2="17" />
+        </svg>
+    ),
+    tools: (
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.3" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" />
+        </svg>
+    ),
+    briefcase: (
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.3" strokeLinecap="round" strokeLinejoin="round">
+            <rect width="20" height="14" x="2" y="7" rx="2" ry="2" />
+            <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
+        </svg>
+    ),
+    users: (
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.3" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+            <circle cx="9" cy="7" r="4" />
+            <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+            <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+        </svg>
+    ),
+    zap: (
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.3" strokeLinecap="round" strokeLinejoin="round">
+            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+        </svg>
+    ),
+    cart: (
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.3" strokeLinecap="round" strokeLinejoin="round">
+            <circle cx="8" cy="21" r="1" />
+            <circle cx="19" cy="21" r="1" />
+            <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12" />
+        </svg>
+    ),
+    message: (
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.3" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z" />
+        </svg>
+    ),
+    trend: (
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.3" strokeLinecap="round" strokeLinejoin="round">
+            <polyline points="22 7 13.5 15.5 8.5 10.5 2 17" />
+            <polyline points="16 7 22 7 22 13" />
+        </svg>
+    )
+};
+
+const Tag = ({ children, icon, type, bgColor, textColor, iconColor }) => {
+    const { isDarkMode } = useTheme();
+    const baseStyles = "flex-shrink-0 flex items-center gap-2 px-3.5 py-1.5 rounded-full cursor-default transition-all duration-300";
 
     if (type === "outline") {
         return (
-            <div className={`${baseStyles} px-2 border border-gray-900 rounded-full`}>
-                <span className="text-sm">{icon}</span>
-                <span className="text-gray-900 text-sm">{children}</span>
+            <div className={`${baseStyles} border ${
+                isDarkMode
+                    ? "border-white/20 bg-white/[0.04] text-white/90 hover:border-white/40"
+                    : "border-black/15 bg-white text-gray-900 shadow-sm hover:border-black/30"
+            }`}>
+                <span className="flex items-center justify-center text-sm">{icon}</span>
+                <span className="text-sm font-medium">{children}</span>
             </div>
         );
     }
 
     if (type === "circle") {
         return (
-            <div className={`${baseStyles} `}>
-                <div className={`w-6 h-6 mx-2 ${bgColor} rounded-full flex items-center justify-center`}>
-                    <span className="text-white text-sm">{icon}</span>
+            <div className={`${baseStyles} border ${
+                isDarkMode
+                    ? "border-white/10 bg-white/[0.03] text-white/90"
+                    : "border-black/10 bg-white text-gray-900 shadow-sm"
+            }`}>
+                <div className={`w-5 h-5 ${bgColor} rounded-full flex items-center justify-center flex-shrink-0 shadow-sm ${iconColor || "text-white"}`}>
+                    <span className="text-[11px] flex items-center justify-center leading-none">{icon}</span>
                 </div>
-                <span className=" text-gray-900 text-sm">{children}</span>
+                <span className="text-sm font-medium">{children}</span>
             </div>
         );
     }
 
     if (type === "highlight") {
         return (
-            <div className={`${baseStyles} px-1  ${bgColor} rounded-full border ${bgColor}`}>
-                <div className="bg-white/20 mx-2 w-8 h-8 rounded-full flex items-center justify-center">
-                    <span className="text-sm">{icon}</span>
+            <div className={`${baseStyles} ${bgColor} border border-black/10 shadow-sm`}>
+                <div className="bg-black/10 w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 text-gray-950">
+                    <span className="text-[11px] flex items-center justify-center leading-none">{icon}</span>
                 </div>
-                <span className=" text-gray-900 text-sm">{children}</span>
+                <span className={`text-sm font-semibold ${textColor || "text-gray-950"}`}>{children}</span>
             </div>
         );
     }
@@ -310,12 +488,9 @@ const Row = ({ children, reverse = false }) => {
     const ref = useRef(null);
     const inView = useInView(ref, { once: true });
 
-    // Use pure numeric percentages so Framer Motion can use GPU-accelerated interpolation
-    // instead of repeatedly parsing complex CSS `calc` strings on the main thread, 
-    // which causes severe jitter/stutter.
-    const initialX = "0%";
-    const burstX = reverse ? "5%" : "-5%";
-    const endX = reverse ? "50%" : "-50%";
+    const initialX = "60vw";
+    const burstX = reverse ? "calc(60vw + 5%)" : "calc(60vw - 5%)";
+    const endX = reverse ? "calc(60vw + 50%)" : "calc(60vw - 50%)";
 
     return (
         <div className="flex justify-start overflow-hidden -mx-4 sm:-mx-6 lg:-mx-8 [mask-image:linear-gradient(to_right,transparent,black_15%,black_85%,transparent)]">
@@ -332,8 +507,7 @@ const Row = ({ children, reverse = false }) => {
                     times: [0, 0.00625, 1], // 0.75s at 120s total
                     repeatType: "loop"
                 }}
-                className="flex gap-10 whitespace-nowrap min-w-max will-change-transform"
-                style={{ marginLeft: "60vw" }}
+                className="flex gap-10 whitespace-nowrap min-w-max"
             >
                 {children}
                 {children}
@@ -348,11 +522,12 @@ const Row = ({ children, reverse = false }) => {
 
 
 
-const ServiceSection = ({ id, hero, left, right, bottom, onAnimationStart, onAnimationComplete }) => {
+const ServiceSection = ({ id, hero, left, right, bottom }) => {
+    const { isDarkMode } = useTheme();
     const [isExpanded, setIsExpanded] = useState(false);
     const [isMobile, setIsMobile] = useState(false);
     const ref = useRef(null);
-    const isSectionInView = useInView(ref, { once: true, amount: 0.6 });
+    const isSectionInView = useInView(ref, { once: true, amount: 0.9 });
 
     useEffect(() => {
         let resizeTimer;
@@ -401,18 +576,34 @@ const ServiceSection = ({ id, hero, left, right, bottom, onAnimationStart, onAni
     const heroScale = useTransform(heroScrollY, [0, 1], [0.95, 1]);
 
     useEffect(() => {
+        let timer;
+        let unlockTimer;
+
         if (isSectionInView && !isExpanded) {
-            setIsExpanded(true);
-            if (onAnimationStart) onAnimationStart();
-            
-            setTimeout(() => {
-                if (onAnimationComplete) onAnimationComplete();
-            }, 2500); // Wait for the 2.5s hero expansion to complete
+            // Lock the scroll briefly so they see the expansion starts
+            if (scrollContainerRef.current) {
+                scrollContainerRef.current.style.overflowY = "hidden";
+
+                unlockTimer = setTimeout(() => {
+                    if (scrollContainerRef.current) {
+                        scrollContainerRef.current.style.overflowY = "";
+                    }
+                }, 500);
+            }
+
+            // Start animation sequence when section enters view
+            timer = setTimeout(() => {
+                setIsExpanded(true);
+            }, 2000); // Give user time to see the Hero card first
         }
-    }, [isSectionInView, isExpanded]);
+        return () => {
+            clearTimeout(timer);
+            clearTimeout(unlockTimer);
+        };
+    }, [isSectionInView, isExpanded, scrollContainerRef]);
 
     return (
-        <div ref={ref} className="z-10 max-w-full mx-auto pb-10 px-4 sm:px-6 lg:px-8 relative text-black">
+        <div ref={ref} className={`z-10 max-w-full mx-auto px-4 sm:px-6 lg:px-8 relative ${isDarkMode ? "text-white" : "text-gray-900"}`}>
             <motion.div layout className="grid grid-cols-1 md:grid-cols-[1fr_2.2fr_1fr] gap-6 min-h-[600px] relative">
                 {!isExpanded ? (
                     <motion.div
@@ -530,120 +721,98 @@ const ServiceSection = ({ id, hero, left, right, bottom, onAnimationStart, onAni
 };
 
 export default function Services() {
-    const [headerVisibility, setHeaderVisibility] = useState("visible");
-
     const allTags = [
-        { name: "Brand Identity & Logo Design", icon: "✧", type: "outline" },
-        { name: "Content Creation", icon: "✎", type: "circle", bgColor: "bg-red-600" },
-        { name: "UI UX Design", icon: "⬢", type: "highlight", bgColor: "bg-[#E9FFC2]" },
-        { name: "Brand Strategy", icon: "✦", type: "circle", bgColor: "bg-[#7B61FF]" },
-        { name: "Ad & Campaign Design / Management", icon: "🥸", type: "outline" },
-        { name: "Email Marketing", icon: "✉️", type: "highlight", bgColor: "bg-[#E0D7FF]" },
-        { name: "App Design", icon: "📱", type: "circle", bgColor: "bg-[#A3E635]" },
-        { name: "Photography & Cinematography", icon: "📷", type: "outline" },
-        { name: "Creative Direction", icon: "✮", type: "circle", bgColor: "bg-red-500" },
-        { name: "Brand Guidelines", icon: "📔", type: "highlight", bgColor: "bg-rose-200" },
-        { name: "Content Strategy", icon: "⚡️", type: "circle", bgColor: "bg-[#7B61FF]" },
-        { name: "Website Design", icon: "💻", type: "highlight", bgColor: "bg-[#E9FFC2]" },
-        { name: "Script Writing", icon: "✍️", type: "circle", bgColor: "bg-red-600" },
-        { name: "Influencer Marketing", icon: "💎", type: "outline" },
-        { name: "Logotype", icon: "🔥", type: "circle", bgColor: "bg-[#7B61FF]" },
-        { name: "User Research & Persona Building", icon: "👤", type: "highlight", bgColor: "bg-[#E9FFC2]" },
-        { name: "Brand Voice", icon: "📢", type: "circle", bgColor: "bg-red-600" },
-        { name: "Rebranding", icon: "💀", type: "outline" },
-        { name: "Analytics & Growth", icon: "📈", type: "highlight", bgColor: "bg-[#E0D7FF]" },
-        { name: "SEO & SEM", icon: "⚙️", type: "circle", bgColor: "bg-[#A3E635]" },
+        { name: "Website Development", icon: ServiceIcons.laptop, type: "highlight", bgColor: "bg-[#E9FFC2]" },
+        { name: "Landing Page Design", icon: ServiceIcons.sparkle, type: "outline" },
+        { name: "Startup MVP Development", icon: ServiceIcons.rocket, type: "circle", bgColor: "bg-[#7B61FF]" },
+        { name: "Web Application Development", icon: ServiceIcons.layers, type: "highlight", bgColor: "bg-[#E0D7FF]" },
+        { name: "AI Integration & Automation", icon: ServiceIcons.bot, type: "circle", bgColor: "bg-[#A3E635]", iconColor: "text-black" },
+        { name: "UI/UX Design", icon: ServiceIcons.palette, type: "outline" },
+        { name: "Branding & Identity", icon: ServiceIcons.star, type: "circle", bgColor: "bg-red-500" },
+        { name: "React Native Apps", icon: ServiceIcons.mobile, type: "highlight", bgColor: "bg-rose-200" },
+        { name: "Technical SEO", icon: ServiceIcons.gear, type: "circle", bgColor: "bg-[#A3E635]", iconColor: "text-black" },
+        { name: "Website Redesign", icon: ServiceIcons.refresh, type: "outline" },
+        { name: "SaaS Development", icon: ServiceIcons.cloud, type: "circle", bgColor: "bg-[#7B61FF]" },
+        { name: "API Integration", icon: ServiceIcons.link, type: "highlight", bgColor: "bg-[#E9FFC2]" },
+        { name: "CMS Development", icon: ServiceIcons.fileText, type: "circle", bgColor: "bg-red-600" },
+        { name: "Website Maintenance", icon: ServiceIcons.tools, type: "outline" },
+        { name: "LinkedIn Branding", icon: ServiceIcons.briefcase, type: "circle", bgColor: "bg-[#7B61FF]" },
+        { name: "User Research", icon: ServiceIcons.users, type: "highlight", bgColor: "bg-[#E9FFC2]" },
+        { name: "Performance Optimization", icon: ServiceIcons.zap, type: "circle", bgColor: "bg-red-600" },
+        { name: "E-commerce Development", icon: ServiceIcons.cart, type: "outline" },
+        { name: "Chatbot Development", icon: ServiceIcons.message, type: "highlight", bgColor: "bg-[#E0D7FF]" },
+        { name: "Workflow Automation", icon: ServiceIcons.trend, type: "circle", bgColor: "bg-[#A3E635]", iconColor: "text-black" },
     ];
 
     const serviceSections = [
         {
             hero: {
-                title: "Social Media Management",
-                description: "We craft unique and memorable brand identities that reflect your business values and resonate with your audience.",
-                tags: ["SMM Strategy & Planning", "Content Creation"],
-                image: "https://images.unsplash.com/photo-1611162617474-5b21e879e113?q=50&w=800&auto=format&fit=crop",
+                title: "Website Development",
+                description: "Custom, responsive websites designed to communicate your value, engage visitors, and support your business goals.",
+                tags: ["Responsive Design", "Custom Development"],
+                image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=50&w=800&auto=format&fit=crop",
                 fullBackground: true,
-                showTags: false,
-                showDescription: false
+                showTags: true,
+                showDescription: true
             },
             left: {
-                title: "Branding & Strategy",
-                description: "We craft unique and memorable brand identities that reflect your business values and resonate with your audience.",
-                tags: ["Logo", "Creative Branding", "Visual Identity"],
-                bgColor: "bg-white",
+                title: "Startup MVP Development",
+                description: "Turn your idea into a functional minimum viable product so you can test assumptions and gather real user feedback.",
+                tags: ["MVP", "SaaS", "Web Apps"],
                 customVisual: <StatsSliderVisual />
             },
             right: {
-                title: "Digital Marketing",
-                description: "We craft memorable brand identities that reflect your business",
-                tags: ["Email Marketing", "Analytics & Reporting"],
-                bgColor: "bg-white",
+                title: "AI Integration & Automation",
+                description: "Integrate AI features, chatbots, and workflow automation where they provide practical business value.",
+                tags: ["AI Chatbot", "API Integration"],
                 customVisual: <CircleProgressVisual />
             },
             bottom: [
                 {
-                    title: "Copy Writing",
-                    description: "We craft unique and memorable brand identities.",
-                    tags: ["Ad Copy & Campaign lines"],
-                    bgColor: "bg-[#F3F4F6]",
+                    title: "UI/UX Design & Branding",
+                    description: "Intuitive digital experiences and consistent brand identities that make your business easier to recognize.",
+                    tags: ["UI/UX", "Brand Identity"],
                     customVisual: <CounterVisual small={true} />
                 },
                 {
-                    title: "App & Web Development",
-                    description: "We craft unique and memorable brand identities.",
-                    tags: ["App & Website Design"],
-                    bgColor: "bg-[#F3F4F6]",
-                    image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=50&w=800&auto=format&fit=crop"
+                    title: "Landing Page Design & Development",
+                    description: "Focused landing pages built around your offer, audience, and conversion goals.",
+                    tags: ["Conversion-Focused", "Responsive"],
+                    image: "https://images.unsplash.com/photo-1547658719-da2b51169166?q=50&w=800&auto=format&fit=crop"
                 }
             ]
         }
     ];
 
+    const { isDarkMode } = useTheme();
+
     return (
-        <section className="relative z-0 bg-white flex flex-col justify-center pt-10 overflow-hidden">
+        <section className={`relative z-0 flex flex-col justify-center pt-10 overflow-hidden transition-colors duration-300 ${
+            isDarkMode ? "bg-[#0a0a0a]" : "bg-[#f5f5f7]"
+        }`}>
 
             <div className="max-w-7xl mx-auto">
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
-                    animate={
-                        headerVisibility === "hidden"
-                            ? { opacity: 0, y: -20, filter: "blur(10px)" }
-                            : headerVisibility === "done"
-                                ? { opacity: 1, y: 0, filter: "blur(0px)" }
-                                : undefined
-                    }
-                    whileInView={headerVisibility === "visible" ? { opacity: 1, y: 0 } : undefined}
+                    whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    transition={
-                        headerVisibility === "hidden"
-                            ? { duration: 0.5, ease: "easeOut" }
-                            : { duration: 1.2, ease: [0.22, 1, 0.36, 1] }
-                    }
+                    transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
                     className="text-center mb-7"
                 >
-                    <h2 className="text-4xl md:text-6xl text-gray-900 mb-4">
-                        What We Offer
+                    <h2 className={`text-4xl md:text-6xl mb-4 ${isDarkMode ? "text-white" : "text-gray-900"}`}>
+                        Digital Solutions Built Around Your Goals
                     </h2>
-                    <p className="text-gray-500">At MADS! We are committed to delivering exceptional services</p>
+                    <p className={isDarkMode ? "text-gray-400" : "text-gray-600"}>
+                        Whether you're launching a startup or building a digital product, we have the right solution for your next stage of growth.
+                    </p>
                 </motion.div>
             </div>
 
             <motion.div
                 initial={{ opacity: 0 }}
-                animate={
-                    headerVisibility === "hidden"
-                        ? { opacity: 0, filter: "blur(10px)" }
-                        : headerVisibility === "done"
-                            ? { opacity: 1, filter: "blur(0px)" }
-                            : undefined
-                }
-                whileInView={headerVisibility === "visible" ? { opacity: 1 } : undefined}
+                whileInView={{ opacity: 1 }}
                 viewport={{ once: true }}
-                transition={
-                    headerVisibility === "done"
-                        ? { duration: 1.5, ease: "easeOut", delay: 0.2 }
-                        : { duration: 0.6, ease: "easeOut" }
-                }
+                transition={{ duration: 1.5, ease: "easeOut", delay: 0.2 }}
                 className="flex flex-col mb-4"
             >
                 <Row>
@@ -654,13 +823,7 @@ export default function Services() {
             </motion.div>
 
             {serviceSections.map((section, idx) => (
-                <ServiceSection 
-                   key={idx} 
-                   id={idx} 
-                   {...section} 
-                   onAnimationStart={() => setHeaderVisibility("hidden")}
-                   onAnimationComplete={() => setHeaderVisibility("done")}
-                />
+                <ServiceSection key={idx} id={idx} {...section} />
             ))}
         </section>
     );

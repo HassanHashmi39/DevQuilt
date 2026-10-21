@@ -3,14 +3,12 @@ import { BrowserRouter as Router, Routes, Route, useLocation } from "react-route
 import { motion, AnimatePresence } from "motion/react";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
-import Video from "./components/Video";
 
 // Lazy load non-critical components
-const TrustBar = React.lazy(() => import("./components/TrustBar"));
 const Gallery = React.lazy(() => import("./components/gallery"));
 const Services = React.lazy(() => import("./components/Services"));
 const ServiceShowcase = React.lazy(() => import("./components/ServiceShowcase"));
-const WhyMads = React.lazy(() => import("./components/WhyMads"));
+const WhyDevQuilt = React.lazy(() => import("./components/WhyDevQuilt"));
 const Process = React.lazy(() => import("./components/Process"));
 const Pricing = React.lazy(() => import("./components/Pricing"));
 const Projects = React.lazy(() => import("./components/Projects"));
@@ -19,26 +17,16 @@ const CTA = React.lazy(() => import("./components/CTA"));
 const Footer = React.lazy(() => import("./components/Footer"));
 const ProjectsPage = React.lazy(() => import("./components/ProjectsPage"));
 const ServicesPage = React.lazy(() => import("./components/ServicesPage"));
-const BlogPage = React.lazy(() => import("./components/BlogPage"));
-const BlogDetail = React.lazy(() => import("./components/BlogDetail"));
+const AboutPage = React.lazy(() => import("./components/AboutPage"));
 const FaqsPage = React.lazy(() => import("./components/FaqsPage"));
 const PrivacyPolicy = React.lazy(() => import("./components/PrivacyPolicy"));
 const TermsAndConditions = React.lazy(() => import("./components/TermsAndConditions"));
 const ContactPage = React.lazy(() => import("./components/ContactPage"));
-const TeamPage = React.lazy(() => import("./components/TeamPage"));
 const CaseStudies = React.lazy(() => import("./components/CaseStudies"));
-const DesignInsights = React.lazy(() => import("./components/DesignInsights"));
-const Tutorials = React.lazy(() => import("./components/Tutorials"));
-const Careers = React.lazy(() => import("./components/Careers"));
-
 const CaseStudyDetail = React.lazy(() => import("./components/CaseStudyDetail"));
-const DesignInsightDetail = React.lazy(() => import("./components/DesignInsightDetail"));
-const TutorialDetail = React.lazy(() => import("./components/TutorialDetail"));
-const JobDetail = React.lazy(() => import("./components/JobDetail"));
 
-import { ThemeProvider } from "./context/ThemeContext";
-import ThemeToggle from "./components/ThemeToggle";
 import { ScrollContext } from "./context/ScrollContext";
+import { useTheme } from "./context/ThemeContext";
 
 // ─── ScrollToTop on route change ─────────────────────────────────────────────
 function ScrollToTop({ containerRef }) {
@@ -64,10 +52,10 @@ function ScrollToTop({ containerRef }) {
 }
 
 // ─── Scroll Gates Hook ────────────────────────────────────────────────────────
-// Scroll freely → stops ONCE at TrustBar top, ONCE at Services top
+// Scroll freely → stops ONCE at Services top
 // User scrolls again → continues freely
 function useScrollGates(containerRef, enabled) {
-    const gatesPassed = useRef({ trustbar: false, services: false });
+    const gatesPassed = useRef({ services: false });
     const frozen = useRef(false);
     const frozenAt = useRef(0);
 
@@ -77,7 +65,7 @@ function useScrollGates(containerRef, enabled) {
         if (!container) return;
 
         // Reset gates when hook mounts (e.g., on navigation back to home)
-        gatesPassed.current = { trustbar: false, services: false };
+        gatesPassed.current = { services: false };
         frozen.current = false;
 
         // Timestamp of last freeze — prevents same wheel momentum from
@@ -117,17 +105,7 @@ function useScrollGates(containerRef, enabled) {
 
             const scrollTop = container.scrollTop;
 
-            // Gate 1: TrustBar
-            if (!gatesPassed.current.trustbar) {
-                const pos = getSectionScrollTop("trustbar");
-                if (pos !== null && scrollTop >= pos - 2) {
-                    gatesPassed.current.trustbar = true;
-                    freeze(pos);
-                    return;
-                }
-            }
-
-            // Gate 2: Services
+            // Gate: Services
             if (!gatesPassed.current.services) {
                 const pos = getSectionScrollTop("services");
                 if (pos !== null && scrollTop >= pos - 2) {
@@ -160,31 +138,34 @@ function useScrollGates(containerRef, enabled) {
 function InnerApp({ mainRef }) {
     const location = useLocation();
     const isHome = location.pathname === "/";
+    const { isDarkMode } = useTheme();
 
     useScrollGates(mainRef, isHome);
 
     return (
-        <div className="min-h-screen relative overflow-hidden bg-white">
-            <ThemeToggle />
+        <div
+            className="min-h-screen relative overflow-hidden"
+            style={{ backgroundColor: isDarkMode ? '#0a0a0a' : '#f8f8f8', transition: 'background-color 0.4s ease' }}
+        >
             <Navbar />
             <main
                 ref={mainRef}
                 className="overflow-y-scroll h-screen"
                 style={{ overscrollBehavior: "none" }}
             >
-                <AnimatePresence mode="wait">
-                    <Suspense fallback={
-                        <div className="w-full min-h-screen flex items-center justify-center">
-                            <motion.img
-                                initial={{ opacity: 0 }}
-                                animate={{ opacity: 0.2 }}
-                                exit={{ opacity: 0 }}
-                                src="/logo.png"
-                                alt=""
-                                className="w-16 h-16 object-contain invert"
-                            />
-                        </div>
-                    }>
+                <Suspense fallback={
+                    <div className="w-full min-h-screen flex items-center justify-center">
+                        <motion.img
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 0.6 }}
+                            exit={{ opacity: 0 }}
+                            src="/logo-icon-dark.png"
+                            alt=""
+                            className="w-16 h-16 object-contain"
+                        />
+                    </div>
+                }>
+                    <AnimatePresence mode="wait">
                         <Routes location={location} key={location.pathname}>
                             <Route path="/" element={
                                 <motion.div
@@ -197,45 +178,36 @@ function InnerApp({ mainRef }) {
                                         <Hero />
                                     </section>
 
-                                    <section className="relative w-full h-screen">
-                                        <Video />
-                                    </section>
-
-                                    {/* Gate 1: scroll stops HERE first */}
-                                    <section className="relative w-full bg-white text-black">
-                                        <TrustBar />
-                                    </section>
-
-                                    {/* Gate 2: scroll stops HERE second */}
+                                    {/* Gate: scroll stops HERE first */}
                                     <section data-gate="services" className="relative w-full z-10">
-                                        <div className="relative z-10 bg-white">
+                                        <div className={`relative z-10 transition-colors duration-300 ${isDarkMode ? "bg-[#0a0a0a]" : "bg-[#f5f5f7]"}`}>
                                             <Services />
                                         </div>
                                     </section>
 
-                                    <section className="relative w-full z-10 bg-white -mt-16">
+                                    <section className={`relative w-full z-10 -mt-16 transition-colors duration-300 ${isDarkMode ? "bg-[#0a0a0a]" : "bg-white"}`}>
                                         <ServiceShowcase />
                                     </section>
 
                                     <section className="relative h-[200vh] z-20">
-                                        <div className="sticky top-0 h-screen overflow-hidden bg-white">
+                                        <div className="sticky top-0 h-screen overflow-hidden bg-[#0a0a0a]">
                                             <Gallery />
                                         </div>
                                     </section>
 
                                     <section className="relative h-[200vh] z-40 -mt-[100vh]">
-                                        <div className="sticky top-0 h-screen overflow-hidden bg-white">
+                                        <div className="sticky top-0 h-screen overflow-hidden bg-[#0a0a0a]">
                                             <Process />
                                         </div>
                                     </section>
 
                                     <section className="relative h-[200vh] z-30 -mt-[100vh]">
-                                        <div className="sticky top-0 h-screen overflow-hidden bg-white">
-                                            <WhyMads />
+                                        <div className="sticky top-0 h-screen overflow-hidden bg-[#0a0a0a]">
+                                            <WhyDevQuilt />
                                         </div>
                                     </section>
 
-                                    <section className="relative z-50 bg-white pt-20">
+                                    <section className={`relative z-50 pt-20 transition-colors duration-400 ${isDarkMode ? 'bg-[#0a0a0a]' : 'bg-white'}`}>
                                         <Projects />
                                         <Pricing />
                                         <TestimonialCircle />
@@ -244,27 +216,20 @@ function InnerApp({ mainRef }) {
                             } />
                             <Route path="/services" element={<ServicesPage />} />
                             <Route path="/projects" element={<ProjectsPage />} />
-                            <Route path="/blog" element={<BlogPage />} />
-                            <Route path="/blog/:id" element={<BlogDetail />} />
+                            <Route path="/about" element={<AboutPage />} />
                             <Route path="/faqs" element={<FaqsPage />} />
+                            <Route path="/faq" element={<FaqsPage />} />
                             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
                             <Route path="/terms-conditions" element={<TermsAndConditions />} />
                             <Route path="/contact" element={<ContactPage />} />
-                            <Route path="/team" element={<TeamPage />} />
                             <Route path="/case-studies" element={<CaseStudies />} />
                             <Route path="/case-studies/:id" element={<CaseStudyDetail />} />
-                            <Route path="/design-insights" element={<DesignInsights />} />
-                            <Route path="/design-insights/:id" element={<DesignInsightDetail />} />
-                            <Route path="/tutorials" element={<Tutorials />} />
-                            <Route path="/tutorials/:id" element={<TutorialDetail />} />
-                            <Route path="/careers" element={<Careers />} />
-                            <Route path="/careers/:id" element={<JobDetail />} />
                         </Routes>
-                    </Suspense>
-                </AnimatePresence>
+                    </AnimatePresence>
+                </Suspense>
 
-                <Suspense fallback={<div className="h-40 bg-white" />}>
-                    <section className="relative z-50 bg-white">
+                <Suspense fallback={<div className={`h-40 ${isDarkMode ? 'bg-[#0a0a0a]' : 'bg-white'}`} />}>
+                    <section className={`relative z-50 transition-colors duration-300 ${isDarkMode ? 'bg-[#0a0a0a]' : 'bg-white'}`}>
                         <CTA />
                         <Footer />
                     </section>
@@ -279,14 +244,12 @@ function App() {
     const mainRef = useRef(null);
 
     return (
-        <ThemeProvider>
-            <ScrollContext.Provider value={mainRef}>
-                <Router>
-                    <ScrollToTop containerRef={mainRef} />
-                    <InnerApp mainRef={mainRef} />
-                </Router>
-            </ScrollContext.Provider>
-        </ThemeProvider>
+        <ScrollContext.Provider value={mainRef}>
+            <Router>
+                <ScrollToTop containerRef={mainRef} />
+                <InnerApp mainRef={mainRef} />
+            </Router>
+        </ScrollContext.Provider>
     );
 }
 

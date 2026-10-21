@@ -1,85 +1,230 @@
 import React from "react";
-import { motion } from "motion/react";
+import { motion, AnimatePresence } from "motion/react";
 import { useTheme } from "../context/ThemeContext";
 
-export default function ThemeToggle() {
+export default function ThemeToggle({ className = "" }) {
     const { isDarkMode, toggleTheme } = useTheme();
 
     return (
-        <div className="fixed right-10 top-1/2 -translate-y-1/2 z-[100] hidden md:block">
-            <div className="flex flex-col items-center select-none">
-                {/* Clean Modern Vertical Toggle */}
-                <button
-                    onClick={toggleTheme}
-                    className={`relative w-[52px] h-[105px] rounded-full cursor-pointer transition-all duration-700 ease-in-out overflow-hidden shadow-[0_10px_25px_-5px_rgba(0,0,0,0.1),0_0_10px_rgba(0,0,0,0.05)] border-0 ${isDarkMode ? "bg-gradient-to-b from-[#0f172a] to-[#1e293b]" : "bg-gradient-to-b from-[#7dd3fc] to-[#e0f2fe]"
-                        }`}
-                >
-                    {/* Inner Track Shadow for depth */}
-                    <div className="absolute inset-0 shadow-[inset_0_4px_10px_rgba(0,0,0,0.2)] rounded-full pointer-events-none z-10" />
+        <motion.button
+            onClick={toggleTheme}
+            whileHover={{ scale: 1.08 }}
+            whileTap={{ scale: 0.92 }}
+            type="button"
+            aria-label={isDarkMode ? "Switch to light mode" : "Switch to dark mode"}
+            title={isDarkMode ? "Switch to light mode" : "Switch to dark mode"}
+            className={`relative w-9 h-9 rounded-full flex items-center justify-center transition-all duration-300 cursor-pointer overflow-hidden border ${
+                isDarkMode
+                    ? "bg-white/[0.08] hover:bg-white/[0.14] border-white/15 shadow-[0_0_12px_rgba(255,255,255,0.08)]"
+                    : "bg-black/[0.05] hover:bg-black/[0.08] border-black/10 shadow-[0_2px_8px_rgba(0,0,0,0.06)]"
+            } ${className}`}
+        >
+            {/* Ambient Background Aura Glow */}
+            <div
+                className={`absolute inset-0 rounded-full opacity-60 transition-colors duration-500 pointer-events-none ${
+                    isDarkMode
+                        ? "bg-gradient-to-tr from-indigo-500/10 via-sky-400/10 to-transparent"
+                        : "bg-gradient-to-tr from-amber-400/20 via-yellow-300/15 to-transparent"
+                }`}
+            />
 
-                    {/* Background Layer: Modern Elements */}
-                    <div className="absolute inset-0 pointer-events-none">
-
-                        {/* Night State: Sparkling Stars */}
-                        <motion.div
-                            initial={false}
-                            animate={{ opacity: isDarkMode ? 1 : 0, scale: isDarkMode ? 1 : 0.7 }}
-                            className="absolute inset-0 p-4"
-                        >
-                            <svg className="absolute top-4 right-4 text-white opacity-80" width="8" height="8" viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M12 0L14 10L24 12L14 14L12 24L10 14L0 12L10 10Z" />
-                            </svg>
-                            <div className="absolute top-12 left-3 w-1 h-1 bg-white rounded-full opacity-60" />
-                            <div className="absolute top-8 left-6 w-1 h-1 bg-white rounded-full opacity-40 animate-pulse" />
-                            <svg className="absolute top-16 right-3 text-white opacity-40 scale-75" width="8" height="8" viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M12 0L14 10L24 12L14 14L12 24L10 14L0 12L10 10Z" />
-                            </svg>
-                        </motion.div>
-
-                        {/* Day State: Soft Fluffy Clouds (at the bottom) */}
-                        <div className="absolute bottom-[-5px] left-0 right-0 h-12">
-                            <motion.div
-                                animate={{ y: isDarkMode ? 15 : 0, opacity: isDarkMode ? 0 : 1 }}
-                                transition={{ type: "spring", stiffness: 120 }}
-                                className="relative w-full h-full"
-                            >
-                                {/* Layered gradient clouds for realism */}
-                                <div className="absolute bottom-2 left-[-10px] w-14 h-14 bg-white/80 blur-[2px] rounded-full" />
-                                <div className="absolute bottom-4 left-6 w-16 h-16 bg-white blur-[3px] rounded-full" />
-                                <div className="absolute bottom-1 right-[-5px] w-12 h-12 bg-white/60 blur-[2px] rounded-full" />
-                            </motion.div>
-                        </div>
-                    </div>
-
-                    {/* Sliding Knob: Clean Sun/Moon */}
+            <AnimatePresence mode="wait" initial={false}>
+                {isDarkMode ? (
+                    /* ─── REALISTIC MOON WITH CRATERS & TWINKLE STARS ─── */
                     <motion.div
-                        animate={{
-                            y: isDarkMode ? 58 : 6,
-                        }}
+                        key="moon"
+                        initial={{ opacity: 0, rotate: -60, scale: 0.6 }}
+                        animate={{ opacity: 1, rotate: 0, scale: 1 }}
+                        exit={{ opacity: 0, rotate: 60, scale: 0.6 }}
                         transition={{
                             type: "spring",
-                            stiffness: 280,
-                            damping: 24
+                            stiffness: 300,
+                            damping: 20
                         }}
-                        className={`absolute left-2 w-[36px] h-[36px] rounded-full z-30 flex items-center justify-center shadow-xl ${isDarkMode
-                            ? "bg-[#e2e8f0] shadow-[0_0_20px_rgba(255,255,255,0.3)]"
-                            : "bg-[#fbbf24] shadow-[0_0_25px_rgba(251,191,36,0.5)]"
-                            }`}
+                        className="relative w-5 h-5 flex items-center justify-center"
                     >
-                        {/* Realistic Moon Craters (Soft shading) */}
-                        <motion.div
-                            animate={{ opacity: isDarkMode ? 1 : 0 }}
-                            className="absolute inset-0 rounded-full flex items-center justify-center pointer-events-none"
+                        {/* Moon SVG with realistic crater texture and glow */}
+                        <svg
+                            viewBox="0 0 24 24"
+                            className="w-5 h-5 drop-shadow-[0_0_5px_rgba(226,232,240,0.7)]"
+                            fill="none"
                         >
-                            <div className="absolute top-[15%] left-[15%] w-[25%] h-[25%] bg-black/10 rounded-full blur-[1px]" />
-                            <div className="absolute bottom-[20%] right-[15%] w-[35%] h-[35%] bg-black/5 rounded-full blur-[1px]" />
-                            <div className="absolute top-[45%] right-[25%] w-[15%] h-[15%] bg-black/10 rounded-full blur-[0.5px]" />
-                        </motion.div>
+                            {/* Moon body gradient definition */}
+                            <defs>
+                                <linearGradient id="lunar-surface" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stopColor="#FFFFFF" />
+                                    <stop offset="45%" stopColor="#E2E8F0" />
+                                    <stop offset="85%" stopColor="#CBD5E1" />
+                                    <stop offset="100%" stopColor="#94A3B8" />
+                                </linearGradient>
+                                <radialGradient id="lunar-glow" cx="40%" cy="40%" r="60%">
+                                    <stop offset="0%" stopColor="rgba(255,255,255,0.9)" />
+                                    <stop offset="70%" stopColor="rgba(226,232,240,0.4)" />
+                                    <stop offset="100%" stopColor="rgba(148,163,184,0)" />
+                                </radialGradient>
+                            </defs>
+
+                            {/* Realistic Crescent Moon Body */}
+                            <path
+                                d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z"
+                                fill="url(#lunar-surface)"
+                                stroke="#CBD5E1"
+                                strokeWidth="0.5"
+                                strokeLinejoin="round"
+                            />
+
+                            {/* Realistic Crater 1 (Top) */}
+                            <ellipse
+                                cx="10.5"
+                                cy="8.5"
+                                rx="1.1"
+                                ry="0.9"
+                                fill="#94A3B8"
+                                opacity="0.65"
+                            />
+                            <ellipse
+                                cx="10.3"
+                                cy="8.3"
+                                rx="0.8"
+                                ry="0.6"
+                                fill="#64748B"
+                                opacity="0.5"
+                            />
+
+                            {/* Realistic Crater 2 (Center-Left) */}
+                            <circle
+                                cx="8"
+                                cy="13.5"
+                                r="1.3"
+                                fill="#94A3B8"
+                                opacity="0.6"
+                            />
+                            <circle
+                                cx="7.8"
+                                cy="13.3"
+                                r="0.9"
+                                fill="#64748B"
+                                opacity="0.55"
+                            />
+
+                            {/* Realistic Crater 3 (Bottom) */}
+                            <circle
+                                cx="12"
+                                cy="17"
+                                r="0.8"
+                                fill="#94A3B8"
+                                opacity="0.55"
+                            />
+                        </svg>
+
+                        {/* Twinkling Celestial Star 1 */}
+                        <motion.svg
+                            animate={{
+                                scale: [0.7, 1.25, 0.7],
+                                opacity: [0.4, 1, 0.4]
+                            }}
+                            transition={{
+                                duration: 2.2,
+                                repeat: Infinity,
+                                ease: "easeInOut"
+                            }}
+                            className="absolute -top-0.5 -right-0.5 w-2 h-2 text-sky-200 pointer-events-none drop-shadow-[0_0_3px_#38bdf8]"
+                            viewBox="0 0 24 24"
+                            fill="currentColor"
+                        >
+                            <path d="M12 0L14.5 9.5L24 12L14.5 14.5L12 24L9.5 14.5L0 12L9.5 9.5Z" />
+                        </motion.svg>
+
+                        {/* Twinkling Celestial Star 2 */}
+                        <motion.svg
+                            animate={{
+                                scale: [1, 0.6, 1],
+                                opacity: [0.8, 0.3, 0.8]
+                            }}
+                            transition={{
+                                duration: 1.8,
+                                repeat: Infinity,
+                                ease: "easeInOut",
+                                delay: 0.6
+                            }}
+                            className="absolute -bottom-0.5 left-0.5 w-1.5 h-1.5 text-indigo-200 pointer-events-none drop-shadow-[0_0_2px_#818cf8]"
+                            viewBox="0 0 24 24"
+                            fill="currentColor"
+                        >
+                            <path d="M12 0L14.5 9.5L24 12L14.5 14.5L12 24L9.5 14.5L0 12L9.5 9.5Z" />
+                        </motion.svg>
                     </motion.div>
-                </button>
+                ) : (
+                    /* ─── REALISTIC SUN WITH ROTATING BEAMS & WARM CORONA ─── */
+                    <motion.div
+                        key="sun"
+                        initial={{ opacity: 0, rotate: 60, scale: 0.6 }}
+                        animate={{ opacity: 1, rotate: 0, scale: 1 }}
+                        exit={{ opacity: 0, rotate: -60, scale: 0.6 }}
+                        transition={{
+                            type: "spring",
+                            stiffness: 300,
+                            damping: 20
+                        }}
+                        className="relative w-5 h-5 flex items-center justify-center"
+                    >
+                        {/* Sun SVG with realistic glowing rays and depth */}
+                        <motion.svg
+                            animate={{ rotate: 360 }}
+                            transition={{
+                                duration: 24,
+                                repeat: Infinity,
+                                ease: "linear"
+                            }}
+                            viewBox="0 0 24 24"
+                            className="w-5 h-5 drop-shadow-[0_0_6px_rgba(245,158,11,0.65)]"
+                            fill="none"
+                        >
+                            <defs>
+                                <linearGradient id="solar-core" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stopColor="#FEF08A" />
+                                    <stop offset="40%" stopColor="#FBBF24" />
+                                    <stop offset="85%" stopColor="#F59E0B" />
+                                    <stop offset="100%" stopColor="#EA580C" />
+                                </linearGradient>
+                                <linearGradient id="ray-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+                                    <stop offset="0%" stopColor="#FBBF24" />
+                                    <stop offset="100%" stopColor="#F59E0B" />
+                                </linearGradient>
+                            </defs>
 
+                            {/* 8 Tapered Solar Beams with rounded caps */}
+                            <line x1="12" y1="1.5" x2="12" y2="4.2" stroke="url(#ray-grad)" strokeWidth="1.8" strokeLinecap="round" />
+                            <line x1="12" y1="19.8" x2="12" y2="22.5" stroke="url(#ray-grad)" strokeWidth="1.8" strokeLinecap="round" />
+                            <line x1="1.5" y1="12" x2="4.2" y2="12" stroke="url(#ray-grad)" strokeWidth="1.8" strokeLinecap="round" />
+                            <line x1="19.8" y1="12" x2="22.5" y2="12" stroke="url(#ray-grad)" strokeWidth="1.8" strokeLinecap="round" />
+                            <line x1="4.5" y1="4.5" x2="6.6" y2="6.6" stroke="url(#ray-grad)" strokeWidth="1.8" strokeLinecap="round" />
+                            <line x1="17.4" y1="17.4" x2="19.5" y2="19.5" stroke="url(#ray-grad)" strokeWidth="1.8" strokeLinecap="round" />
+                            <line x1="4.5" y1="19.5" x2="6.6" y2="17.4" stroke="url(#ray-grad)" strokeWidth="1.8" strokeLinecap="round" />
+                            <line x1="17.4" y1="6.6" x2="19.5" y2="4.5" stroke="url(#ray-grad)" strokeWidth="1.8" strokeLinecap="round" />
 
-            </div>
-        </div>
+                            {/* Central Sun Core */}
+                            <circle
+                                cx="12"
+                                cy="12"
+                                r="4.8"
+                                fill="url(#solar-core)"
+                                stroke="#FDE047"
+                                strokeWidth="0.6"
+                            />
+
+                            {/* Inner Solar Specular Highlight */}
+                            <circle
+                                cx="10.5"
+                                cy="10.5"
+                                r="1.4"
+                                fill="#FFFFFF"
+                                opacity="0.6"
+                            />
+                        </motion.svg>
+                    </motion.div>
+                )}
+            </AnimatePresence>
+        </motion.button>
     );
 }

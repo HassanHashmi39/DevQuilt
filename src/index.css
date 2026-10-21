@@ -40,7 +40,112 @@ body {
     box-sizing: border-box;
     overflow-x: clip;
     font-family: 'Tomato Grotesk', 'Space Grotesk', sans-serif;
+    background-color: #0a0a0a;
+    color: #ffffff;
+    transition: background-color 0.4s ease, color 0.4s ease;
 }
+
+/* ─── Light mode overrides ─────────────────────────────────────────────────── */
+/* Uses [data-theme="light"] set on <html> by ThemeContext for reliable matching */
+
+[data-theme="light"] body {
+    background-color: #ffffff;
+    color: #111827;
+}
+
+/* Universal section/div background override in light mode */
+[data-theme="light"] section,
+[data-theme="light"] main {
+    background-color: #ffffff !important;
+    transition: background-color 0.4s ease;
+}
+
+/* Tailwind arbitrary color class overrides */
+[data-theme="light"] .bg-\[#0a0a0a\] { background-color: #ffffff !important; }
+[data-theme="light"] .bg-\[#0f0f0f\] { background-color: #ffffff !important; }
+[data-theme="light"] .bg-\[#0D0D0D\] { background-color: #ffffff !important; }
+[data-theme="light"] .bg-\[#111\]     { background-color: #f9f9fb !important; }
+[data-theme="light"] .bg-\[#1a1a1a\] { background-color: #f3f4f6 !important; }
+[data-theme="light"] .bg-\[#1A1A1A\] { background-color: #f3f4f6 !important; }
+[data-theme="light"] .bg-\[#161616\] { background-color: #f9f9fb !important; }
+[data-theme="light"] .bg-\[#121214\] { background-color: #ffffff !important; }
+[data-theme="light"] .bg-\[#18181b\] { background-color: #ffffff !important; }
+[data-theme="light"] .bg-\[#1e1e24\] { background-color: #f3f4f6 !important; }
+
+/* Sticky divs inside sections (gallery, process, whydevquilt panels) */
+[data-theme="light"] div.sticky {
+    background-color: #ffffff !important;
+}
+
+/* Dark card/glass backgrounds → light equivalents */
+[data-theme="light"] .bg-white\/5  { background-color: rgba(0,0,0,0.03) !important; }
+[data-theme="light"] .bg-white\/10 { background-color: rgba(0,0,0,0.05) !important; }
+[data-theme="light"] .bg-white\/15 { background-color: rgba(0,0,0,0.07) !important; }
+
+/* Text colors */
+[data-theme="light"] .text-white   { color: #111827 !important; }
+[data-theme="light"] .text-gray-100 { color: #374151 !important; }
+[data-theme="light"] .text-gray-200 { color: #4b5563 !important; }
+[data-theme="light"] .text-gray-300 { color: #6b7280 !important; }
+[data-theme="light"] .text-gray-400 { color: #9ca3af !important; }
+[data-theme="light"] .text-gray-500 { color: #6b7280 !important; }
+
+/* Ensure dark buttons, badges, chips, overlays and elements marked keep-white keep white text in light mode */
+[data-theme="light"] .keep-white,
+[data-theme="light"] .keep-white *,
+[data-theme="light"] [data-keep-white="true"],
+[data-theme="light"] [data-keep-white="true"] *,
+[data-theme="light"] .keep-white button,
+[data-theme="light"] .keep-white a,
+[data-theme="light"] .keep-white button:hover,
+[data-theme="light"] .keep-white a:hover,
+[data-theme="light"] .bg-black,
+[data-theme="light"] .bg-black *,
+[data-theme="light"] button.bg-black,
+[data-theme="light"] a.bg-black,
+[data-theme="light"] .bg-gray-900,
+[data-theme="light"] .bg-gray-900 *,
+[data-theme="light"] .bg-green-500,
+[data-theme="light"] .bg-red-500 {
+    color: #ffffff !important;
+}
+
+/* Borders */
+[data-theme="light"] .border-white\/5  { border-color: rgba(0,0,0,0.06) !important; }
+[data-theme="light"] .border-white\/10 { border-color: rgba(0,0,0,0.10) !important; }
+[data-theme="light"] .border-white\/20 { border-color: rgba(0,0,0,0.15) !important; }
+[data-theme="light"] .border-white\/30 { border-color: rgba(0,0,0,0.20) !important; }
+
+/* Hover text color in light mode */
+[data-theme="light"] .hover\:text-white:hover { color: #111827 !important; }
+[data-theme="light"] .hover\:text-gray-300:hover { color: #374151 !important; }
+
+/* Dividers */
+[data-theme="light"] .divide-white\/10 > * + * { border-color: rgba(0,0,0,0.10) !important; }
+[data-theme="light"] .divide-white\/20 > * + * { border-color: rgba(0,0,0,0.15) !important; }
+
+/* Input fields */
+[data-theme="light"] input:not([type="checkbox"]):not([type="radio"]),
+[data-theme="light"] textarea,
+[data-theme="light"] select {
+    background-color: rgba(0,0,0,0.03) !important;
+    color: #111827 !important;
+    border-color: rgba(0,0,0,0.15) !important;
+}
+
+[data-theme="light"] input::placeholder,
+[data-theme="light"] textarea::placeholder {
+    color: #9ca3af !important;
+}
+
+/* Inline style dark overrides */
+[data-theme="light"] [style*="background-color: rgb(10, 10, 10)"],
+[data-theme="light"] [style*="backgroundColor: #0a0a0a"] {
+    background-color: #f5f5f7 !important;
+}
+
+/* Also keep html.light for backward compat */
+html.light body { background-color: #f5f5f7; color: #111827; }
 
 @layer utilities {
     .no-scrollbar::-webkit-scrollbar {
@@ -136,11 +241,11 @@ body {
 }
 
 :root {
-    --why-mads-gap: 0rem;
+    --why-devquilt-gap: 0rem;
 }
 
 @media (min-width: 1024px) {
     :root {
-        --why-mads-gap: 4rem;
+        --why-devquilt-gap: 4rem;
     }
 }

@@ -12,46 +12,58 @@ const categories = [
 const faqData = {
     services: [
         {
-            question: "What specific industries does MADS specialize in?",
-            answer: "MADS is a versatile agency that works across various sectors including High-Tech, Luxury Real Estate, E-commerce, and Professional Services. We specialize in transforming brands through high-end design and performance marketing."
+            question: "What specific services does DevQuilt offer?",
+            answer: "DevQuilt specializes in website development, startup MVP development, landing page design, web application development, AI integration, UI/UX design, and branding. We primarily work with startups and growing businesses in the USA, UK, and Germany."
+        },
+        {
+            question: "Can you build an MVP for my startup?",
+            answer: "Yes. We discuss your idea, identify the core features, define the scope, and build a practical first version based on your requirements. MVPs are scoped and quoted individually after a discovery conversation."
         },
         {
             question: "Do you offer individual services or only full packages?",
-            answer: "While we believe in a holistic approach for the best ROI, we do offer individual services like App Development, UI/UX Design, or specific Performance Marketing campaigns depending on your brand's current needs."
-        },
-        {
-            question: "Can you help with rebranding an existing business?",
-            answer: "Absolutely. Rebranding is one of our core strengths. We analyze your current market position, identify growth opportunities, and create a fresh, premium identity that resonates with your evolving audience."
+            answer: "We offer individual services such as landing page design, website development, or AI integration, as well as more comprehensive scopes for startups needing a full digital product built from scratch."
         }
     ],
     process: [
         {
-            question: "How long does a typical Branding & Strategy project take?",
-            answer: "A comprehensive branding project typically spans 4 to 8 weeks. This includes research, strategy workshops, visual identity design, and delivery of brand guidelines."
+            question: "How does your development process work?",
+            answer: "We follow a six-step process: Discover, Plan, Design, Develop, Launch, and Improve. We start by understanding your goals and requirements, then define scope and timeline, design the experience, build the solution, deploy it, and discuss improvements afterward."
         },
         {
-            question: "What is your development process for web and mobile apps?",
-            answer: "We follow an agile, design-first approach. It starts with deep discovery and wireframing, followed by premium UI design, and finally high-performance coding with rigorous testing phases."
+            question: "How long does website development take?",
+            answer: "Timelines depend on scope, content readiness, and feedback cycles. A landing page typically takes 1–2 weeks. A multi-page business website takes 2–4 weeks. An MVP or web application is estimated after the discovery and planning phase."
+        },
+        {
+            question: "Will my website be mobile-friendly?",
+            answer: "Yes. Responsive design across desktop, tablet, and mobile is included in all our website packages. The exact breakpoints and layout are confirmed during the design phase."
         }
     ],
     pricing: [
         {
-            question: "What is your typical pricing model?",
-            answer: "We primarily work on a value-based project pricing model. For ongoing partnerships like Digital Marketing or Maintenance, we offer monthly retainer options tailored to your specific goals."
+            question: "How much does a startup website cost?",
+            answer: "Our landing page packages start at $499 and business website packages start at $999. Final pricing depends on the number of pages, design requirements, integrations, and functionality. Startup MVPs are scoped and quoted separately."
         },
         {
             question: "Do you require a deposit to start a project?",
-            answer: "Yes, we typically require a 50% commencement fee to secure your slot in our production queue, with the remainder billed at key milestones or project completion."
+            answer: "Yes. We structure payments as a deposit to begin, a milestone payment at an agreed development stage, and a final payment before handover. The exact structure is confirmed in the project agreement."
+        },
+        {
+            question: "What costs are NOT included in the package price?",
+            answer: "Hosting, domain registration, paid plugins or APIs, content writing, third-party service subscriptions, and ongoing maintenance are not included unless explicitly agreed in the project scope."
         }
     ],
     support: [
         {
             question: "How do we communicate during the project?",
-            answer: "We use a dedicated Slack channel for daily communication and scheduled weekly strategy calls via Zoom or Google Meet. You'll also have access to a custom Notion dashboard to track real-time progress."
+            answer: "We use email for formal communication, and can set up a shared messaging channel (Slack, WhatsApp, or similar) for day-to-day updates. You will receive milestone updates and progress reports throughout the project."
         },
         {
-            question: "Do you offer post-launch support and maintenance?",
-            answer: "Yes, we provide 30 days of complimentary support after any launch. Beyond that, we offer various maintenance packages to ensure your platform stays secure, fast, and up-to-date."
+            question: "Do you provide support after launch?",
+            answer: "Post-launch support and ongoing maintenance can be discussed and scoped separately. We offer maintenance agreements for clients who want regular updates, security patches, and improvements after launch."
+        },
+        {
+            question: "Can you help with SEO for my website?",
+            answer: "Basic on-page SEO setup — including semantic HTML, descriptive titles, meta descriptions, image alt text, and sitemap — is included in all our website packages. Advanced technical SEO and ongoing optimization are available as separate services."
         }
     ]
 };
@@ -109,7 +121,7 @@ export default function FaqsPage() {
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.95 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
-            className={`transition-colors duration-500 min-h-screen font-tomato outline-none ${isDarkMode ? 'bg-black text-white' : 'bg-[#f8f8f8] text-black'}`}
+            className={`transition-colors duration-500 min-h-screen font-tomato outline-none ${isDarkMode ? 'bg-[#0a0a0a] text-white' : 'bg-white text-gray-900'}`}
         >
             {/* Hero Section */}
             <div className="relative h-[60vh] flex flex-col items-center justify-center text-center px-6 overflow-hidden">
@@ -118,9 +130,11 @@ export default function FaqsPage() {
                     <img
                         src="https://images.unsplash.com/photo-1449034446853-66c86144b0ad?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80"
                         alt="City Background"
-                        className={`w-full h-full object-cover grayscale transition-opacity duration-500 ${isDarkMode ? 'opacity-40' : 'opacity-10'}`}
+                        loading="lazy"
+                        decoding="async"
+                        className="w-full h-full object-cover grayscale opacity-25"
                     />
-                    <div className={`absolute inset-0 bg-gradient-to-b from-transparent transition-colors duration-500 ${isDarkMode ? 'via-black/50 to-black' : 'via-white/50 to-[#f8f8f8]'}`} />
+                    <div className={`absolute inset-0 bg-gradient-to-b from-transparent ${isDarkMode ? 'via-[#0a0a0a]/70 to-[#0a0a0a]' : 'via-white/70 to-white'}`} />
                 </div>
 
                 <motion.div
@@ -152,8 +166,8 @@ export default function FaqsPage() {
                         transition={{ duration: 0.8, delay: 0.5 }}
                         className={`text-xl font-medium max-w-2xl mx-auto ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}
                     >
-                        We're here to help with any questions you have about our premium services,
-                        proven process, and how we can elevate your brand.
+                        We're here to help with any questions about our services,
+                        process, pricing, and how we can support your startup's digital growth.
                     </motion.p>
                 </motion.div>
             </div>

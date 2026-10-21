@@ -1,97 +1,82 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
-import { motion, AnimatePresence } from "motion/react";
+import { useTheme } from "../context/ThemeContext";
 
 export default function Footer() {
-    const [email, setEmail] = useState("");
-    const [status, setStatus] = useState("idle"); // idle | loading | success
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        if (!email || status !== "idle") return;
-
-        setStatus("loading");
-
-        // Simulate loading for 1 second
-        setTimeout(() => {
-            setStatus("success");
-            // Optional: reset to idle after 3 seconds
-            setTimeout(() => {
-                setStatus("idle");
-                setEmail("");
-            }, 3000);
-        }, 1500);
-    };
+    const { isDarkMode } = useTheme();
 
     return (
-        <footer className="bg-white text-black">
+        <footer
+            style={{
+                backgroundColor: isDarkMode ? '#0a0a0a' : '#ffffff',
+                borderTopColor: isDarkMode ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.08)',
+                borderTopWidth: '1px',
+                borderTopStyle: 'solid',
+            }}
+        >
             <div className="max-w-7xl mx-auto px-8 lg:px-16">
 
                 {/* ── Top: 4 link columns ── */}
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-x-8 gap-y-12 py-8 border-b border-gray-200">
+                <div
+                    className="grid grid-cols-2 md:grid-cols-4 gap-x-8 gap-y-12 py-8 border-b"
+                    style={{ borderColor: isDarkMode ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.08)' }}
+                >
 
                     {/* Company */}
                     <div>
-                        <h4 className="text-base font-bold mb-6 text-gray-900">Company</h4>
-                        <ul className="space-y-4 text-sm text-gray-500">
+                        <h4 className="text-base font-bold mb-6" style={{ color: isDarkMode ? '#ffffff' : '#111827' }}>Company</h4>
+                        <ul className="space-y-4 text-sm" style={{ color: isDarkMode ? '#6b7280' : '#6b7280' }}>
                             <li>
-                                <Link to="/about" className="hover:text-gray-900 transition-colors duration-200 text-lime-500 font-medium">
+                                <Link to="/about" className="transition-colors duration-200 text-lime-500 font-medium hover:text-lime-400">
                                     About Us
                                 </Link>
                             </li>
                             <li>
-                                <Link to="/team" className="hover:text-gray-900 transition-colors duration-200">
-                                    Our Team
-                                </Link>
-                            </li>
-                            <li>
-                                <Link to="/careers" className="hover:text-gray-900 transition-colors duration-200">
-                                    Careers
-                                </Link>
-                            </li>
-                            <li>
-                                <Link to="/contact" className="hover:text-gray-900 transition-colors duration-200">
+                                <Link to="/contact" className="hover:text-gray-900 transition-colors duration-200" style={{ color: isDarkMode ? '#6b7280' : '#6b7280' }}>
                                     Contact
                                 </Link>
                             </li>
                         </ul>
                     </div>
 
-                    {/* Services */}
                     <div>
-                        <h4 className="text-base font-bold mb-6 text-gray-900">Services</h4>
-                        <ul className="space-y-4 text-sm text-gray-500">
-
+                        <h4 className="text-base font-bold mb-6" style={{ color: isDarkMode ? '#ffffff' : '#111827' }}>Services</h4>
+                        <ul className="space-y-4 text-sm" style={{ color: isDarkMode ? '#6b7280' : '#6b7280' }}>
                             <li>
-                                <Link to="/services" className="hover:text-gray-900 transition-colors duration-200">
-                                    Branding &amp; Strategy
-                                </Link>
+                                <a href="/services" className="hover:text-gray-900 transition-colors duration-200">
+                                    Website Development
+                                </a>
                             </li>
                             <li>
-                                <Link to="/services" className="hover:text-gray-900 transition-colors duration-200">
-                                    Digital Marketing
-                                </Link>
+                                <a href="/services" className="hover:text-gray-900 transition-colors duration-200">
+                                    Startup MVP Development
+                                </a>
                             </li>
                             <li>
-                                <Link to="/services" className="hover:text-gray-900 transition-colors duration-200">
-                                    App &amp; Web Development
-                                </Link>
+                                <a href="/services" className="hover:text-gray-900 transition-colors duration-200">
+                                    AI Integration
+                                </a>
                             </li>
                             <li>
-                                <Link to="/services" className="hover:text-gray-900 transition-colors duration-200">
-                                    Copy Writing
-                                </Link>
+                                <a href="/services" className="hover:text-gray-900 transition-colors duration-200">
+                                    UI/UX &amp; Branding
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/services" className="hover:text-gray-900 transition-colors duration-200">
+                                    Technical SEO
+                                </a>
                             </li>
                         </ul>
                     </div>
 
                     {/* Resources */}
                     <div>
-                        <h4 className="text-base font-bold mb-6 text-gray-900">Resources</h4>
-                        <ul className="space-y-4 text-sm text-gray-500">
+                        <h4 className="text-base font-bold mb-6" style={{ color: isDarkMode ? '#ffffff' : '#111827' }}>Resources</h4>
+                        <ul className="space-y-4 text-sm" style={{ color: isDarkMode ? '#6b7280' : '#6b7280' }}>
                             <li>
-                                <Link to="/blog" className="hover:text-gray-900 transition-colors duration-200">
-                                    Blog
+                                <Link to="/projects" className="hover:text-gray-900 transition-colors duration-200">
+                                    Featured Projects
                                 </Link>
                             </li>
                             <li>
@@ -100,147 +85,73 @@ export default function Footer() {
                                 </Link>
                             </li>
                             <li>
-                                <Link to="/design-insights" className="hover:text-gray-900 transition-colors duration-200">
-                                    Design Insights
-                                </Link>
-                            </li>
-                            <li>
-                                <Link to="/tutorials" className="hover:text-gray-900 transition-colors duration-200">
-                                    Tutorials
-                                </Link>
-                            </li>
-                        </ul>
-                    </div>
-
-                    {/* Support */}
-                    <div>
-                        <h4 className="text-base font-bold mb-6 text-gray-900">Support</h4>
-                        <ul className="space-y-4 text-sm text-gray-500">
-                            <li>
                                 <Link to="/faqs" className="hover:text-gray-900 transition-colors duration-200">
                                     FAQs
                                 </Link>
                             </li>
+                        </ul>
+                    </div>
+
+                    {/* Connect */}
+                    <div>
+                        <h4 className="text-base font-bold mb-6" style={{ color: isDarkMode ? '#ffffff' : '#111827' }}>Connect</h4>
+                        <ul className="space-y-4 text-sm" style={{ color: isDarkMode ? '#6b7280' : '#6b7280' }}>
                             <li>
-                                <Link to="/privacy-policy" className="hover:text-gray-900 transition-colors duration-200">
-                                    Privacy Policy
-                                </Link>
+                                <a
+                                    href="https://github.com/HassanHashmi39"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="hover:text-gray-900 transition-colors duration-200 flex items-center gap-2"
+                                >
+                                    <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                                        <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
+                                    </svg>
+                                    GitHub Profile
+                                </a>
                             </li>
                             <li>
-                                <Link to="/terms-conditions" className="hover:text-gray-900 transition-colors duration-200">
-                                    Terms &amp; Conditions
+                                <a
+                                    href="https://github.com/HassanHashmi39/Skinzy"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="hover:text-gray-900 transition-colors duration-200"
+                                >
+                                    Skinzy AI App ↗
+                                </a>
+                            </li>
+                            <li>
+                                <Link
+                                    to="/contact"
+                                    className="transition-colors duration-200 font-semibold"
+                                    style={{ color: isDarkMode ? '#ffffff' : '#111827' }}
+                                >
+                                    Book a Call →
                                 </Link>
                             </li>
                         </ul>
                     </div>
                 </div>
 
-                {/* ── Bottom: Newsletter row ── */}
-                <div className="py-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
-
-                    {/* Left: heading */}
-                    <p className="text-xl font-bold text-gray-900 whitespace-nowrap">
-                        Subscribe to our newsletter
-                    </p>
-
-                    {/* Right: input + button + note */}
-                    <div className="flex flex-col items-end gap-2 w-full md:w-auto">
-                        <form
-                            className="flex items-center gap-0 w-full md:w-auto"
-                            onSubmit={handleSubmit}
-                        >
-                            {/* Email input */}
-                            <div className="flex items-center bg-gray-100 rounded-l-lg px-4 py-3 gap-2 flex-1 md:w-72 border border-gray-200 border-r-0">
-                                {/* envelope icon */}
-                                <svg
-                                    className="w-4 h-4 text-gray-400 flex-shrink-0"
-                                    viewBox="0 0 24 24"
-                                    fill="none"
-                                    stroke="currentColor"
-                                    strokeWidth="2"
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                >
-                                    <rect x="2" y="4" width="20" height="16" rx="2" />
-                                    <path d="M22 7l-10 7L2 7" />
-                                </svg>
-                                <input
-                                    type="email"
-                                    value={email}
-                                    onChange={(e) => setEmail(e.target.value)}
-                                    placeholder="enter your email"
-                                    className="bg-transparent text-sm text-gray-700 placeholder-gray-400 outline-none w-full"
-                                    disabled={status !== "idle"}
-                                />
-                            </div>
-
-                            {/* Subscribe button */}
-                            <motion.button
-                                type="submit"
-                                disabled={status !== "idle"}
-                                whileTap={{ scale: 0.95 }}
-                                animate={{
-                                    width: status === "idle" ? 140 : 46,
-                                    borderRadius: "8px",
-                                }}
-                                transition={{
-                                    type: "spring",
-                                    stiffness: 400,
-                                    damping: 30
-                                }}
-                                className="relative flex items-center justify-center h-[46px] ml-2 bg-black text-white text-sm font-bold whitespace-nowrap overflow-hidden"
-                            >
-                                <AnimatePresence mode="wait">
-                                    {status === "idle" && (
-                                        <motion.span
-                                            key="idle"
-                                            initial={{ opacity: 0 }}
-                                            animate={{ opacity: 1 }}
-                                            exit={{ opacity: 0 }}
-                                        >
-                                            Subscribe
-                                        </motion.span>
-                                    )}
-                                    {status === "loading" && (
-                                        <motion.div
-                                            key="loading"
-                                            initial={{ opacity: 0 }}
-                                            animate={{ opacity: 1 }}
-                                            exit={{ opacity: 0 }}
-                                            className="flex items-center justify-center"
-                                        >
-                                            <svg className="animate-spin h-5 w-5 text-white/50" viewBox="0 0 24 24" fill="none">
-                                                <circle className="opacity-20" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-                                                <path className="opacity-100" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
-                                            </svg>
-                                        </motion.div>
-                                    )}
-                                    {status === "success" && (
-                                        <motion.div
-                                            key="success"
-                                            initial={{ opacity: 0, scale: 0.5 }}
-                                            animate={{ opacity: 1, scale: 1 }}
-                                            exit={{ opacity: 0 }}
-                                            className="flex items-center justify-center"
-                                        >
-                                            <svg className="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="4">
-                                                <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                                            </svg>
-                                        </motion.div>
-                                    )}
-                                </AnimatePresence>
-                            </motion.button>
-                        </form>
-
-                        {/* Unsubscribe note */}
-                        <p className="text-xs text-gray-400">
-                            You will be able to unsubscribe at any time.
-                        </p>
-                    </div>
+            {/* ── Bottom Bar ── */}
+            <div
+                className="py-6 flex flex-col md:flex-row items-center justify-between gap-4 text-xs"
+                style={{ color: isDarkMode ? '#4b5563' : '#9ca3af' }}
+            >
+                <div className="flex items-center gap-3">
+                    <img
+                        src={isDarkMode ? "/logo-icon-dark.png" : "/logo-icon-light.png"}
+                        alt="DevQuilt"
+                        className="h-7 w-auto object-contain opacity-70"
+                    />
+                    <span>© {new Date().getFullYear()} DevQuilt. All rights reserved.</span>
                 </div>
-
+                <div className="flex items-center gap-4">
+                    <Link to="/privacy-policy" className="hover:text-gray-600 transition-colors duration-200">Privacy Policy</Link>
+                    <Link to="/terms-conditions" className="hover:text-gray-600 transition-colors duration-200">Terms &amp; Conditions</Link>
+                </div>
             </div>
-        </footer>
+
+        </div>
+    </footer>
     );
 }
-

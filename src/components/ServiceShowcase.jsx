@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { motion } from "motion/react";
+import { useTheme } from "../context/ThemeContext";
 import middle1 from "../assets/middle1.png";
 import middle2 from "../assets/middle2.png";
 import middle3 from "../assets/middle4.png";
@@ -18,6 +19,8 @@ function ImageArt({ src, active }) {
       <motion.img
         src={src}
         alt="Service Visual"
+        loading="lazy"
+        decoding="async"
         className="w-full h-full object-contain filter drop-shadow-[0_20px_50px_rgba(0,0,0,0.5)]"
         animate={{
           scale: active ? 1.05 : 0.95,
@@ -34,7 +37,7 @@ function ImageArt({ src, active }) {
 // ─── 3D Bottom Element Wrapper ──────────────────────────────────────────
 const BottomIcon = ({ src }) => (
   <div className="w-[140px] h-[140px] flex items-center justify-center">
-    <img src={src} alt="3D Detail" className="w-full h-full object-contain filter drop-shadow-2xl" />
+    <img src={src} alt="3D Detail" loading="lazy" decoding="async" className="w-full h-full object-contain filter drop-shadow-2xl" />
   </div>
 );
 
@@ -320,14 +323,15 @@ function MobileCard({ panel, index }) {
 // ─── Main ─────────────────────────────────────────────────────────────────────
 export default function ServiceShowcase() {
   const [activeIndex, setActiveIndex] = useState(-1);
+  const { isDarkMode } = useTheme();
 
   return (
-    <section className="relative bg-white pt-0 pb-16 px-4 sm:px-6 lg:px-10 overflow-hidden">
+    <section className={`relative pt-0 pb-16 px-4 sm:px-6 lg:px-10 overflow-hidden transition-colors duration-300 ${isDarkMode ? 'bg-[#0a0a0a]' : 'bg-white'}`}>
       {/* Header */}
       <div className="max-w-7xl mx-auto mb-10">
-        <p className="text-[11px] font-semibold tracking-[0.28em] uppercase text-gray-400 mb-2">What we do</p>
+        <p className={`text-[11px] font-semibold tracking-[0.28em] uppercase mb-2 ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>What we do</p>
         <div className="flex items-end justify-between gap-4">
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 leading-tight">
+          <h2 className={`text-4xl md:text-5xl font-bold leading-tight ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
             Grow Your{" "}
             <span className="bg-clip-text text-transparent"
               style={{ backgroundImage: "linear-gradient(90deg,#ef4444,#7c3aed)" }}>
@@ -335,9 +339,9 @@ export default function ServiceShowcase() {
             </span>
           </h2>
           <a href="/services"
-            className="hidden md:flex items-center gap-2 text-sm font-semibold text-gray-400 hover:text-gray-900 transition-colors mb-1 flex-shrink-0">
+            className={`hidden md:flex items-center gap-2 text-sm font-semibold transition-colors mb-1 flex-shrink-0 ${isDarkMode ? 'text-gray-400 hover:text-white' : 'text-gray-500 hover:text-gray-900'}`}>
             View all services
-            <span className="w-7 h-7 rounded-full border border-gray-200 hover:border-gray-900 flex items-center justify-center transition-colors">
+            <span className={`w-7 h-7 rounded-full border flex items-center justify-center transition-colors ${isDarkMode ? 'border-white/20 hover:border-white' : 'border-gray-300 hover:border-gray-900'}`}>
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <path d="M7 17L17 7M17 7H7M17 7V17" strokeLinecap="round" />
               </svg>
@@ -372,7 +376,7 @@ export default function ServiceShowcase() {
       </div>
 
       <div className="max-w-7xl mx-auto mt-5 flex md:hidden justify-end">
-        <a href="/services" className="flex items-center gap-2 text-sm font-semibold text-gray-400">
+        <a href="/services" className={`flex items-center gap-2 text-sm font-semibold ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>
           View all services
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
             <path d="M7 17L17 7M17 7H7M17 7V17" strokeLinecap="round" />

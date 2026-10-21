@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence, useInView } from "motion/react";
+import { useTheme } from "../context/ThemeContext";
 
 const testimonials = [
     {
@@ -27,7 +28,7 @@ const testimonials = [
         id: 4,
         name: "Emily M.",
         role: "Founder & CEO",
-        feedback: "Simply the best creative agency we've worked with. Support is absolutely top-notch.",
+        feedback: "Simply the best software engineering partner we've worked with. Delivery was fast and flawless.",
         image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?q=50&w=400&auto=format&fit=crop",
     },
     {
@@ -62,7 +63,7 @@ const testimonials = [
         id: 9,
         name: "Noah C.",
         role: "VP of Growth",
-        feedback: "We saw a measurable increase in brand recall after working with the MADS team.",
+        feedback: "We saw a measurable increase in conversion and digital reach after partnering with DevQuilt.",
         image: "https://images.unsplash.com/photo-1463453091185-61582044d556?q=50&w=400&auto=format&fit=crop",
     },
     {
@@ -109,11 +110,12 @@ const testimonials = [
     },
 ];
 
-
-const Orbit = ({ radius, duration, isPaused, children, reverse = false }) => {
+const Orbit = ({ radius, duration, isPaused, children, reverse = false, isDarkMode = true }) => {
     return (
         <div
-            className="absolute flex items-center justify-center rounded-full border border-gray-100/50"
+            className={`absolute flex items-center justify-center rounded-full border transition-colors duration-300 ${
+                isDarkMode ? "border-white/10" : "border-black/10"
+            }`}
             style={{
                 width: radius * 2,
                 height: radius * 2,
@@ -145,10 +147,10 @@ const PositionedItem = ({ radius, angle, duration, isPaused, reverse, children }
                 {children}
             </div>
         </div>
-    )
-}
+    );
+};
 
-const TestimonialCard = ({ testimonial, size = 64, onHover, isActive, onClick, isMobile }) => {
+const TestimonialCard = ({ testimonial, size = 64, onHover, isActive, onClick, isMobile, isDarkMode }) => {
     const cardRef = React.useRef(null);
     const [vPos, setVPos] = useState('top');
     const [hPos, setHPos] = useState('center');
@@ -193,7 +195,9 @@ const TestimonialCard = ({ testimonial, size = 64, onHover, isActive, onClick, i
     };
 
     const getCardClasses = () => {
-        let classes = "absolute bg-white/95 backdrop-blur-xl p-3 md:p-5 rounded-2xl shadow-[0_8px_40px_rgb(0,0,0,0.15)] z-[100] border border-white/50 w-[220px] md:w-64 ";
+        let classes = isDarkMode
+            ? "absolute bg-[#18181b]/95 backdrop-blur-xl p-3 md:p-5 rounded-2xl shadow-[0_8px_40px_rgb(0,0,0,0.6)] z-[100] border border-white/10 w-[220px] md:w-64 text-left "
+            : "absolute bg-white/95 backdrop-blur-xl p-3 md:p-5 rounded-2xl shadow-[0_12px_40px_rgba(0,0,0,0.12)] z-[100] border border-gray-200/90 w-[220px] md:w-64 text-left ";
 
         if (hPos === 'center') {
             classes += `left-1/2 ${vPos === 'top' ? 'bottom-full mb-3' : 'top-full mt-3'}`;
@@ -230,7 +234,13 @@ const TestimonialCard = ({ testimonial, size = 64, onHover, isActive, onClick, i
         >
             {/* Avatar */}
             <div
-                className={`relative rounded-full overflow-hidden border-2 cursor-pointer transition-all duration-300 ${isActive || isHovered ? 'scale-110 border-blue-500 shadow-lg' : 'border-white grayscale hover:grayscale-0'}`}
+                className={`relative rounded-full overflow-hidden border-2 cursor-pointer transition-all duration-300 ${
+                    isActive || isHovered
+                        ? 'scale-110 border-blue-500 shadow-lg'
+                        : isDarkMode
+                            ? 'border-white/40 grayscale hover:grayscale-0 hover:border-white'
+                            : 'border-gray-300 grayscale hover:grayscale-0 hover:border-gray-900'
+                }`}
                 style={{ width: size, height: size }}
             >
                 <img
@@ -240,7 +250,7 @@ const TestimonialCard = ({ testimonial, size = 64, onHover, isActive, onClick, i
                     decoding="async"
                     className="w-full h-full object-cover"
                 />
-                <div className="absolute inset-0 bg-gray-200/20" />
+                <div className={`absolute inset-0 ${isDarkMode ? 'bg-black/10' : 'bg-transparent'}`} />
             </div>
 
             {/* Tooltip/Card */}
@@ -252,17 +262,30 @@ const TestimonialCard = ({ testimonial, size = 64, onHover, isActive, onClick, i
                         exit={getInitialAndExit()}
                         className={getCardClasses()}
                     >
-                        <h4 className="font-bold text-gray-900 text-[13px] md:text-sm mb-0.5">{testimonial.name}</h4>
-                        <p className="text-[9px] md:text-[10px] text-blue-600 font-medium mb-1.5 md:mb-2 uppercase tracking-wider">{testimonial.role}</p>
-                        <p className="text-[11px] md:text-xs text-gray-600 leading-relaxed italic">"{testimonial.feedback}"</p>
+                        <h4 className={`font-bold text-[13px] md:text-sm mb-0.5 ${
+                            isDarkMode ? "text-white" : "text-gray-900"
+                        }`}>
+                            {testimonial.name}
+                        </h4>
+                        <p className={`text-[9px] md:text-[10px] font-medium mb-1.5 md:mb-2 uppercase tracking-wider ${
+                            isDarkMode ? "text-gray-400" : "text-gray-500"
+                        }`}>
+                            {testimonial.role}
+                        </p>
+                        <p className={`text-[11px] md:text-xs leading-relaxed italic ${
+                            isDarkMode ? "text-gray-300" : "text-gray-700"
+                        }`}>
+                            "{testimonial.feedback}"
+                        </p>
                     </motion.div>
                 )}
             </AnimatePresence>
         </div>
     );
-}
+};
 
 export default function TestimonialCircle() {
+    const { isDarkMode } = useTheme();
     const [activeId, setActiveId] = useState(null);
     const [isPaused, setIsPaused] = useState(false);
     const [hoveredId, setHoveredId] = useState(null);
@@ -290,7 +313,7 @@ export default function TestimonialCircle() {
     const r2 = isMobile ? 350 : 500;
     const r3 = isMobile ? 400 : 650;
 
-    // Unique sizes per avatar — desktop / mobil
+    // Unique sizes per avatar — desktop / mobile
     const ring1Sizes = [80, 95, 70];
     const ring2Sizes = [88, 72, 104, 78, 92];
     const ring3Sizes = [70, 84, 68, 88, 75, 80];
@@ -314,9 +337,12 @@ export default function TestimonialCircle() {
     };
 
     return (
-        <section style={{ background: "#ffffffff" }}
+        <section
+            style={{ backgroundColor: isDarkMode ? "#0a0a0a" : "#ffffff" }}
             ref={sectionRef}
-            className="relative w-full h-screen bg-white overflow-hidden flex flex-col items-center justify-center"
+            className={`relative w-full h-screen overflow-hidden flex flex-col items-center justify-center transition-colors duration-400 ${
+                isDarkMode ? "bg-[#0a0a0a] text-white" : "bg-white text-gray-900"
+            }`}
             onClick={handleClose}
         >
             <style>{`
@@ -337,18 +363,22 @@ export default function TestimonialCircle() {
 
             {/* Solar System / Concentric Circles Background */}
             <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-20 section-mask z-0">
-                <div className="absolute border border-gray-700 rounded-full" style={{ width: r1 * 2, height: r1 * 2 }} />
-                <div className="absolute border border-gray-700 rounded-full" style={{ width: r2 * 2, height: r2 * 2 }} />
-                <div className="absolute border border-gray-700 rounded-full" style={{ width: r3 * 2, height: r3 * 2 }} />
+                <div className={`absolute border rounded-full transition-colors duration-300 ${isDarkMode ? "border-gray-700" : "border-gray-300"}`} style={{ width: r1 * 2, height: r1 * 2 }} />
+                <div className={`absolute border rounded-full transition-colors duration-300 ${isDarkMode ? "border-gray-700" : "border-gray-300"}`} style={{ width: r2 * 2, height: r2 * 2 }} />
+                <div className={`absolute border rounded-full transition-colors duration-300 ${isDarkMode ? "border-gray-700" : "border-gray-300"}`} style={{ width: r3 * 2, height: r3 * 2 }} />
             </div>
 
             {/* Central Content */}
             <div className="relative z-10 text-center max-w-2xl px-4 pointer-events-none">
                 <div className="pointer-events-none p-4 md:p-8 ">
-                    <h2 className="text-[26px] md:text-6xl font-bold text-gray-900 mb-3 md:mb-6 tracking-tight leading-[1.2] md:leading-[1.1]">
+                    <h2 className={`text-[26px] md:text-6xl font-bold mb-3 md:mb-6 tracking-tight leading-[1.2] md:leading-[1.1] transition-colors duration-300 ${
+                        isDarkMode ? "text-white" : "text-gray-900"
+                    }`}>
                         Discover What Our <br /> Users Have to Say
                     </h2>
-                    <p className="text-gray-500 text-[13px] md:text-xl font-medium px-4">
+                    <p className={`text-[13px] md:text-xl font-medium px-4 transition-colors duration-300 ${
+                        isDarkMode ? "text-gray-400" : "text-gray-600"
+                    }`}>
                         Real Stories, Real Experiences, Real Satisfaction
                     </p>
                 </div>
@@ -358,7 +388,7 @@ export default function TestimonialCircle() {
             <div className={`absolute inset-0 flex items-center justify-center pointer-events-none z-[50] ${!isMobile ? 'section-mask' : ''}`}>
 
                 {/* Ring 1 - Inner: 3 avatars at 120° apart */}
-                <Orbit radius={r1} duration={100} isPaused={effectivePaused}>
+                <Orbit radius={r1} duration={100} isPaused={effectivePaused} isDarkMode={isDarkMode}>
                     {[0, 120, 240].map((angle, i) => (
                         <div key={i} className="pointer-events-auto" style={{ zIndex: (hoveredId === testimonials[i].id || activeId === testimonials[i].id) ? 200 : 1 }}>
                             <PositionedItem radius={r1} angle={angle} duration={100} isPaused={effectivePaused}>
@@ -369,6 +399,7 @@ export default function TestimonialCircle() {
                                     isActive={activeId === testimonials[i].id}
                                     onClick={() => toggleTestimonial(testimonials[i].id)}
                                     isMobile={isMobile}
+                                    isDarkMode={isDarkMode}
                                 />
                             </PositionedItem>
                         </div>
@@ -376,7 +407,7 @@ export default function TestimonialCircle() {
                 </Orbit>
 
                 {/* Ring 2 - Mid: 5 avatars at 72° apart */}
-                <Orbit radius={r2} duration={140} isPaused={effectivePaused}>
+                <Orbit radius={r2} duration={140} isPaused={effectivePaused} isDarkMode={isDarkMode}>
                     {[0, 72, 144, 216, 288].map((angle, i) => (
                         <div key={i} className="pointer-events-auto" style={{ zIndex: (hoveredId === testimonials[i + 3].id || activeId === testimonials[i + 3].id) ? 200 : 1 }}>
                             <PositionedItem radius={r2} angle={angle} duration={140} isPaused={effectivePaused}>
@@ -387,6 +418,7 @@ export default function TestimonialCircle() {
                                     isActive={activeId === testimonials[i + 3].id}
                                     onClick={() => toggleTestimonial(testimonials[i + 3].id)}
                                     isMobile={isMobile}
+                                    isDarkMode={isDarkMode}
                                 />
                             </PositionedItem>
                         </div>
@@ -394,7 +426,7 @@ export default function TestimonialCircle() {
                 </Orbit>
 
                 {/* Ring 3 - Outer: 6 avatars at 60° apart */}
-                <Orbit radius={r3} duration={180} isPaused={effectivePaused}>
+                <Orbit radius={r3} duration={180} isPaused={effectivePaused} isDarkMode={isDarkMode}>
                     {[0, 60, 120, 180, 240, 300].map((angle, i) => (
                         <div key={i} className="pointer-events-auto" style={{ zIndex: (hoveredId === testimonials[i + 8].id || activeId === testimonials[i + 8].id) ? 200 : 1 }}>
                             <PositionedItem radius={r3} angle={angle} duration={180} isPaused={effectivePaused}>
@@ -405,6 +437,7 @@ export default function TestimonialCircle() {
                                     isActive={activeId === testimonials[i + 8].id}
                                     onClick={() => toggleTestimonial(testimonials[i + 8].id)}
                                     isMobile={isMobile}
+                                    isDarkMode={isDarkMode}
                                 />
                             </PositionedItem>
                         </div>

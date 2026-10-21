@@ -1,4 +1,4 @@
-# MADS Website
+# DevQuilt Website
 
 Experience modern web development at its best. Built with precision and a focus on premium design.
 
@@ -8,8 +8,8 @@ Follow these steps to set up the project locally:
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/HassanHashmi39/MADS.git
-   cd mads-website
+   git clone https://github.com/HassanHashmi39/DevQuilt.git
+   cd devquilt
    ```
 
 2. **Install dependencies:**
@@ -47,4 +47,4 @@ Follow these steps to set up the project locally:
 The project is configured for automated deployment via Netlify. Pushing to the `main` branch triggers a new production build.
 
 ---
-Built with ❤️ by the MADS team.
+Built with ❤️ by the DevQuilt team.

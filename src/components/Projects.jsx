@@ -1,47 +1,17 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
-import { motion, AnimatePresence, useInView, useSpring, useTransform } from 'motion/react';
+import { motion, AnimatePresence, useInView } from 'motion/react';
 import { Link } from 'react-router-dom';
-
-function Counter({ value, duration = 1.2, dark = false }) {
-    const ref = useRef(null);
-    const inView = useInView(ref, { amount: 0.1 });
-
-    const numericValue = parseInt(value) || 0;
-    const suffix = value.replace(/[0-9]/g, '');
-
-    const springValue = useSpring(0, {
-        duration: duration * 1000,
-        bounce: 0,
-    });
-
-    useEffect(() => {
-        if (inView) {
-            springValue.set(numericValue);
-        } else {
-            springValue.set(0);
-        }
-    }, [inView, numericValue, springValue]);
-
-    const displayValue = useTransform(springValue, (latest) =>
-        Math.floor(latest) + suffix
-    );
-
-    return (
-        <motion.span ref={ref} className={`text-6xl font-bold mb-4 inline-block min-h-[60px] ${dark ? 'text-white' : 'text-gray-900'}`}>
-            {displayValue}
-        </motion.span>
-    );
-}
+import { useTheme } from '../context/ThemeContext';
+import skinzyImg from '../assets/projects/skinzy.jpg';
+import reactNativePortfolioImg from '../assets/projects/react-native-portfolio.jpg';
+import reactjsPortfolioImg from '../assets/projects/reactjs-portfolio.jpg';
+import javaTaskManagerImg from '../assets/projects/java-task-manager.jpg';
+import apexSaasImg from '../assets/projects/apex-saas.jpg';
 
 export default function Projects() {
+    const { isDarkMode } = useTheme();
     const sectionRef = useRef(null);
     const isSectionInView = useInView(sectionRef, { amount: 0.2 });
-
-    const stats = [
-        { label: "Years of Experience", value: "7+" },
-        { label: "Projects", value: "139+" },
-        { label: "Happy Clients", value: "94+" }
-    ];
 
     const [currentIndex, setCurrentIndex] = useState(0);
     const [direction, setDirection] = useState(1); // 1 = forward, -1 = backward
@@ -49,61 +19,72 @@ export default function Projects() {
 
     const projectItems = [
         {
-            title: "Germanyaaao",
-            category: "Branding",
-            image: "https://images.unsplash.com/photo-1560472355-536de3962603?q=50&w=600&auto=format&fit=crop",
-            color: "bg-red-600",
+            title: "Skinzy",
+            category: "AI Skincare & Wellness App",
+            tech: "TypeScript • PyTorch (ResNet18) • React Native",
+            github: "https://github.com/HassanHashmi39/Skinzy",
+            image: skinzyImg,
+            color: "bg-purple-500",
             highlights: [
-                "Building strong brand identity for German market",
-                "Social media growth strategy implementation",
-                "Content creation and community engagement"
+                "PyTorch ResNet18 AI detection (Acne, Dryness, Oiliness, Pigmentation)",
+                "Automated morning & night routines with personalized action plans",
+                "Patient & Doctor dashboards with real-time chat & appointment booking"
             ]
         },
         {
-            title: "Cura",
-            category: "Wellness",
-            image: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?q=50&w=600&auto=format&fit=crop",
-            color: "bg-lime-400",
-            highlights: [
-                "Wellness brand positioning and awareness",
-                "Health-focused content marketing",
-                "Customer engagement and retention"
-            ]
-        },
-        {
-            title: "Lumina",
-            category: "Technology",
-            image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=50&w=600&auto=format&fit=crop",
+            title: "Personal Website",
+            category: "Digital Services",
+            tech: "Strikingly • Website Builder",
+            github: "https://hashmitech.mystrikingly.com/",
+            image: reactNativePortfolioImg,
             color: "bg-blue-500",
             highlights: [
-                "Tech product launch campaigns",
-                "B2B lead generation strategy",
-                "Digital presence optimization"
+                "Personal website showcasing digital services and expertise",
+                "Website layout designed to present services and skills",
+                "Contact and social links for professional inquiries"
             ]
         },
         {
-            title: "Vanguard",
-            category: "Finance",
-            image: "https://images.unsplash.com/photo-1560472355-536de3962603?q=50&w=600&auto=format&fit=crop",
-            color: "bg-purple-600",
+            title: "ReactJs Portfolio Website",
+            category: "Modern Web Application",
+            tech: "React.js • Tailwind CSS • JavaScript",
+            github: "https://github.com/HassanHashmi39/ReactJs-PortfolioWebsite",
+            image: reactjsPortfolioImg,
+            color: "bg-lime-400",
             highlights: [
-                "Financial services brand trust building",
-                "Professional audience targeting",
-                "Thought leadership content creation"
+                "Responsive architecture with seamless dark & light mode toggles",
+                "Client consultation booking flow and interactive service catalog",
+                "Fast performance metrics, semantic SEO, and micro-interactions"
             ]
         },
         {
-            title: "Clenzer",
-            category: "Wellness",
-            image: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?q=50&w=600&auto=format&fit=crop",
-            color: "bg-red-400",
+            title: "Java GUI Task Manager",
+            category: "Desktop Application",
+            tech: "Java • Java Swing • OOP",
+            github: "https://github.com/HassanHashmi39/Java-GUI-based-Task-Manager-application",
+            image: javaTaskManagerImg,
+            color: "bg-amber-500",
             highlights: [
-                "Wellness brand positioning and awareness",
-                "Health-focused content marketing",
-                "Customer engagement and retention"
+                "Modular desktop task management system built using Java Swing",
+                "Daily task scheduling, priority workflows, and progress tracking",
+                "Robust object-oriented design built for collaborative extension"
+            ]
+        },
+        {
+            title: "Apex SaaS Platform",
+            category: "B2B Startup Launchpad",
+            tech: "Next.js • Tailwind CSS • PostgreSQL",
+            github: "https://github.com/HassanHashmi39",
+            image: apexSaasImg,
+            color: "bg-emerald-400",
+            highlights: [
+                "Conversion-optimized landing page and onboarding funnel",
+                "SaaS dashboard analytics with real-time metrics tracking",
+                "Stripe subscription integration and auth workflows"
             ]
         }
     ];
+
 
     const nextSlide = useCallback(() => {
         setDirection(1);
@@ -139,7 +120,12 @@ export default function Projects() {
     const upcomingIndices = [1, 2, 3].map((offset) => (currentIndex + offset) % projectItems.length);
 
     return (
-        <section style={{ background: "#ffffffff" }} ref={sectionRef} className="bg-white min-h-screen flex flex-col justify-center pt-20 lg:pt-12">
+        <section
+            style={{ backgroundColor: isDarkMode ? "#0a0a0a" : "#ffffff" }}
+            ref={sectionRef}
+            className={`min-h-screen flex flex-col justify-center pt-20 lg:pt-12 transition-colors duration-400 ${isDarkMode ? "bg-[#0a0a0a] text-white" : "bg-white text-gray-900"
+                }`}
+        >
             <div className="max-w-7xl mx-auto px-4 pb-20 lg:pb-20">
                 <div className="flex flex-col lg:flex-row gap-6 items-center lg:items-center mb-12 h-auto lg:h-[280px]">
 
@@ -197,7 +183,8 @@ export default function Projects() {
                             <AnimatePresence mode="sync">
                                 <motion.h3
                                     key={currentIndex}
-                                    className="text-xl font-bold leading-tight text-gray-900 col-start-1 row-start-1"
+                                    className={`text-xl font-bold leading-tight col-start-1 row-start-1 ${isDarkMode ? "text-white" : "text-gray-900"
+                                        }`}
                                     initial={{ opacity: 0 }}
                                     animate={{ opacity: 1 }}
                                     exit={{ opacity: 0 }}
@@ -246,10 +233,18 @@ export default function Projects() {
                                     transition={{ duration: 0.08, ease: "easeInOut" }}
                                     className="col-start-1 row-start-1"
                                 >
-                                    <h3 className="text-xl font-bold leading-tight text-gray-900">
+                                    <h3 className={`text-xl font-bold leading-tight ${isDarkMode ? "text-white" : "text-gray-900"}`}>
                                         {current.title} <br />
-                                        <span className="text-gray-500 font-medium">{current.category}</span>
+                                        <span className={`text-sm font-medium ${isDarkMode ? "text-gray-400" : "text-gray-600"}`}>
+                                            {current.category}
+                                        </span>
                                     </h3>
+                                    {current.tech && (
+                                        <span className={`inline-block mt-1 text-xs font-semibold px-2 py-0.5 rounded ${isDarkMode ? "bg-white/10 text-gray-300" : "bg-black/5 text-gray-700"
+                                            }`}>
+                                            {current.tech}
+                                        </span>
+                                    )}
                                 </motion.div>
                             </AnimatePresence>
                         </div>
@@ -326,18 +321,20 @@ export default function Projects() {
                 </div>
 
                 {/* ─── BOTTOM CONTENT ─── */}
-                <div className="flex flex-col md:flex-row pb-12 items-start md:items-center gap-y-8 md:gap-x-12">
+                <div className="flex flex-col md:flex-row pb-20 items-start md:items-center gap-y-8 md:gap-x-12">
 
                     {/* Left Side */}
                     <div className="space-y-4 md:space-y-6 flex-1">
                         <div className="flex items-center gap-4 md:gap-6">
-                            <h2 className="text-2xl md:text-3xl font-bold text-gray-900">Changing Brands</h2>
-                            <svg className="hidden sm:block w-12 h-6 text-gray-900 flex-shrink-0" viewBox="0 0 50 24" fill="none">
+                            <h2 className={`text-2xl md:text-3xl font-bold ${isDarkMode ? "text-white" : "text-gray-900"}`}>
+                                Real Projects.
+                            </h2>
+                            <svg className={`hidden sm:block w-12 h-6 flex-shrink-0 ${isDarkMode ? "text-white" : "text-gray-900"}`} viewBox="0 0 50 24" fill="none">
                                 <path d="M0 12H48M48 12L37 1M48 12L37 23" stroke="currentColor" strokeWidth="2" />
                             </svg>
                         </div>
-                        <p className="text-lg md:text-xl text-gray-500 leading-tight">
-                            Creating impactful experiences <span className="text-lime-400">✦</span> for our clients
+                        <p className={`text-lg md:text-xl leading-tight ${isDarkMode ? "text-gray-500" : "text-gray-600"}`}>
+                            Thoughtful solutions <span className="text-lime-500">✦</span> for our clients
                         </p>
                     </div>
 
@@ -347,9 +344,9 @@ export default function Projects() {
                         onMouseEnter={() => setIsAutoplayPaused(true)}
                         onMouseLeave={() => setIsAutoplayPaused(false)}
                     >
-                        <p className="mb-4 text-sm">
-                            Here <br />
-                            We give your brands a MADS new look
+                        <p className={`mb-4 text-sm ${isDarkMode ? "text-gray-400" : "text-gray-600"}`}>
+                            Explore <br />
+                            selected projects from DevQuilt
                         </p>
                         <div className="w-full max-w-lg">
                             <div className="grid min-h-[180px] items-start">
@@ -365,13 +362,19 @@ export default function Projects() {
                                         {current.highlights.map((highlight, i) => (
                                             <div
                                                 key={i}
-                                                className="flex items-center justify-between py-2 border-b border-gray-100 group cursor-pointer hover:border-gray-900 transition-colors"
+                                                className={`flex items-center justify-between py-2 border-b group cursor-pointer transition-colors ${isDarkMode
+                                                        ? "border-white/10 hover:border-white"
+                                                        : "border-black/10 hover:border-black"
+                                                    }`}
                                             >
                                                 <div className="flex items-center gap-4">
                                                     <div className={`w-8 h-8 ${current.color} rounded-full`}></div>
-                                                    <p className="text-gray-600 font-medium text-sm">{highlight}</p>
+                                                    <p className={`font-medium text-sm ${isDarkMode ? "text-gray-300" : "text-gray-800"}`}>
+                                                        {highlight}
+                                                    </p>
                                                 </div>
-                                                <svg className="w-4 h-4 text-gray-400 group-hover:text-gray-900 transition-colors" viewBox="0 0 16 16" fill="none" stroke="currentColor">
+                                                <svg className={`w-4 h-4 transition-colors ${isDarkMode ? "text-gray-500 group-hover:text-white" : "text-gray-400 group-hover:text-gray-900"
+                                                    }`} viewBox="0 0 16 16" fill="none" stroke="currentColor">
                                                     <path d="M4 12L12 4M12 4H6M12 4V10" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                                                 </svg>
                                             </div>
@@ -379,44 +382,45 @@ export default function Projects() {
                                     </motion.div>
                                 </AnimatePresence>
                             </div>
-                            <Link to="/projects" aria-label="Explore all our projects" className="relative z-10 text-gray-900 font-bold flex items-center gap-2 hover:gap-4 transition-all mt-4 ml-auto text-sm">
-                                Explore all our Projects <span>→</span>
-                            </Link>
+                            <div className="flex flex-wrap items-center justify-between gap-3 mt-4">
+                                {current.github && (
+                                    <a
+                                        href={current.github}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className={`relative z-10 inline-flex items-center gap-2 px-3 py-1.5 text-xs font-semibold rounded-lg transition-colors shadow-sm ${isDarkMode
+                                                ? "bg-white/10 hover:bg-white/20 text-white"
+                                                : "bg-gray-900 hover:bg-black text-white"
+                                            }`}
+                                    >
+                                        {current.github.includes("github.com") ? (
+                                            <>
+                                                <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                                                    <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
+                                                </svg>
+                                                <span>View on GitHub</span>
+                                            </>
+                                        ) : (
+                                            <>
+                                                <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                                    <circle cx="12" cy="12" r="10" />
+                                                    <line x1="2" y1="12" x2="22" y2="12" />
+                                                    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+                                                </svg>
+                                                <span>Visit Website ↗</span>
+                                            </>
+                                        )}
+                                    </a>
+                                )}
+                                <Link to="/projects" aria-label="Explore all our projects" className={`relative z-10 font-bold flex items-center gap-2 hover:gap-4 transition-all ml-auto text-sm ${isDarkMode ? "text-white" : "text-gray-900"
+                                    }`}>
+                                    Explore all our Projects <span>→</span>
+                                </Link>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-
-            {/* ─── FULL WIDTH DARK STATS SECTION ─── */}
-            <motion.div
-                initial={{ height: 0, opacity: 0 }}
-                animate={isSectionInView ? { height: "30vh", opacity: 1 } : { height: 0, opacity: 0 }}
-                transition={{ duration: 1.8, ease: [0.92, 1, 0.96, 1] }}
-                className="w-full bg-gray-900 overflow-hidden flex flex-col justify-center border-t border-gray-900"
-            >
-                <div className="max-w-7xl mx-auto px-4 w-full">
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                        {stats.map((stat, index) => (
-                            <motion.div
-                                key={index}
-                                initial={{ opacity: 0, scale: 0.8, y: 30 }}
-                                animate={isSectionInView ? { opacity: 1, scale: 1, y: 0 } : { opacity: 0, scale: 0.8, y: 30 }}
-                                transition={{ duration: 0.6, delay: 0.3 + index * 0.15, ease: [0.22, 1, 0.36, 1] }}
-                                className="flex flex-col items-center md:items-start text-center md:text-left border-r border-gray-800 last:border-0 pb-8 md:pb-0"
-                            >
-                                <Counter value={stat.value} dark />
-                                <span className="text-xl text-gray-500 font-medium">{stat.label}</span>
-                                <motion.div
-                                    initial={{ width: 0 }}
-                                    animate={isSectionInView ? { width: "100%" } : { width: 0 }}
-                                    transition={{ duration: 0.6, ease: "easeOut", delay: 0.4 + index * 0.15 }}
-                                    className="h-1 bg-gray-800 mt-8 rounded-full"
-                                />
-                            </motion.div>
-                        ))}
-                    </div>
-                </div>
-            </motion.div>
         </section>
     );
 }

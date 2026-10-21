@@ -32,20 +32,20 @@ const BlogDetail = () => {
                 {/* Hero Section */}
                 <div>
                     <div className="flex items-center gap-3 text-xs font-bold uppercase tracking-[0.2em] text-gray-400 mb-6">
-                        <span className="text-black">Category .</span> Gym <span className="ml-2">| 22 Feb 2026</span>
+                        <span className="text-black">Category .</span> Engineering <span className="ml-2">| Tech Insights</span>
                     </div>
 
                     <h1 className="text-4xl md:text-6xl font-black text-black uppercase leading-[1] tracking-tighter mb-10">
-                        The Ultimate Guide to Full-Body Home Training
+                        Building Scalable Web &amp; Mobile Architectures in 2026
                     </h1>
 
                     <div className="flex items-center gap-4 mb-12 py-6 border-y border-gray-100">
                         <div className="w-12 h-12 bg-gray-200 rounded-full overflow-hidden">
-                            <img src="https://i.pravatar.cc/150?u=mads" alt="Author" className="w-full h-full object-cover" />
+                            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=50&w=150&auto=format&fit=crop" alt="Author" className="w-full h-full object-cover" />
                         </div>
                         <div>
-                            <p className="text-sm font-black text-black uppercase">MADS Agency</p>
-                            <p className="text-xs text-gray-400 font-medium">Creative Direction & Strategy</p>
+                            <p className="text-sm font-black text-black uppercase">DevQuilt Engineering</p>
+                            <p className="text-xs text-gray-400 font-medium">Software Architecture &amp; Cloud</p>
                         </div>
                     </div>
                 </div>
@@ -53,8 +53,8 @@ const BlogDetail = () => {
                 {/* Main Image */}
                 <div className="w-full aspect-video rounded-[3rem] overflow-hidden mb-16 shadow-2xl">
                     <img
-                        src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80"
-                        alt="Workout"
+                        src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=50&w=2000&auto=format&fit=crop"
+                        alt="Software Engineering"
                         className="w-full h-full object-cover"
                     />
                 </div>
@@ -62,35 +62,34 @@ const BlogDetail = () => {
                 {/* Article Content */}
                 <div className="prose prose-xl max-w-none">
                     <p className="text-xl md:text-2xl text-gray-600 leading-relaxed mb-8 font-medium italic">
-                        "Your body is a temple, but it's also a high-performance machine. In this deep dive, we explore how to optimize your home setup for maximum aesthetic and functional results."
+                        "Great software isn't just about syntax. It's about engineering resilient, scalable architectures that effortlessly support rapid business growth and thousands of concurrent users."
                     </p>
 
-                    <h2 className="text-3xl font-black text-black uppercase tracking-tight mt-16 mb-6">01. THE FOUNDATION</h2>
+                    <h2 className="text-3xl font-black text-black uppercase tracking-tight mt-16 mb-6">01. MODULAR SYSTEM DESIGN</h2>
                     <p className="text-gray-500 leading-relaxed mb-8">
-                        Consistent movement is recognized as a safe and effective mode of exercise when the goal is to improve fitness, health, or both. Something as simple as a daily brisk walk can help someone ...
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                        Modern web applications demand high velocity and zero regressions. By structuring services into decoupled, reusable modules and enforcing strict typing with TypeScript and clean API boundaries, engineering teams can ship updates with confidence.
                     </p>
 
                     <div className="bg-[#D9F99D] p-10 rounded-[2rem] my-12 border border-black/5">
                         <h3 className="text-xl font-black text-black uppercase mb-4 tracking-tight">Key Takeaway</h3>
                         <p className="text-black/70 font-medium leading-relaxed">
-                            Focus on compound movements that engage multiple muscle groups simultaneously. This not only saves time but also triggers a higher metabolic response.
+                            Prioritize component modularity and automated CI/CD testing pipelines. Clean abstraction layers enable your engineering teams to deploy 3x faster without downtime.
                         </p>
                     </div>
 
-                    <h2 className="text-3xl font-black text-black uppercase tracking-tight mt-16 mb-6">02. GEAR THAT MATTERS</h2>
+                    <h2 className="text-3xl font-black text-black uppercase tracking-tight mt-16 mb-6">02. PERFORMANCE &amp; ZERO-DOWNTIME DEPLOYMENT</h2>
                     <p className="text-gray-500 leading-relaxed mb-8">
-                        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                        Sub-second server response times, edge caching, and serverless compute reduce operational overhead while guaranteeing seamless customer experiences across desktop and mobile devices.
                     </p>
 
                     <blockquote className="border-l-4 border-black pl-8 my-12 font-black text-3xl text-black uppercase tracking-tighter italic">
-                        "DESIGN IS NOT JUST WHAT IT LOOKS LIKE. DESIGN IS HOW YOU MOVE THROUGH IT."
+                        "ARCHITECTURE IS NOT JUST WHAT IT LOOKS LIKE. ARCHITECTURE IS HOW RELIABLY IT PERFORMS AT SCALE."
                     </blockquote>
                 </div>
 
                 {/* Footer of article */}
                 <div className="mt-20 pt-10 border-t border-gray-100 flex flex-wrap gap-3">
-                    {["Training", "Health", "Design"].map(tag => (
+                    {["WebDev", "MobileApps", "Cloud", "Architecture"].map(tag => (
                         <span key={tag} className="px-4 py-2 bg-gray-50 rounded-full text-[10px] font-bold uppercase tracking-widest text-gray-500">
                             #{tag}
                         </span>
@@ -101,7 +100,7 @@ const BlogDetail = () => {
                 <div className="mt-24 bg-black rounded-[4rem] p-12 md:p-20 text-center relative overflow-hidden">
                     <div className="relative z-10 text-white">
                         <h2 className="text-4xl md:text-6xl font-black uppercase tracking-tighter mb-8 italic">
-                            Want to level up<br />your Brand?
+                            Want to build<br />your next product?
                         </h2>
                         <Link
                             to="/contact"
