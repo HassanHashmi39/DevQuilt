@@ -2,7 +2,15 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 import { motion, AnimatePresence, useInView } from 'motion/react';
 import { Link } from 'react-router-dom';
 import { useTheme } from '../context/ThemeContext';
-import { skinzyImg, reactNativePortfolioImg, reactjsPortfolioImg } from '../constants/projectImages';
+import {
+    skinzyImg,
+    reactNativePortfolioImg,
+    reactjsPortfolioImg,
+    javaTaskManagerImg,
+    apexSaasImg,
+    aiMedicalImg,
+    cloudInfraImg
+} from '../constants/projectImages';
 
 export default function Projects() {
     const { isDarkMode } = useTheme();
@@ -52,8 +60,61 @@ export default function Projects() {
                 "Client consultation booking flow and interactive service catalog",
                 "Fast performance metrics, semantic SEO, and micro-interactions"
             ]
+        },
+        {
+            title: "Java GUI Task Manager",
+            category: "Desktop Application",
+            tech: "Java • Java Swing • OOP",
+            github: "https://github.com/HassanHashmi39/Java-GUI-based-Task-Manager-application",
+            image: javaTaskManagerImg,
+            color: "bg-amber-500",
+            highlights: [
+                "Modular desktop task management system built using Java Swing",
+                "Daily task scheduling, priority workflows, and progress tracking",
+                "Robust object-oriented design built for collaborative extension"
+            ]
+        },
+        {
+            title: "Apex SaaS Platform",
+            category: "B2B Startup Launchpad",
+            tech: "Next.js • Tailwind CSS • PostgreSQL",
+            github: "https://github.com/HassanHashmi39",
+            image: apexSaasImg,
+            color: "bg-emerald-400",
+            highlights: [
+                "Conversion-optimized landing page and onboarding funnel",
+                "SaaS dashboard analytics with real-time metrics tracking",
+                "Stripe subscription integration and auth workflows"
+            ]
+        },
+        {
+            title: "AI Medical Diagnostics",
+            category: "Machine Learning & Vision",
+            tech: "PyTorch • Python • FastAPI",
+            github: "https://github.com/HassanHashmi39/Skinzy",
+            image: aiMedicalImg,
+            color: "bg-cyan-500",
+            highlights: [
+                "Automated condition classification and diagnostic reporting pipeline",
+                "High-performance FastAPI inference endpoints with PyTorch backend",
+                "Secure patient records and HIPAA-compliant data workflows"
+            ]
+        },
+        {
+            title: "Cloud Infrastructure Setup",
+            category: "DevOps & Cloud Architecture",
+            tech: "Docker • AWS • CI/CD",
+            github: "https://github.com/HassanHashmi39",
+            image: cloudInfraImg,
+            color: "bg-indigo-500",
+            highlights: [
+                "Containerized deployment pipelines with automated CI/CD workflows",
+                "AWS infrastructure automation, load balancing, and SSL provisioning",
+                "High availability architecture built for scale and zero-downtime releases"
+            ]
         }
     ];
+
 
 
 

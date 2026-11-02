@@ -4,12 +4,13 @@ import { Link, useNavigate } from "react-router-dom";
 import { useTheme } from "../context/ThemeContext";
 
 import {
-    skinzyImg,
-    skinzyDetail1,
-    skinzyDetail2,
-    reactNativePortfolioImg,
     reactjsPortfolioImg,
-    reactjsPortfolioDetail1
+    reactNativePortfolioImg,
+    apexSaasImg,
+    skinzyImg,
+    aiMedicalImg,
+    javaTaskManagerImg,
+    cloudInfraImg
 } from "../constants/projectImages";
 
 const Gallery = () => {
@@ -30,56 +31,66 @@ const Gallery = () => {
             title: "React.js Portfolio",
             category: "Modern Web App",
             image: reactjsPortfolioImg,
-            rotation: -15,
+            rotation: -18,
+            x: -180,
+            y: 15
+        },
+        {
+            id: 2,
+            title: "Personal Website",
+            category: "Digital Services & Portfolio",
+            image: reactNativePortfolioImg,
+            rotation: -12,
             x: -120,
             y: 10
         },
         {
-            id: 2,
-            title: "Skinzy Consultation",
-            category: "Healthcare UI & Chat",
-            image: skinzyDetail1,
-            rotation: -8,
+            id: 3,
+            title: "Apex SaaS Platform",
+            category: "B2B SaaS Launchpad",
+            image: apexSaasImg,
+            rotation: -6,
             x: -60,
             y: 5
         },
         {
-            id: 3,
+            id: 4,
             title: "Skinzy AI Platform",
             category: "AI Skincare & Mobile App",
             image: skinzyImg,
-            rotation: -2,
+            rotation: 0,
             x: 0,
             y: 0
         },
         {
-            id: 4,
-            title: "Skinzy Daily Routine",
-            category: "Personalized Action Plans",
-            image: skinzyDetail2,
-            rotation: 4,
+            id: 5,
+            title: "AI Medical Diagnostics",
+            category: "Machine Learning & Vision",
+            image: aiMedicalImg,
+            rotation: 6,
             x: 60,
             y: 5
         },
         {
-            id: 5,
-            title: "Personal Website",
-            category: "Digital Services & Portfolio",
-            image: reactNativePortfolioImg,
-            rotation: 10,
+            id: 6,
+            title: "Java Task Manager",
+            category: "Desktop Application",
+            image: javaTaskManagerImg,
+            rotation: 12,
             x: 120,
             y: 10
         },
         {
-            id: 6,
-            title: "Client Booking System",
-            category: "Modern Web Experience",
-            image: reactjsPortfolioDetail1,
+            id: 7,
+            title: "Cloud Infrastructure",
+            category: "DevOps & Cloud Architecture",
+            image: cloudInfraImg,
             rotation: 18,
             x: 180,
-            y: 20
+            y: 15
         },
     ];
+
 
     return (
         <section className={`relative px-4 sm:px-6 py-12 md:py-16 overflow-hidden transition-colors duration-300 ${isDarkMode ? 'bg-[#0a0a0a]' : 'bg-gray-50'}`}>
@@ -145,8 +156,8 @@ const Gallery = () => {
                                 </p>
                             </div>
 
-                            {/* Featured Indicator on Center Card (Card 3 - Skinzy) */}
-                            {card.id === 3 && (
+                            {/* Featured Indicator on Center Card (Card 4 - Skinzy) */}
+                            {card.id === 4 && (
                                 <div className="absolute top-3 right-3 px-2.5 py-1 rounded-full bg-black/60 backdrop-blur-md border border-white/20 text-white text-[10px] font-semibold tracking-wide flex items-center gap-1 shadow-md group-hover:opacity-0 transition-opacity">
                                     <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
                                     <span>Featured</span>
