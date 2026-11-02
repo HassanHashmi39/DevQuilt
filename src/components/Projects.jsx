@@ -130,21 +130,22 @@ export default function Projects() {
                 <div className="flex flex-col lg:flex-row gap-6 items-center lg:items-center mb-12 h-auto lg:h-[280px]">
 
                     {/* ─── MOBILE: Image with arrows + title ─── */}
-                    <div className="flex lg:hidden items-center justify-center gap-4 w-full relative z-30">
+                    <div className="flex lg:hidden items-center justify-center gap-2 sm:gap-4 w-full relative z-30">
                         <button
                             type="button"
                             onClick={(e) => {
                                 e.stopPropagation();
                                 prevSlide();
                             }}
-                            className="text-3xl hover:scale-125 transition-transform cursor-pointer p-4 -ml-2 select-none"
+                            aria-label="Previous project"
+                            className="text-2xl sm:text-3xl hover:scale-125 transition-transform cursor-pointer p-2 sm:p-4 select-none shrink-0"
                         >
                             ←
                         </button>
 
                         {/* Mobile Active Image - fade in/out */}
                         <div
-                            className="w-[220px] h-[220px] rounded-[24px] flex-shrink-0 overflow-hidden shadow-lg relative"
+                            className="w-[170px] h-[170px] sm:w-[220px] sm:h-[220px] rounded-[24px] flex-shrink-0 overflow-hidden shadow-lg relative"
                             onMouseEnter={() => setIsAutoplayPaused(true)}
                             onMouseLeave={() => setIsAutoplayPaused(false)}
                         >
@@ -171,7 +172,8 @@ export default function Projects() {
                                 e.stopPropagation();
                                 nextSlide();
                             }}
-                            className="text-3xl hover:scale-125 transition-transform cursor-pointer p-4 -mr-2 select-none"
+                            aria-label="Next project"
+                            className="text-2xl sm:text-3xl hover:scale-125 transition-transform cursor-pointer p-2 sm:p-4 select-none shrink-0"
                         >
                             →
                         </button>
@@ -327,7 +329,7 @@ export default function Projects() {
                     <div className="space-y-4 md:space-y-6 flex-1">
                         <div className="flex items-center gap-4 md:gap-6">
                             <h2 className={`text-2xl md:text-3xl font-bold ${isDarkMode ? "text-white" : "text-gray-900"}`}>
-                                Real Projects.
+                                Projects.
                             </h2>
                             <svg className={`hidden sm:block w-12 h-6 flex-shrink-0 ${isDarkMode ? "text-white" : "text-gray-900"}`} viewBox="0 0 50 24" fill="none">
                                 <path d="M0 12H48M48 12L37 1M48 12L37 23" stroke="currentColor" strokeWidth="2" />
@@ -363,8 +365,8 @@ export default function Projects() {
                                             <div
                                                 key={i}
                                                 className={`flex items-center justify-between py-2 border-b group cursor-pointer transition-colors ${isDarkMode
-                                                        ? "border-white/10 hover:border-white"
-                                                        : "border-black/10 hover:border-black"
+                                                    ? "border-white/10 hover:border-white"
+                                                    : "border-black/10 hover:border-black"
                                                     }`}
                                             >
                                                 <div className="flex items-center gap-4">
@@ -389,8 +391,8 @@ export default function Projects() {
                                         target="_blank"
                                         rel="noopener noreferrer"
                                         className={`relative z-10 inline-flex items-center gap-2 px-3 py-1.5 text-xs font-semibold rounded-lg transition-colors shadow-sm ${isDarkMode
-                                                ? "bg-white/10 hover:bg-white/20 text-white"
-                                                : "bg-gray-900 hover:bg-black text-white"
+                                            ? "bg-white/10 hover:bg-white/20 text-white"
+                                            : "bg-gray-900 hover:bg-black text-white"
                                             }`}
                                     >
                                         {current.github.includes("github.com") ? (

@@ -236,6 +236,7 @@ const ProjectDetail = ({ project, projects, onSelectProject, onClose }) => {
                         src={project.image}
                         alt="Hero view"
                         loading="lazy"
+                        decoding="async"
                         className="w-full h-auto aspect-video object-cover rounded-sm shadow-sm"
                     />
                     {/* Social Floating Icons Style */}
@@ -333,12 +334,14 @@ const ProjectDetail = ({ project, projects, onSelectProject, onClose }) => {
                         src={project.detailImage1 || defaultDetail1}
                         alt={`${project.title} Detail 1`}
                         loading="lazy"
+                        decoding="async"
                         className="w-full h-full object-cover rounded-sm"
                     />
                     <img
                         src={project.detailImage2 || defaultDetail2}
                         alt={`${project.title} Detail 2`}
                         loading="lazy"
+                        decoding="async"
                         className="w-full h-full object-cover rounded-sm"
                     />
                 </div>

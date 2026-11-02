@@ -4,165 +4,142 @@ import { Link } from "react-router-dom";
 import { useScrollContainer } from "../context/ScrollContext";
 import { useTheme } from "../context/ThemeContext";
 
+// Real project screenshots
+import imgSkinzy from "../assets/projects/skinzy.jpg";
+import imgSkinzyD1 from "../assets/projects/skinzy-detail-1.jpg";
+import imgSkinzyD2 from "../assets/projects/skinzy-detail-2.jpg";
+import imgPortfolio from "../assets/projects/reactjs-portfolio.jpg";
+import imgPortfolioD1 from "../assets/projects/reactjs-portfolio-detail-1.jpg";
+import imgAgency from "../assets/projects/react-native-portfolio.jpg";
+import imgAgencyD1 from "../assets/projects/react-native-portfolio-detail-1.jpg";
+import imgSaas from "../assets/projects/apex-saas.jpg";
+import imgSaasD1 from "../assets/projects/apex-saas-detail-1.jpg";
+import imgSaasD2 from "../assets/projects/apex-saas-detail-2.jpg";
+
 const services = [
     {
         id: "01",
         name: "Website Development",
         shortName: "Website",
-        title: "Websites for growing teams & high-converting businesses.",
+        title: "Websites Built for Startup Growth.",
         description:
-            "We align messaging, page architecture, and high-performance React code. The site loads fast, tells the right story, and pushes visitors to conversion without dev firefighting. Your team gets a scalable foundation they can evolve with ease.",
-        color: "#7C3AED", // Royal Purple
+            "We design and develop fast, responsive websites that communicate your value, build trust, and help turn visitors into potential customers.",
+        // ServiceShowcase WD panel — purple
+        color: "#7c3aed",
         gradient: "from-[#7C3AED] via-[#6D28D9] to-[#5B21B6]",
-        shadowColor: "rgba(124, 58, 237, 0.45)",
-        quote:
-            "“DevQuilt delivered our web platform with unbelievable speed and precision. Inbound conversions jumped significantly within the first month.”",
-        author: "Theo Cesarini",
-        role: "Co-founder @ InCrowd",
-        avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=200&auto=format&fit=crop",
-        ctaText: "SEE WEB PROJECTS →",
+        shadowColor: "rgba(124, 58, 237, 0.5)",
+        focusLabel: "What we focus on",
+        focusPoints: [
+            "Responsive layouts that work on every device",
+            "Fast-loading pages optimised for performance",
+            "Clear calls to action that guide your visitors",
+        ],
+        ctaText: "EXPLORE WEB PROJECTS",
         ctaLink: "/projects",
         previews: [
-            {
-                img: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=600&auto=format&fit=crop",
-                caption: "Web Architecture",
-            },
-            {
-                img: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=600&auto=format&fit=crop",
-                caption: "SaaS Dashboard",
-            },
-            {
-                img: "https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?q=80&w=600&auto=format&fit=crop",
-                caption: "Conversion UI",
-            },
+            { img: imgPortfolio,   caption: "Portfolio Website" },
+            { img: imgAgency,      caption: "Agency Landing Page" },
+            { img: imgPortfolioD1, caption: "Booking UI" },
         ],
     },
     {
         id: "02",
         name: "Startup MVP Development",
         shortName: "Startup MVP",
-        title: "Startup MVPs you can validate and launch in weeks.",
+        title: "Turn Your Startup Idea into a Working Product.",
         description:
-            "We start from core business goals, map critical user journeys, and prototype what actually moves the needle. Fast sprints, reusable component libraries, and clean full-stack code engineered to onboard your first 10,000 real users.",
-        color: "#EF4444", // Vibrant Red
-        gradient: "from-[#EF4444] via-[#DC2626] to-[#B91C1C]",
-        shadowColor: "rgba(239, 68, 68, 0.45)",
-        quote:
-            "“The engineering speed and flexibility from DevQuilt are exactly what early-stage startups need to win and raise funding.”",
-        author: "Alexis Botaya",
-        role: "Managing Director @ SoundLab",
-        avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200&auto=format&fit=crop",
-        ctaText: "EXPLORE MVP PROJECTS →",
+            "Build a focused first version of your digital product, test it with real users, and use their feedback to decide what to improve next.",
+        // ServiceShowcase Social panel — orange
+        color: "#ff5e00",
+        gradient: "from-[#FF5E00] via-[#E85500] to-[#C44700]",
+        shadowColor: "rgba(255, 94, 0, 0.5)",
+        focusLabel: "What we focus on",
+        focusPoints: [
+            "Core product features that solve the real problem",
+            "Essential user flows built for clarity",
+            "A solid foundation ready for iteration",
+        ],
+        ctaText: "EXPLORE OUR PROJECTS",
         ctaLink: "/projects",
         previews: [
-            {
-                img: "https://images.unsplash.com/photo-1555774698-0b77e0d5fac6?q=80&w=600&auto=format&fit=crop",
-                caption: "Rapid Prototype",
-            },
-            {
-                img: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?q=80&w=600&auto=format&fit=crop",
-                caption: "Mobile Experience",
-            },
-            {
-                img: "https://images.unsplash.com/photo-1522542550221-31fd19575a2d?q=80&w=600&auto=format&fit=crop",
-                caption: "User Workflow",
-            },
+            { img: imgSaas,   caption: "SaaS Dashboard" },
+            { img: imgSaasD1, caption: "Analytics View" },
+            { img: imgSkinzy, caption: "AI Product" },
         ],
     },
     {
         id: "03",
         name: "AI Integration",
         shortName: "AI Integration",
-        title: "AI Integration that users adopt & keep using.",
+        title: "Make Your Digital Product Smarter with AI.",
         description:
-            "Integrate computer vision, smart PyTorch classification models (like Skinzy health analysis), custom conversational chatbots, and automated workflows directly into your digital product to save hours of manual work.",
-        color: "#10B981", // Emerald Green
-        gradient: "from-[#10B981] via-[#059669] to-[#047857]",
-        shadowColor: "rgba(16, 185, 129, 0.45)",
-        quote:
-            "“DevQuilt delivered our AI skin analysis pipeline with PyTorch ResNet18 seamlessly. Real-time condition detection with instant personalized action plans.”",
-        author: "Skinzy Health",
-        role: "AI Healthcare Product",
-        avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=200&auto=format&fit=crop",
-        ctaText: "VIEW AI CASE STUDY →",
-        ctaLink: "/case-studies/1",
+            "Integrate practical AI features, chatbots, image analysis, and automated workflows into digital products to improve user experiences and simplify repetitive tasks.",
+        // ServiceShowcase Marketing panel — blue
+        color: "#0ea5e9",
+        gradient: "from-[#0EA5E9] via-[#0284C7] to-[#0369A1]",
+        shadowColor: "rgba(14, 165, 233, 0.5)",
+        focusLabel: "What we focus on",
+        focusPoints: [
+            "Practical AI use cases \u2014 not AI for the sake of it",
+            "Automation that saves your team real time",
+            "Seamless integration within your existing product",
+        ],
+        ctaText: "EXPLORE AI PROJECTS",
+        ctaLink: "/projects",
         previews: [
-            {
-                img: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=600&auto=format&fit=crop",
-                caption: "Vision Pipeline",
-            },
-            {
-                img: "https://images.unsplash.com/photo-1556228720-195a672e8a03?q=80&w=600&auto=format&fit=crop",
-                caption: "Skin Analysis",
-            },
-            {
-                img: "https://images.unsplash.com/photo-1551836022-d5d88e9218df?q=80&w=600&auto=format&fit=crop",
-                caption: "AI Routines",
-            },
+            { img: imgSkinzy,   caption: "Skinzy \u2014 AI Skin App" },
+            { img: imgSkinzyD1, caption: "Doctor Booking" },
+            { img: imgSkinzyD2, caption: "Skincare Routine" },
         ],
     },
     {
         id: "04",
         name: "UI/UX & Branding",
         shortName: "UI/UX & Branding",
-        title: "Intuitive product design & distinctive brand identity.",
+        title: "Design Experiences People Understand and Trust.",
         description:
-            "Design systems, user experience journeys, and memorable visual identities that make your digital product effortless to use and your brand instantly trustworthy. From wireframes and design tokens to interactive Figma prototypes.",
-        color: "#8B5CF6", // Electric Purple
-        gradient: "from-[#8B5CF6] via-[#7C3AED] to-[#581C87]",
-        shadowColor: "rgba(139, 92, 246, 0.45)",
-        quote:
-            "“Our product usability scores increased dramatically after DevQuilt crafted our complete UI system. The design language feels premium and cohesive.”",
-        author: "Elena Rostova",
-        role: "Product Lead @ NexaDesign",
-        avatar: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=200&auto=format&fit=crop",
-        ctaText: "SEE DESIGN WORK →",
+            "Create intuitive user journeys, clean interfaces, and consistent brand visuals that make your product easier to use and your startup easier to recognise.",
+        // ServiceShowcase Branding panel — deep purple
+        color: "#5b21b6",
+        gradient: "from-[#7C3AED] via-[#5B21B6] to-[#3B0764]",
+        shadowColor: "rgba(91, 33, 182, 0.5)",
+        focusLabel: "What we focus on",
+        focusPoints: [
+            "Intuitive user flows from first click to conversion",
+            "Clean, consistent interface systems",
+            "A brand visual identity that builds recognition",
+        ],
+        ctaText: "EXPLORE DESIGN WORK",
         ctaLink: "/projects",
         previews: [
-            {
-                img: "https://images.unsplash.com/photo-1626785774573-4b799315345d?q=80&w=600&auto=format&fit=crop",
-                caption: "Design System",
-            },
-            {
-                img: "https://images.unsplash.com/photo-1586717791821-3f44a563eb4c?q=80&w=600&auto=format&fit=crop",
-                caption: "Brand Identity",
-            },
-            {
-                img: "https://images.unsplash.com/photo-1558655146-d09347e92766?q=80&w=600&auto=format&fit=crop",
-                caption: "Figma Tokens",
-            },
+            { img: imgPortfolioD1, caption: "Service Booking UI" },
+            { img: imgAgencyD1,    caption: "Agency Website" },
+            { img: imgSaasD2,      caption: "Dashboard UI" },
         ],
     },
     {
         id: "05",
         name: "Technical SEO",
         shortName: "Technical SEO",
-        title: "Technical SEO foundations to help your product rank & scale.",
+        title: "Build a Strong Foundation for Search Visibility.",
         description:
-            "Semantic HTML5 architecture, Core Web Vitals optimization, automated XML sitemaps, structured schema data, and fast page speed for maximum organic discovery.",
-        color: "#DC2626", // Deep Red
-        gradient: "from-[#EF4444] via-[#DC2626] to-[#991B1B]",
-        shadowColor: "rgba(220, 38, 38, 0.45)",
-        quote:
-            "“DevQuilt optimized our architecture and our organic search traffic grew 3x within two months. Clean, fast, and properly indexed.”",
-        author: "Marcus Vance",
-        role: "Growth Lead @ PeakMetrics",
-        avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=200&auto=format&fit=crop",
-        ctaText: "START YOUR PROJECT →",
+            "Improve your website\u2019s technical foundations with search-friendly structure, metadata, indexing essentials, and performance improvements that support organic discovery.",
+        // ServiceShowcase WD dark bg style — navy dark gradient
+        color: "#7c3aed",
+        gradient: "from-[#1a1a2e] via-[#16213e] to-[#0f3460]",
+        shadowColor: "rgba(124, 58, 237, 0.4)",
+        focusLabel: "What we focus on",
+        focusPoints: [
+            "Semantic HTML structure search engines can read",
+            "Core Web Vitals and page speed improvements",
+            "Proper indexing, sitemaps and schema markup",
+        ],
+        ctaText: "DISCUSS YOUR PROJECT",
         ctaLink: "/contact",
         previews: [
-            {
-                img: "https://images.unsplash.com/photo-1562577309-4932fdd64cd1?q=80&w=600&auto=format&fit=crop",
-                caption: "Core Web Vitals",
-            },
-            {
-                img: "https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?q=80&w=600&auto=format&fit=crop",
-                caption: "Indexing Setup",
-            },
-            {
-                img: "https://images.unsplash.com/photo-1542744094-24638eff58bb?q=80&w=600&auto=format&fit=crop",
-                caption: "Schema Markup",
-            },
+            { img: imgAgency,    caption: "Optimised Website" },
+            { img: imgSaas,      caption: "Performance Metrics" },
+            { img: imgPortfolio, caption: "Clean Architecture" },
         ],
     },
 ];
@@ -310,27 +287,24 @@ function CalendarCard({ service, index, total, progress, onNext, onPrev }) {
                         {service.description}
                     </p>
 
-                    {/* ── BOTTOM ROW: Testimonial left | Previews right ── */}
+                    {/* ── BOTTOM ROW: Focus Points left | Previews right ── */}
                     <div className="flex flex-col lg:flex-row items-end gap-5 mt-auto pt-2">
 
-                        {/* Left: Testimonial */}
-                        <div className="flex flex-col gap-2.5 max-w-xs shrink-0">
-                            <p className="text-white/75 text-[11px] sm:text-xs italic leading-relaxed">
-                                {service.quote}
+                        {/* Left: What we focus on */}
+                        <div className="flex flex-col gap-2 max-w-xs shrink-0">
+                            <p className="text-white/50 text-[10px] uppercase tracking-[0.18em] font-bold">
+                                {service.focusLabel}
                             </p>
-                            <div className="flex items-center gap-2.5">
-                                <img
-                                    src={service.avatar}
-                                    alt={service.author}
-                                    className="w-7 h-7 sm:w-8 sm:h-8 rounded-full object-cover border-2 border-white/40 shadow-md shrink-0"
-                                    loading="lazy"
-                                    decoding="async"
-                                />
-                                <div>
-                                    <p className="text-xs font-bold text-white leading-tight">{service.author}</p>
-                                    <p className="text-[10px] text-white/65">{service.role}</p>
-                                </div>
-                            </div>
+                            <ul className="flex flex-col gap-1.5">
+                                {service.focusPoints.map((point, i) => (
+                                    <li key={i} className="flex items-start gap-2 text-white/80 text-[11px] sm:text-xs leading-snug">
+                                        <span className="mt-0.5 w-3.5 h-3.5 rounded-full border border-white/40 flex items-center justify-center shrink-0">
+                                            <span className="w-1 h-1 rounded-full bg-white/70" />
+                                        </span>
+                                        {point}
+                                    </li>
+                                ))}
+                            </ul>
                         </div>
 
                         {/* Right: Horizontal preview images with CTA overlaid */}
@@ -481,7 +455,7 @@ export default function CalendarServicesDeck() {
                         <h3 className={`text-xl md:text-2xl font-bold tracking-tight mt-0.5 ${
                             isDarkMode ? "text-white" : "text-gray-900"
                         }`}>
-                            Scroll to flip through our services
+                            Digital Solutions Built for Startup Growth
                         </h3>
                     </div>
 

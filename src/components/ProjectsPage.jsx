@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { useTheme } from "../context/ThemeContext";
-import bdImg from "../assets/bd.webp";
 import starImg from "../assets/Star 3.webp";
 import ProjectDetail from "./ProjectDetail";
 import skinzyImg from "../assets/projects/skinzy.jpg";
@@ -69,6 +68,7 @@ const QuickView = ({ project, onClose }) => {
                     src={project.image}
                     alt={project.title}
                     loading="lazy"
+                    decoding="async"
                     className="w-full h-full object-contain"
                 />
                 <div className="absolute bottom-0 left-0 right-0 p-8 bg-gradient-to-t from-black/80 to-transparent keep-white" data-keep-white="true" style={{ color: '#ffffff' }}>
@@ -197,20 +197,22 @@ const ProjectsPage = () => {
             </AnimatePresence>
 
 
-            <div
-                className={`fixed inset-0 bg-contain bg-center bg-no-repeat pointer-events-none -z-20 ${isDarkMode ? "opacity-90" : "opacity-30"
-                    }`}
-                style={{ backgroundImage: `url(${starImg})` }}
-            />
-
-
-
             {/* ================= HERO ================= */}
 
-            <section className={`min-h-screen pt-24 px-4 flex items-center justify-center relative z-10 transition-colors duration-300 ${isDarkMode ? "text-white" : "text-gray-900"
+            <section className={`min-h-screen pt-24 px-4 flex items-center justify-center relative overflow-hidden transition-colors duration-300 ${isDarkMode ? "text-white" : "text-gray-900"
                 }`}>
 
-                <div className="max-w-6xl text-center px-6 py-10">
+                {/* Fixed Star Watermark */}
+                <div
+                    className="fixed inset-0 bg-contain bg-center bg-no-repeat opacity-10 z-0 pointer-events-none"
+                    style={{ backgroundImage: `url(${starImg})` }}
+                />
+
+                {/* Subtle purple glow top-left */}
+                <div className="absolute top-0 left-0 w-[280px] sm:w-[500px] h-[280px] sm:h-[500px] max-w-full bg-purple-600/10 rounded-full blur-[100px] sm:blur-[120px] pointer-events-none z-0" />
+                <div className="absolute bottom-0 right-0 w-[240px] sm:w-[400px] h-[240px] sm:h-[400px] max-w-full bg-violet-800/8 rounded-full blur-[80px] sm:blur-[100px] pointer-events-none z-0" />
+
+                <div className="max-w-6xl text-center px-6 py-10 relative z-10">
 
                     <motion.p
                         initial={{ opacity: 0, y: 15 }}
@@ -274,6 +276,7 @@ const ProjectsPage = () => {
                                     src={project.image}
                                     alt={project.title}
                                     loading="lazy"
+                                    decoding="async"
                                     className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                                 />
 

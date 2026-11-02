@@ -8,105 +8,105 @@ const testimonials = [
         name: "James K.",
         role: "Product Designer",
         feedback: "The branding work elevated our product to a whole new level. Clients noticed immediately.",
-        image: "https://images.unsplash.com/photo-1599566150163-29194dcaad36?q=50&w=400&auto=format&fit=crop",
+        image: "https://images.unsplash.com/photo-1599566150163-29194dcaad36?q=60&w=120&auto=format&fit=crop",
     },
     {
         id: 2,
         name: "Sarah L.",
         role: "Marketing Head",
         feedback: "The user experience is seamless and intuitive. A game changer for our entire team.",
-        image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=50&w=400&auto=format&fit=crop",
+        image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=60&w=120&auto=format&fit=crop",
     },
     {
         id: 3,
         name: "Michael R.",
         role: "Tech Lead",
         feedback: "Incredible performance and reliability. I can't imagine working without it now.",
-        image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=50&w=400&auto=format&fit=crop",
+        image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=60&w=120&auto=format&fit=crop",
     },
     {
         id: 4,
         name: "Emily M.",
         role: "Founder & CEO",
         feedback: "Simply the best software engineering partner we've worked with. Delivery was fast and flawless.",
-        image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?q=50&w=400&auto=format&fit=crop",
+        image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?q=60&w=120&auto=format&fit=crop",
     },
     {
         id: 5,
         name: "Daniel W.",
         role: "E-commerce Director",
         feedback: "Our conversion rate jumped 38% after the redesign. Worth every penny invested.",
-        image: "https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?q=50&w=400&auto=format&fit=crop",
+        image: "https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?q=60&w=120&auto=format&fit=crop",
     },
     {
         id: 6,
         name: "Priya S.",
         role: "Brand Strategist",
         feedback: "They understood our vision perfectly and delivered beyond expectations. Highly recommend!",
-        image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=50&w=400&auto=format&fit=crop",
+        image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=60&w=120&auto=format&fit=crop",
     },
     {
         id: 7,
         name: "Lucas B.",
         role: "Creative Director",
         feedback: "A fantastic collaboration from start to finish. The attention to detail is unmatched.",
-        image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=50&w=400&auto=format&fit=crop",
+        image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=60&w=120&auto=format&fit=crop",
     },
     {
         id: 8,
         name: "Aisha T.",
         role: "Startup Founder",
         feedback: "From logo to full brand identity — everything was cohesive, modern, and on-brand.",
-        image: "https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?q=50&w=400&auto=format&fit=crop",
+        image: "https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?q=60&w=120&auto=format&fit=crop",
     },
     {
         id: 9,
         name: "Noah C.",
         role: "VP of Growth",
         feedback: "We saw a measurable increase in conversion and digital reach after partnering with DevQuilt.",
-        image: "https://images.unsplash.com/photo-1463453091185-61582044d556?q=50&w=400&auto=format&fit=crop",
+        image: "https://images.unsplash.com/photo-1463453091185-61582044d556?q=60&w=120&auto=format&fit=crop",
     },
     {
         id: 10,
         name: "Elena V.",
         role: "UX Researcher",
         feedback: "The research-driven approach is refreshing. They don't just make things look good — they work.",
-        image: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=50&w=400&auto=format&fit=crop",
+        image: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=60&w=120&auto=format&fit=crop",
     },
     {
         id: 11,
         name: "Omar F.",
         role: "Restaurant Owner",
         feedback: "My restaurant's social following tripled in 3 months thanks to their content strategy.",
-        image: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=50&w=400&auto=format&fit=crop",
+        image: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=60&w=120&auto=format&fit=crop",
     },
     {
         id: 12,
         name: "Mia J.",
         role: "Fashion Blogger",
         feedback: "My personal brand has never looked this polished. The team truly gets the fashion space.",
-        image: "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?q=50&w=400&auto=format&fit=crop",
+        image: "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?q=60&w=120&auto=format&fit=crop",
     },
     {
         id: 13,
         name: "Raj P.",
         role: "SaaS Founder",
         feedback: "Onboarding drop-off cut by half after the UX overhaul. Phenomenal result.",
-        image: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=50&w=400&auto=format&fit=crop",
+        image: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=60&w=120&auto=format&fit=crop",
     },
     {
         id: 14,
         name: "Clara N.",
         role: "Non-profit Director",
         feedback: "They helped us tell our story in a way that resonated and drove real donations.",
-        image: "https://images.unsplash.com/photo-1567532939604-b6b5b0db2604?q=50&w=400&auto=format&fit=crop",
+        image: "https://images.unsplash.com/photo-1567532939604-b6b5b0db2604?q=60&w=120&auto=format&fit=crop",
     },
     {
         id: 15,
         name: "Tom H.",
         role: "Real Estate Agent",
         feedback: "Professional, creative, and fast. The new brand helped me close more high-end clients.",
-        image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=50&w=400&auto=format&fit=crop",
+        image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=60&w=120&auto=format&fit=crop",
     },
 ];
 
@@ -362,7 +362,7 @@ export default function TestimonialCircle() {
             `}</style>
 
             {/* Solar System / Concentric Circles Background */}
-            <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-20 section-mask z-0">
+            <div className="absolute inset-0 overflow-hidden flex items-center justify-center pointer-events-none opacity-20 section-mask z-0">
                 <div className={`absolute border rounded-full transition-colors duration-300 ${isDarkMode ? "border-gray-700" : "border-gray-300"}`} style={{ width: r1 * 2, height: r1 * 2 }} />
                 <div className={`absolute border rounded-full transition-colors duration-300 ${isDarkMode ? "border-gray-700" : "border-gray-300"}`} style={{ width: r2 * 2, height: r2 * 2 }} />
                 <div className={`absolute border rounded-full transition-colors duration-300 ${isDarkMode ? "border-gray-700" : "border-gray-300"}`} style={{ width: r3 * 2, height: r3 * 2 }} />
@@ -385,7 +385,7 @@ export default function TestimonialCircle() {
             </div>
 
             {/* Rotating System — pointer-events-none on wrapper so orbit ring divs don't block hover */}
-            <div className={`absolute inset-0 flex items-center justify-center pointer-events-none z-[50] ${!isMobile ? 'section-mask' : ''}`}>
+            <div className={`absolute inset-0 overflow-hidden flex items-center justify-center pointer-events-none z-[50] ${!isMobile ? 'section-mask' : ''}`}>
 
                 {/* Ring 1 - Inner: 3 avatars at 120° apart */}
                 <Orbit radius={r1} duration={100} isPaused={effectivePaused} isDarkMode={isDarkMode}>
@@ -393,7 +393,7 @@ export default function TestimonialCircle() {
                         <div key={i} className="pointer-events-auto" style={{ zIndex: (hoveredId === testimonials[i].id || activeId === testimonials[i].id) ? 200 : 1 }}>
                             <PositionedItem radius={r1} angle={angle} duration={100} isPaused={effectivePaused}>
                                 <TestimonialCard
-                                    testimonial={{ ...testimonials[i], image: testimonials[i].image.replace('q=50&w=400', 'q=50&w=200') }}
+                                    testimonial={testimonials[i]}
                                     size={isMobile ? ring1SizesMobile[i] : ring1Sizes[i]}
                                     onHover={(active) => { setIsPaused(active); setHoveredId(active ? testimonials[i].id : null); }}
                                     isActive={activeId === testimonials[i].id}
@@ -412,7 +412,7 @@ export default function TestimonialCircle() {
                         <div key={i} className="pointer-events-auto" style={{ zIndex: (hoveredId === testimonials[i + 3].id || activeId === testimonials[i + 3].id) ? 200 : 1 }}>
                             <PositionedItem radius={r2} angle={angle} duration={140} isPaused={effectivePaused}>
                                 <TestimonialCard
-                                    testimonial={{ ...testimonials[i + 3], image: testimonials[i + 3].image.replace('q=50&w=400', 'q=50&w=200') }}
+                                    testimonial={testimonials[i + 3]}
                                     size={isMobile ? ring2SizesMobile[i] : ring2Sizes[i]}
                                     onHover={(active) => { setIsPaused(active); setHoveredId(active ? testimonials[i + 3].id : null); }}
                                     isActive={activeId === testimonials[i + 3].id}
@@ -431,7 +431,7 @@ export default function TestimonialCircle() {
                         <div key={i} className="pointer-events-auto" style={{ zIndex: (hoveredId === testimonials[i + 8].id || activeId === testimonials[i + 8].id) ? 200 : 1 }}>
                             <PositionedItem radius={r3} angle={angle} duration={180} isPaused={effectivePaused}>
                                 <TestimonialCard
-                                    testimonial={{ ...testimonials[i + 8], image: testimonials[i + 8].image.replace('q=50&w=400', 'q=50&w=300') }}
+                                    testimonial={testimonials[i + 8]}
                                     size={isMobile ? ring3SizesMobile[i] : ring3Sizes[i]}
                                     onHover={(active) => { setIsPaused(active); setHoveredId(active ? testimonials[i + 8].id : null); }}
                                     isActive={activeId === testimonials[i + 8].id}

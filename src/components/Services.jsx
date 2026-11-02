@@ -29,53 +29,53 @@ const AnimatedNumber = ({ end }) => {
 
 const CounterVisual = ({ small = false }) => {
     const { isDarkMode } = useTheme();
-    const [count, setCount] = useState(0);
     const ref = useRef(null);
     const isInView = useInView(ref, { once: true, amount: 0.9 });
 
+    const principles = [
+        { label: "Clarity", sub: "Clear visual hierarchy" },
+        { label: "Speed", sub: "Optimised performance" },
+        { label: "Trust", sub: "Credible first impression" },
+    ];
+    const [idx, setIdx] = useState(0);
+
     useEffect(() => {
         if (!isInView) return;
-        let start = 0;
-        const end = 4362;
-        const duration = 2000;
-        let startTime = null;
-
-        const animate = (timestamp) => {
-            if (!startTime) startTime = timestamp;
-            const progress = Math.min((timestamp - startTime) / duration, 1);
-            const easeProgress = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
-            setCount(Math.floor(easeProgress * end));
-            if (progress < 1) requestAnimationFrame(animate);
-        };
-        requestAnimationFrame(animate);
+        const t = setInterval(() => setIdx(p => (p + 1) % 3), 2800);
+        return () => clearInterval(t);
     }, [isInView]);
 
     return (
-        <div ref={ref} className={`${
-            isDarkMode ? "bg-[#111] text-white" : "bg-gray-100 text-gray-900 border border-gray-200"
-        } rounded-2xl flex flex-col items-center justify-center text-center mt-auto shadow-inner relative overflow-hidden group ${
-            small ? "p-3 h-24" : "p-6 h-48 sm:h-56"
-        }`}>
-            <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={isInView ? { opacity: 1, scale: 1 } : {}}
-                transition={{ duration: 0.8, ease: "easeOut" }}
-                className={`${isDarkMode ? "text-white" : "text-gray-900"} font-bold font-mono tracking-tighter tabular-nums inline-block text-center ${
-                    small ? "text-3xl" : "text-5xl sm:text-7xl min-w-[4ch]"
-                }`}
-            >
-                {count}
-            </motion.div>
-            <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                animate={isInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.8, delay: 0.2 }}
-                className={`${isDarkMode ? "text-white/60" : "text-gray-500"} mt-1 ${
-                    small ? "text-[10px]" : "text-sm sm:text-base max-w-[200px]"
-                }`}
-            >
-                followers
-            </motion.div>
+        <div ref={ref} className={`${isDarkMode ? "bg-[#111] text-white" : "bg-gray-100 text-gray-900 border border-gray-200"
+            } rounded-2xl flex flex-col items-center justify-center text-center mt-auto shadow-inner relative overflow-hidden group ${small ? "p-3 h-24" : "p-6 h-48 sm:h-56"
+            }`}>
+            <AnimatePresence mode="wait">
+                <motion.div
+                    key={idx}
+                    initial={{ opacity: 0, y: 12 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -12 }}
+                    transition={{ duration: 0.4 }}
+                    className="flex flex-col items-center gap-1"
+                >
+                    <span className={`font-bold tracking-tight ${small ? "text-2xl" : "text-4xl sm:text-5xl"
+                        } ${isDarkMode ? "text-white" : "text-gray-900"}`}>
+                        {principles[idx].label}
+                    </span>
+                    <span className={`${small ? "text-[10px]" : "text-sm"
+                        } ${isDarkMode ? "text-white/50" : "text-gray-500"}`}>
+                        {principles[idx].sub}
+                    </span>
+                </motion.div>
+            </AnimatePresence>
+            <div className="absolute bottom-3 flex gap-1.5">
+                {principles.map((_, i) => (
+                    <div key={i} className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${i === idx
+                        ? (isDarkMode ? "bg-white" : "bg-gray-800")
+                        : (isDarkMode ? "bg-white/20" : "bg-gray-300")
+                        }`} />
+                ))}
+            </div>
         </div>
     );
 };
@@ -94,9 +94,9 @@ const StatsSliderVisual = () => {
     }, [isInView]);
 
     const slides = [
-        { type: 'number', end: 500, label: "comments" },
-        { type: 'number', end: 237, label: "reposts" },
-        { type: 'number', end: 937, label: "likes" },
+        { label: "IDEA", value: "→ LAUNCH", sub: "Validated product in weeks, not months" },
+        { label: "BUILD", value: "TEST", sub: "Real user feedback from day one" },
+        { label: "ITERATE", value: "GROW", sub: "Improve based on what actually works" },
     ];
 
     return (
@@ -129,29 +129,17 @@ const StatsSliderVisual = () => {
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -15 }}
                         transition={{ duration: 0.4, ease: "easeInOut" }}
-                        className="flex flex-col items-center"
+                        className="flex flex-col items-center px-4"
                     >
-                        {slides[activeIndex].type === 'number' ? (
-                            <>
-                                <span className="text-[#1A1A1A] text-7xl sm:text-[84px] leading-none font-medium tracking-tight tabular-nums min-w-[3ch] inline-block text-center">
-                                    <AnimatedNumber end={slides[activeIndex].end} />
-                                </span>
-                                <span className="text-[#1A1A1A]/80 text-[13px] mt-2 font-medium tracking-[0.2em] uppercase">
-                                    {slides[activeIndex].label}
-                                </span>
-                            </>
-                        ) : (
-                            <div className="grid grid-cols-3 gap-2 w-28 h-20 opacity-90 mx-auto mt-2">
-                                {/* Row 1 */}
-                                <div className="flex justify-center items-end pb-1"><div className="w-8 h-4 border-[4px] border-[#1A1A1A] rounded-t-full border-b-0" /></div>
-                                <div className="flex justify-center items-start pt-2"><div className="w-8 h-4 border-[4px] border-[#1A1A1A] rounded-b-full border-t-0" /></div>
-                                <div className="flex justify-center items-center"><div className="w-6 h-10 border-[4px] border-[#1A1A1A] rounded-full" /></div>
-                                {/* Row 2 */}
-                                <div className="flex justify-center items-start pt-1"><div className="w-8 h-4 border-[4px] border-[#1A1A1A] rounded-b-full border-t-0" /></div>
-                                <div className="flex justify-center items-end pb-2"><div className="w-8 h-4 border-[4px] border-[#1A1A1A] rounded-t-full border-b-0" /></div>
-                                <div className="flex justify-center items-end pb-2 pr-2"><div className="w-6 h-[4px] bg-[#1A1A1A] rounded-full" /></div>
-                            </div>
-                        )}
+                        <span className="text-[#1A1A1A] text-4xl sm:text-5xl leading-none font-bold tracking-tight text-center">
+                            {slides[activeIndex].label}
+                        </span>
+                        <span className="text-[#7B61FF] text-2xl sm:text-3xl font-semibold mt-1">
+                            {slides[activeIndex].value}
+                        </span>
+                        <span className="text-[#1A1A1A]/60 text-[11px] mt-3 font-medium tracking-wide text-center max-w-[160px]">
+                            {slides[activeIndex].sub}
+                        </span>
                     </motion.div>
                 </AnimatePresence>
             </div>
@@ -165,9 +153,8 @@ const CircleProgressVisual = () => {
     const isInView = useInView(ref, { once: true, amount: 0.9 });
 
     return (
-        <div ref={ref} className={`${
-            isDarkMode ? "bg-white/5 border-white/10" : "bg-[#F8F9FA] border-gray-100"
-        } pb-5 rounded-3xl p-4 flex flex-col items-center justify-center mt-auto h-48 sm:h-56 shadow-sm relative overflow-hidden group border`}>
+        <div ref={ref} className={`${isDarkMode ? "bg-white/5 border-white/10" : "bg-[#F8F9FA] border-gray-100"
+            } pb-5 rounded-3xl p-4 flex flex-col items-center justify-center mt-auto h-48 sm:h-56 shadow-sm relative overflow-hidden group border`}>
             <div className="relative w-40 h-40 flex items-center justify-center">
                 <svg className="absolute inset-0 w-full h-full transform -rotate-90">
                     <circle cx="80" cy="80" r="70" stroke={isDarkMode ? "rgba(255,255,255,0.1)" : "#f1f1f1"} strokeWidth="8" fill="none" />
@@ -181,17 +168,17 @@ const CircleProgressVisual = () => {
                 </svg>
                 <div className="flex flex-col items-center justify-center z-10 text-center">
                     <motion.span initial={{ opacity: 0, scale: 0.8 }} animate={isInView ? { opacity: 1, scale: 1 } : {}} transition={{ delay: 0.9, duration: 0.9 }} className={`text-[10px] ${isDarkMode ? "text-gray-400" : "text-gray-500"} font-medium tracking-wide uppercase mb-1`}>
-                        Level 2<br />10 to 20 miles
+                        UX Design<br />75% Complete
                     </motion.span>
                     <motion.span initial={{ opacity: 0, scale: 0.9 }} animate={isInView ? { opacity: 1, scale: 1 } : {}} transition={{ delay: 0.6, duration: 0.9 }} className={`text-3xl font-bold ${isDarkMode ? "text-white" : "text-gray-900"} leading-none`}>
-                        191V
+                        AI App
                     </motion.span>
                 </div>
                 <motion.div animate={isInView ? { opacity: 1, scale: 1, x: -30, y: -40 } : { opacity: 0, scale: 0, x: -10, y: -20 }} transition={{ delay: 0.8 }} className={`absolute z-20 top-8 left-4 w-8 h-8 ${isDarkMode ? "bg-[#222] text-white shadow-black/40" : "bg-white text-gray-600 shadow-lg"} rounded-full flex items-center justify-center shadow`}>
                     <span className="text-[10px]">✦</span>
                 </motion.div>
                 <motion.div animate={isInView ? { opacity: 1, scale: 1, x: -45, y: 0 } : { opacity: 0, scale: 0, x: -5, y: -10 }} transition={{ delay: 1.0 }} className={`absolute z-20 top-1/2 left-4 w-10 h-10 ${isDarkMode ? "bg-[#222] text-white shadow-black/40" : "bg-white text-gray-600 shadow-lg"} rounded-full flex items-center justify-center shadow`}>
-                    <span className="text-xs text-center w-full leading-none">❤️</span>
+                    <span className="text-xs text-center w-full leading-none">🤖</span>
                 </motion.div>
             </div>
         </div>
@@ -444,11 +431,10 @@ const Tag = ({ children, icon, type, bgColor, textColor, iconColor }) => {
 
     if (type === "outline") {
         return (
-            <div className={`${baseStyles} border ${
-                isDarkMode
-                    ? "border-white/20 bg-white/[0.04] text-white/90 hover:border-white/40"
-                    : "border-black/15 bg-white text-gray-900 shadow-sm hover:border-black/30"
-            }`}>
+            <div className={`${baseStyles} border ${isDarkMode
+                ? "border-white/20 bg-white/[0.04] text-white/90 hover:border-white/40"
+                : "border-black/15 bg-white text-gray-900 shadow-sm hover:border-black/30"
+                }`}>
                 <span className="flex items-center justify-center text-sm">{icon}</span>
                 <span className="text-sm font-medium">{children}</span>
             </div>
@@ -457,11 +443,10 @@ const Tag = ({ children, icon, type, bgColor, textColor, iconColor }) => {
 
     if (type === "circle") {
         return (
-            <div className={`${baseStyles} border ${
-                isDarkMode
-                    ? "border-white/10 bg-white/[0.03] text-white/90"
-                    : "border-black/10 bg-white text-gray-900 shadow-sm"
-            }`}>
+            <div className={`${baseStyles} border ${isDarkMode
+                ? "border-white/10 bg-white/[0.03] text-white/90"
+                : "border-black/10 bg-white text-gray-900 shadow-sm"
+                }`}>
                 <div className={`w-5 h-5 ${bgColor} rounded-full flex items-center justify-center flex-shrink-0 shadow-sm ${iconColor || "text-white"}`}>
                     <span className="text-[11px] flex items-center justify-center leading-none">{icon}</span>
                 </div>
@@ -550,20 +535,20 @@ const ServiceSection = ({ id, hero, left, right, bottom }) => {
         offset: ["start end", "end start"]
     });
 
-    // Consolidated Parallax: Side cards move SIGNIFICANTLY faster than the Hero card
+    // Parallax: gentle movement — cards don't fly away
     const convergePoint = 0.6;
-    const sideExitY = -1400;  // Extremely high speed exit for sides/bottom
-    const heroExitY = -80;   // Very slow, sticky exit for Hero
+    const sideExitY = -200;   // Moderate exit speed
+    const heroExitY = -40;    // Very subtle for hero
 
-    // Hero card stays almost stationary to keep focus
-    const yHero = useTransform(scrollYProgress, [0, convergePoint, 1], [80, 0, heroExitY]);
+    // Hero card stays almost stationary
+    const yHero = useTransform(scrollYProgress, [0, convergePoint, 1], [40, 0, heroExitY]);
 
-    // Side cards start from lower and zoom past the hero at high speed
-    const yLeft = useTransform(scrollYProgress, [0, convergePoint, 1], [200, -128, sideExitY - 128]);
-    const yRight = useTransform(scrollYProgress, [0, convergePoint, 1], [200, -192, sideExitY - 192]);
+    // Side cards move slightly faster than hero
+    const yLeft = useTransform(scrollYProgress, [0, convergePoint, 1], [80, -40, sideExitY - 40]);
+    const yRight = useTransform(scrollYProgress, [0, convergePoint, 1], [80, -60, sideExitY - 60]);
 
-    // Bottom cards follow the extreme high-speed side parallax
-    const yBottom = useTransform(scrollYProgress, [0, convergePoint, 1], [200, 0, sideExitY]);
+    // Bottom cards same moderate speed
+    const yBottom = useTransform(scrollYProgress, [0, convergePoint, 1], [80, 0, sideExitY]);
 
     // Hero Entry Opacity: 50% when start showing, 100% when fully in view
     const heroRef = useRef(null);
@@ -575,32 +560,7 @@ const ServiceSection = ({ id, hero, left, right, bottom }) => {
     const heroOpacity = useTransform(heroScrollY, [0, 1], [0.5, 1]);
     const heroScale = useTransform(heroScrollY, [0, 1], [0.95, 1]);
 
-    useEffect(() => {
-        let timer;
-        let unlockTimer;
 
-        if (isSectionInView && !isExpanded) {
-            // Lock the scroll briefly so they see the expansion starts
-            if (scrollContainerRef.current) {
-                scrollContainerRef.current.style.overflowY = "hidden";
-
-                unlockTimer = setTimeout(() => {
-                    if (scrollContainerRef.current) {
-                        scrollContainerRef.current.style.overflowY = "";
-                    }
-                }, 500);
-            }
-
-            // Start animation sequence when section enters view
-            timer = setTimeout(() => {
-                setIsExpanded(true);
-            }, 2000); // Give user time to see the Hero card first
-        }
-        return () => {
-            clearTimeout(timer);
-            clearTimeout(unlockTimer);
-        };
-    }, [isSectionInView, isExpanded, scrollContainerRef]);
 
     return (
         <div ref={ref} className={`z-10 max-w-full mx-auto px-4 sm:px-6 lg:px-8 relative ${isDarkMode ? "text-white" : "text-gray-900"}`}>
@@ -647,6 +607,7 @@ const ServiceSection = ({ id, hero, left, right, bottom }) => {
                                         </motion.div>
 
                                         <div className="w-16 h-16 bg-white/80 backdrop-blur-md rounded-full flex flex-col items-center justify-center -mb-8 pt-1 shadow-lg border border-white/30 text-gray-800 font-medium text-[10px] leading-tight transition-colors group-hover:bg-white/90">
+                                            <span>Click to</span>
                                             <span>Explore</span>
                                             <span>more</span>
                                         </div>
@@ -659,7 +620,7 @@ const ServiceSection = ({ id, hero, left, right, bottom }) => {
                     <>
                         {/* Card 1 - Left */}
                         <motion.div
-                            className="h-auto w-[325px] md:w-[435px] min-h-[400px] md:h-[500px] md:mt-32 order-2 md:order-1"
+                            className="h-auto w-[325px] md:w-[435px] md:min-h-[520px] md:mt-32 order-2 md:order-1"
                             style={!isMobile ? { y: yLeft } : undefined}
                             initial={{ opacity: 0, x: -100, scale: 0.98 }}
                             animate={{ opacity: 1, x: 0, scale: 1 }}
@@ -687,7 +648,7 @@ const ServiceSection = ({ id, hero, left, right, bottom }) => {
 
                         {/* Card 3 - Right */}
                         <motion.div
-                            className="h-auto w-[325px] md:w-[435px] min-h-[400px] md:h-[450px] md:mt-48 order-3"
+                            className="h-auto w-[325px] md:w-[435px] md:min-h-[470px] md:mt-48 order-3"
                             style={!isMobile ? { y: yRight } : undefined}
                             initial={{ opacity: 0, x: 100, scale: 0.98 }}
                             animate={{ opacity: 1, x: 0, scale: 1 }}
@@ -724,31 +685,21 @@ export default function Services() {
     const allTags = [
         { name: "Website Development", icon: ServiceIcons.laptop, type: "highlight", bgColor: "bg-[#E9FFC2]" },
         { name: "Landing Page Design", icon: ServiceIcons.sparkle, type: "outline" },
-        { name: "Startup MVP Development", icon: ServiceIcons.rocket, type: "circle", bgColor: "bg-[#7B61FF]" },
         { name: "Web Application Development", icon: ServiceIcons.layers, type: "highlight", bgColor: "bg-[#E0D7FF]" },
-        { name: "AI Integration & Automation", icon: ServiceIcons.bot, type: "circle", bgColor: "bg-[#A3E635]", iconColor: "text-black" },
+        { name: "Mobile App Development", icon: ServiceIcons.mobile, type: "highlight", bgColor: "bg-rose-200" },
+        { name: "Startup MVP Development", icon: ServiceIcons.rocket, type: "circle", bgColor: "bg-[#7B61FF]" },
+        { name: "AI Integration", icon: ServiceIcons.bot, type: "circle", bgColor: "bg-[#A3E635]", iconColor: "text-black" },
         { name: "UI/UX Design", icon: ServiceIcons.palette, type: "outline" },
-        { name: "Branding & Identity", icon: ServiceIcons.star, type: "circle", bgColor: "bg-red-500" },
-        { name: "React Native Apps", icon: ServiceIcons.mobile, type: "highlight", bgColor: "bg-rose-200" },
+        { name: "Brand Identity Design", icon: ServiceIcons.star, type: "circle", bgColor: "bg-[#7B61FF]" },
         { name: "Technical SEO", icon: ServiceIcons.gear, type: "circle", bgColor: "bg-[#A3E635]", iconColor: "text-black" },
-        { name: "Website Redesign", icon: ServiceIcons.refresh, type: "outline" },
-        { name: "SaaS Development", icon: ServiceIcons.cloud, type: "circle", bgColor: "bg-[#7B61FF]" },
-        { name: "API Integration", icon: ServiceIcons.link, type: "highlight", bgColor: "bg-[#E9FFC2]" },
-        { name: "CMS Development", icon: ServiceIcons.fileText, type: "circle", bgColor: "bg-red-600" },
-        { name: "Website Maintenance", icon: ServiceIcons.tools, type: "outline" },
-        { name: "LinkedIn Branding", icon: ServiceIcons.briefcase, type: "circle", bgColor: "bg-[#7B61FF]" },
-        { name: "User Research", icon: ServiceIcons.users, type: "highlight", bgColor: "bg-[#E9FFC2]" },
-        { name: "Performance Optimization", icon: ServiceIcons.zap, type: "circle", bgColor: "bg-red-600" },
-        { name: "E-commerce Development", icon: ServiceIcons.cart, type: "outline" },
-        { name: "Chatbot Development", icon: ServiceIcons.message, type: "highlight", bgColor: "bg-[#E0D7FF]" },
-        { name: "Workflow Automation", icon: ServiceIcons.trend, type: "circle", bgColor: "bg-[#A3E635]", iconColor: "text-black" },
+        { name: "API Integration & Automation", icon: ServiceIcons.link, type: "highlight", bgColor: "bg-[#E9FFC2]" },
     ];
 
     const serviceSections = [
         {
             hero: {
                 title: "Website Development",
-                description: "Custom, responsive websites designed to communicate your value, engage visitors, and support your business goals.",
+                description: "We build fast, responsive websites that communicate your value, establish credibility, and help turn visitors into potential customers.",
                 tags: ["Responsive Design", "Custom Development"],
                 image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=50&w=800&auto=format&fit=crop",
                 fullBackground: true,
@@ -757,28 +708,29 @@ export default function Services() {
             },
             left: {
                 title: "Startup MVP Development",
-                description: "Turn your idea into a functional minimum viable product so you can test assumptions and gather real user feedback.",
+                description: "Turn your startup idea into a functional first version, test it with real users, and use their feedback to guide your next steps.",
                 tags: ["MVP", "SaaS", "Web Apps"],
                 customVisual: <StatsSliderVisual />
             },
             right: {
                 title: "AI Integration & Automation",
-                description: "Integrate AI features, chatbots, and workflow automation where they provide practical business value.",
-                tags: ["AI Chatbot", "API Integration"],
+                description: "Integrate useful AI capabilities and automated workflows into your digital product to improve user experiences and simplify repetitive tasks.",
+                tags: ["AI Features", "Chatbots", "Automation"],
                 customVisual: <CircleProgressVisual />
             },
             bottom: [
                 {
-                    title: "UI/UX Design & Branding",
-                    description: "Intuitive digital experiences and consistent brand identities that make your business easier to recognize.",
+                    title: "UI/UX Design & Brand Identity",
+                    description: "Design intuitive digital experiences and a cohesive visual identity that make your startup easier to understand, recognize, and trust.",
                     tags: ["UI/UX", "Brand Identity"],
                     customVisual: <CounterVisual small={true} />
                 },
+
                 {
-                    title: "Landing Page Design & Development",
-                    description: "Focused landing pages built around your offer, audience, and conversion goals.",
-                    tags: ["Conversion-Focused", "Responsive"],
-                    image: "https://images.unsplash.com/photo-1547658719-da2b51169166?q=50&w=800&auto=format&fit=crop"
+                    title: "Mobile App Development",
+                    description: "Build mobile experiences that help startups bring their products to users on the devices they use every day.",
+                    tags: ["iOS & Android", "React Native"],
+                    image: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?q=50&w=800&auto=format&fit=crop"
                 }
             ]
         }
@@ -787,9 +739,8 @@ export default function Services() {
     const { isDarkMode } = useTheme();
 
     return (
-        <section className={`relative z-0 flex flex-col justify-center pt-10 overflow-hidden transition-colors duration-300 ${
-            isDarkMode ? "bg-[#0a0a0a]" : "bg-[#f5f5f7]"
-        }`}>
+        <section className={`relative z-0 flex flex-col justify-center pt-10 pb-20 overflow-visible transition-colors duration-300 ${isDarkMode ? "bg-[#0a0a0a]" : "bg-[#f5f5f7]"
+            }`}>
 
             <div className="max-w-7xl mx-auto">
                 <motion.div
@@ -800,10 +751,10 @@ export default function Services() {
                     className="text-center mb-7"
                 >
                     <h2 className={`text-4xl md:text-6xl mb-4 ${isDarkMode ? "text-white" : "text-gray-900"}`}>
-                        Digital Solutions Built Around Your Goals
+                        Digital Solutions Built for Startup Growth
                     </h2>
                     <p className={isDarkMode ? "text-gray-400" : "text-gray-600"}>
-                        Whether you're launching a startup or building a digital product, we have the right solution for your next stage of growth.
+                        From your first website to a launch-ready digital product, we help startups design, build, and improve the technology behind their next big idea.
                     </p>
                 </motion.div>
             </div>

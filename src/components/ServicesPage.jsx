@@ -2,7 +2,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { motion } from "motion/react";
 import { useTheme } from "../context/ThemeContext";
-import bdImg from "../assets/bd.webp";
 import starImg from "../assets/Star 3.webp";
 import CalendarServicesDeck from "./CalendarServicesDeck";
 import InteractiveServicesAccordion from "./InteractiveServicesAccordion";
@@ -21,24 +20,20 @@ const ServicesPage = () => {
             className={`min-h-screen font-tomato outline-none transition-colors duration-300 ${isDarkMode ? "bg-[#0a0a0a] text-white" : "bg-white text-gray-900"
                 }`}
         >
-            {/* BACKGROUND */}
-            <div
-                className={`fixed inset-0 bg-cover bg-center -z-30 ${isDarkMode ? "opacity-20" : "opacity-10"}`}
-                style={{ backgroundImage: `url(${bdImg})` }}
-            />
-            <div
-                className={`fixed inset-0 bg-contain bg-center -z-20 pointer-events-none bg-no-repeat ${isDarkMode ? "opacity-30" : "opacity-15"}`}
-                style={{ backgroundImage: `url(${starImg})` }}
-            />
-
-            {/* HERO - ROTATING ORBITAL GALLERY */}
+            {/* HERO */}
             <section
-                style={{
-                    "--orbit-radius": "clamp(175px, 26vw, 390px)",
-                }}
                 className={`relative min-h-[92vh] sm:min-h-screen w-full flex items-center justify-center overflow-hidden transition-colors duration-500 ${isDarkMode ? "bg-[#0a0a0a] text-white" : "bg-[#fbfbfd] text-gray-900"
                     }`}
             >
+                {/* Fixed Star Watermark */}
+                <div
+                    className="fixed inset-0 bg-contain bg-center bg-no-repeat opacity-10 z-0 pointer-events-none"
+                    style={{ backgroundImage: `url(${starImg})` }}
+                />
+
+                {/* Subtle purple glow top-left */}
+                <div className="absolute top-0 left-0 w-[280px] sm:w-[500px] h-[280px] sm:h-[500px] max-w-full bg-purple-600/10 rounded-full blur-[100px] sm:blur-[120px] pointer-events-none z-0" />
+                <div className="absolute bottom-0 right-0 w-[240px] sm:w-[400px] h-[240px] sm:h-[400px] max-w-full bg-violet-800/8 rounded-full blur-[80px] sm:blur-[100px] pointer-events-none z-0" />
 
 
                 {/* Center Hero Content */}
@@ -60,7 +55,10 @@ const ServicesPage = () => {
                         className={`text-sm sm:text-base md:text-lg mb-8 font-medium tracking-wide ${isDarkMode ? "text-gray-400" : "text-gray-600"
                             }`}
                     >
-                        DevQuilt Studio — Design that means business.
+                        DevQuilt Studio —{" "}
+                        <span className="bg-gradient-to-r from-blue-400 via-indigo-400 to-purple-400 bg-clip-text text-transparent font-semibold">
+                            Design that means business.
+                        </span>
                     </motion.p>
 
 

@@ -2,7 +2,7 @@ import React from "react";
 import { motion } from "motion/react";
 import { Link } from "react-router-dom";
 import { useTheme } from "../context/ThemeContext";
-import founderImg from "../assets/founder.png";
+import founderImg from "../assets/founder.webp";
 
 // ─── Fade-up wrapper ──────────────────────────────────────────────────────────
 function FadeUp({ children, delay = 0, className = "" }) {

@@ -14,10 +14,11 @@ export const ThemeProvider = ({ children }) => {
             if (saved !== null) {
                 return saved === 'dark';
             }
+            // No saved preference — follow device/OS setting
+            return window.matchMedia('(prefers-color-scheme: dark)').matches;
         } catch (e) {
-            // fallback
+            return true; // fallback
         }
-        return true; // default dark mode
     });
 
     const toggleTheme = () => {
@@ -29,6 +30,22 @@ export const ThemeProvider = ({ children }) => {
             return next;
         });
     };
+
+    // Sync with OS theme changes (only when user hasn't manually overridden)
+    useEffect(() => {
+        const mq = window.matchMedia('(prefers-color-scheme: dark)');
+        const handleOsChange = (e) => {
+            try {
+                const saved = localStorage.getItem('devquilt-theme');
+                if (saved === null) {
+                    // No manual override — follow OS
+                    setIsDarkMode(e.matches);
+                }
+            } catch {}
+        };
+        mq.addEventListener('change', handleOsChange);
+        return () => mq.removeEventListener('change', handleOsChange);
+    }, []);
 
     useEffect(() => {
         const html = document.documentElement;

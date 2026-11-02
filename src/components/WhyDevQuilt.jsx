@@ -134,7 +134,7 @@ export default function WhyDevQuilt() {
     }, [lineY, buildPath]);
 
     return (
-        <section ref={sectionRef} className={`relative z-0 min-h-screen flex items-center py-20 overflow-hidden transition-colors duration-300 ${isDarkMode ? "bg-[#0a0a0a] text-white" : "bg-[#f5f5f7] text-gray-900"}`}>
+        <section ref={sectionRef} className={`relative z-0 w-full min-h-screen flex items-center justify-center py-12 sm:py-16 lg:py-6 xl:py-10 transition-colors duration-300 ${isDarkMode ? "bg-[#0a0a0a] text-white" : "bg-[#f5f5f7] text-gray-900"}`}>
             <style>{`
                 @keyframes drawBorder { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
                 @keyframes revealContent { 
@@ -143,21 +143,17 @@ export default function WhyDevQuilt() {
                 }
             `}</style>
 
+            <div className="max-w-6xl w-full mx-auto px-4 sm:px-6 flex flex-col lg:flex-row gap-8 lg:gap-10 xl:gap-14 items-center lg:items-start relative z-10">
 
-
-
-            <div className="max-w-6xl mx-auto px-6 flex flex-col lg:flex-row gap-16 items-start relative z-10">
-
-
-                <div className="lg:w-[344px] space-y-12 w-full relative">
+                <div className="lg:w-[320px] xl:w-[344px] space-y-5 lg:space-y-6 w-full relative">
                     {tables.map((table, index) => (
                         <div key={table.id} onClick={() => handleTabClick(index)} className="group cursor-pointer relative">
 
-                            <h2 className={`font-medium mb-6 leading-tight tracking-tight transition-all duration-700
+                            <h2 className={`font-medium mb-4 lg:mb-5 leading-tight tracking-tight transition-all duration-700
                                 ${activeTab === index
                                     ? (isDarkMode ? "text-white opacity-100 scale-100" : "text-gray-900 opacity-100 scale-100")
                                     : (isDarkMode ? "text-white opacity-40 hover:opacity-70 scale-[0.98]" : "text-gray-900 opacity-40 hover:opacity-70 scale-[0.98]")}
-                                ${index === 0 ? "text-[38px] leading-[42px]" : "text-[20px] leading-[28px]"}`}
+                                ${index === 0 ? "text-[26px] sm:text-[32px] lg:text-[34px] xl:text-[38px] leading-[32px] sm:leading-[38px] lg:leading-[40px]" : "text-[16px] sm:text-[18px] lg:text-[20px] leading-[24px] lg:leading-[28px]"}`}
                             >
                                 {table.title}
                             </h2>
@@ -194,13 +190,12 @@ export default function WhyDevQuilt() {
                                         animate={{ opacity: 1, height: "auto" }}
                                         exit={{ opacity: 0, height: 0 }}
                                         transition={{ duration: 0.3 }}
-                                        className="lg:hidden mt-8 overflow-hidden"
+                                        className="lg:hidden mt-5 overflow-hidden"
                                     >
-                                        <div className={`relative rounded-[12px] border overflow-hidden ${
-                                            isDarkMode
+                                        <div className={`relative rounded-[12px] border overflow-hidden ${isDarkMode
                                                 ? "bg-[#141416] border-white/10 text-white shadow-[0_4px_30px_rgba(0,0,0,0.5)]"
                                                 : "bg-white border-black/10 text-gray-900 shadow-[0_4px_30px_rgba(0,0,0,0.06)]"
-                                        }`}>
+                                            }`}>
 
                                             {/* Rounded animated border via SVG - fading lead */}
                                             <svg className="absolute inset-0 w-full h-full pointer-events-none z-30" style={{ overflow: 'visible' }}>
@@ -238,7 +233,7 @@ export default function WhyDevQuilt() {
                                                 {table.headers && (
                                                     <div className={`grid grid-cols-2 border-b ${isDarkMode ? "border-white/10" : "border-black/10"}`}>
                                                         {table.headers.map((h, i) => (
-                                                             <div key={i} className={`p-6 text-center text-lg font-bold ${i === 0 ? (isDarkMode ? "border-r border-white/10" : "border-r border-black/10") : ""}`}>
+                                                            <div key={i} className={`py-3 px-3 text-center text-sm font-bold ${i === 0 ? (isDarkMode ? "border-r border-white/10" : "border-r border-black/10") : ""}`}>
                                                                 {h}
                                                             </div>
                                                         ))}
@@ -246,21 +241,21 @@ export default function WhyDevQuilt() {
                                                 )}
 
                                                 {table.description && (
-                                                    <div className={`p-8 pb-6 text-[13px] leading-[20px] ${isDarkMode ? "text-white/80" : "text-gray-600"}`}>
+                                                    <div className={`p-4 sm:p-5 pb-3 text-[12px] sm:text-[13px] leading-[18px] sm:leading-[20px] ${isDarkMode ? "text-white/80" : "text-gray-600"}`}>
                                                         {table.description}
                                                     </div>
                                                 )}
 
-                                                <div className={`mx-8 h-[1px] ${isDarkMode ? "bg-white/10" : "bg-black/10"}`} />
+                                                <div className={`mx-4 sm:mx-6 h-[1px] ${isDarkMode ? "bg-white/10" : "bg-black/10"}`} />
 
-                                                <div className="px-8 py-4">
+                                                <div className="px-4 sm:px-6 py-2.5">
                                                     {table.data.map((item, idx) => (
                                                         <div
                                                             key={idx}
-                                                            className={`grid grid-cols-2 border-b last:border-0 py-3 ${isDarkMode ? "border-white/5" : "border-black/5"}`}
+                                                            className={`grid grid-cols-2 border-b last:border-0 py-2 sm:py-2.5 gap-2 ${isDarkMode ? "border-white/5" : "border-black/5"}`}
                                                         >
-                                                            <div className={`font-bold text-[14px] ${isDarkMode ? "text-white" : "text-gray-900"}`}>{item.col1}</div>
-                                                            <div className={`text-[12.5px] ${isDarkMode ? "text-white/60" : "text-gray-600"}`}>{item.col2}</div>
+                                                            <div className={`font-semibold text-[12.5px] sm:text-[13.5px] leading-tight ${isDarkMode ? "text-white" : "text-gray-900"}`}>{item.col1}</div>
+                                                            <div className={`text-[11.5px] sm:text-[12.5px] leading-tight ${isDarkMode ? "text-white/60" : "text-gray-600"}`}>{item.col2}</div>
                                                         </div>
                                                     ))}
                                                 </div>
@@ -271,14 +266,14 @@ export default function WhyDevQuilt() {
                             </AnimatePresence>
 
                             {index < tables.length - 1 && (
-                                <div className={`w-full h-[1px] mt-12 ${isDarkMode ? "bg-white/10" : "bg-black/10"}`} />
+                                <div className={`w-full h-[1px] mt-5 lg:mt-6 ${isDarkMode ? "bg-white/10" : "bg-black/10"}`} />
                             )}
                         </div>
                     ))}
                 </div>
 
                 {/* RIGHT SIDE TABLE - Desktop Only */}
-                <div className="hidden lg:block lg:w-[696px] w-full relative">
+                <div className="hidden lg:block lg:w-[620px] xl:w-[696px] w-full relative">
 
                     <AnimatePresence mode="wait">
                         <motion.div
@@ -288,11 +283,10 @@ export default function WhyDevQuilt() {
                             exit={{ opacity: 0, scale: 0.98 }}
                             transition={{ duration: 0.25 }}
                         >
-                            <div ref={tableRef} className={`relative rounded-[12px] border overflow-hidden ${
-                                isDarkMode
+                            <div ref={tableRef} className={`relative rounded-[12px] border overflow-hidden ${isDarkMode
                                     ? "bg-[#141416] border-white/10 text-white shadow-[0_4px_30px_rgba(0,0,0,0.5)]"
                                     : "bg-white border-black/10 text-gray-900 shadow-[0_4px_30px_rgba(0,0,0,0.06)]"
-                            }`}>
+                                }`}>
 
                                 {/* Border draws from where the title line connects — multi-layer faded head */}
                                 {borderPath && (
@@ -340,7 +334,7 @@ export default function WhyDevQuilt() {
                                         <div className={`grid grid-cols-2 border-b ${isDarkMode ? "border-white/10" : "border-black/10"}`}>
                                             {tables[activeTab].headers.map((h, i) => (
                                                 <div key={i}
-                                                    className={`p-6 md:p-8 text-center text-lg font-bold ${i === 0 ? (isDarkMode ? "border-r border-white/10" : "border-r border-black/10") : ""}`}>
+                                                    className={`py-3.5 px-6 xl:py-4.5 xl:px-8 text-center text-base xl:text-lg font-bold ${i === 0 ? (isDarkMode ? "border-r border-white/10" : "border-r border-black/10") : ""}`}>
                                                     {h}
                                                 </div>
                                             ))}
@@ -348,21 +342,21 @@ export default function WhyDevQuilt() {
                                     )}
 
                                     {tables[activeTab].description && (
-                                        <div className={`p-8 md:p-10 pb-6 text-[13px] leading-[20px] ${isDarkMode ? "text-white/80" : "text-gray-600"}`}>
+                                        <div className={`p-5 xl:p-6 pb-3 text-[12.5px] xl:text-[13px] leading-[19px] xl:leading-[20px] ${isDarkMode ? "text-white/80" : "text-gray-600"}`}>
                                             {tables[activeTab].description}
                                         </div>
                                     )}
 
-                                    <div className={`mx-8 md:mx-10 h-[1px] ${isDarkMode ? "bg-white/10" : "bg-black/10"}`} />
+                                    <div className={`mx-6 xl:mx-8 h-[1px] ${isDarkMode ? "bg-white/10" : "bg-black/10"}`} />
 
-                                    <div className="px-8 md:px-10 py-4">
+                                    <div className="px-6 xl:px-8 py-2.5 xl:py-3">
                                         {tables[activeTab].data.map((item, idx) => (
                                             <div
                                                 key={idx}
-                                                className={`grid grid-cols-2 border-b last:border-0 py-3 ${isDarkMode ? "border-white/5" : "border-black/5"}`}
+                                                className={`grid grid-cols-2 border-b last:border-0 py-2 xl:py-2.5 ${isDarkMode ? "border-white/5" : "border-black/5"}`}
                                             >
-                                                <div className={`font-bold text-[14px] ${isDarkMode ? "text-white" : "text-gray-900"}`}>{item.col1}</div>
-                                                <div className={`text-[12.5px] ${isDarkMode ? "text-white/60" : "text-gray-600"}`}>{item.col2}</div>
+                                                <div className={`font-bold text-[13.5px] xl:text-[14px] ${isDarkMode ? "text-white" : "text-gray-900"}`}>{item.col1}</div>
+                                                <div className={`text-[12px] xl:text-[12.5px] ${isDarkMode ? "text-white/60" : "text-gray-600"}`}>{item.col2}</div>
                                             </div>
                                         ))}
                                     </div>

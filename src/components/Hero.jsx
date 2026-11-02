@@ -4,7 +4,7 @@ import starImg from "../assets/Star 3.webp";
 import { Link } from "react-router-dom";
 
 export default function Hero() {
-    const words = ["Websites", "Brand Identity", "UX/UI", "Digital Products", "E-commerce"];
+    const words = ["Websites", "UX/UI", "Products", "App", "AI Tools"];
     const colors = ["text-purple-400", "text-lime-400", "text-red-400", "text-blue-400", "text-indigo-400"];
     const [index, setIndex] = useState(0);
 
@@ -24,8 +24,8 @@ export default function Hero() {
             />
 
             {/* Subtle purple glow top-left */}
-            <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-purple-600/10 rounded-full blur-[120px] pointer-events-none z-0" />
-            <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-violet-800/8 rounded-full blur-[100px] pointer-events-none z-0" />
+            <div className="absolute top-0 left-0 w-[280px] sm:w-[500px] h-[280px] sm:h-[500px] max-w-full bg-purple-600/10 rounded-full blur-[100px] sm:blur-[120px] pointer-events-none z-0" />
+            <div className="absolute bottom-0 right-0 w-[240px] sm:w-[400px] h-[240px] sm:h-[400px] max-w-full bg-violet-800/8 rounded-full blur-[80px] sm:blur-[100px] pointer-events-none z-0" />
 
             <div className="max-w-7xl mx-auto w-full relative z-10 grid grid-cols-1 lg:grid-cols-[1.2fr_1fr] gap-4 items-end px-4 md:px-10 pb-12">
 
@@ -35,11 +35,11 @@ export default function Hero() {
                         Web Development for Startups
                     </p>
 
-                    <h1 className="text-4xl sm:text-6xl lg:text-[85px] font-bold leading-[1] tracking-tighter text-white text-left">
+                    <h1 className="text-[32px] sm:text-6xl lg:text-[85px] font-bold leading-[1.05] sm:leading-[1] tracking-tighter text-white text-left">
                         {/* Line 1: We Build [Animated Word] */}
-                        <div className="flex items-center gap-x-3 whitespace-nowrap">
+                        <div className="flex items-center gap-x-2 sm:gap-x-3 whitespace-nowrap">
                             <span>We Build</span>
-                            <span className="inline-flex relative h-[1.1em] w-[8ch] sm:w-[10ch] lg:w-[12ch] overflow-hidden">
+                            <span className="inline-flex relative h-[1.1em] w-[7ch] sm:w-[10ch] lg:w-[12ch] overflow-hidden">
                                 <AnimatePresence mode="wait">
                                     <motion.span
                                         key={words[index]}
@@ -64,7 +64,7 @@ export default function Hero() {
                 </div>
 
                 {/* Right Content: Subtext and Button */}
-                <div className="flex flex-col items-start gap-5 lg:mb-4 lg:ml-[-4rem] max-w-xs translate-y-30">
+                <div className="flex flex-col items-start gap-5 mt-6 lg:mt-0 lg:mb-4 lg:ml-[-4rem] max-w-xs lg:translate-y-24">
                     <div className="text-gray-300 text-lg font-medium leading-tight">
                         <p>From idea to</p>
                         <p>digital product — we build what comes next.</p>

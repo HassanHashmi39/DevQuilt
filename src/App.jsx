@@ -3,18 +3,17 @@ import { BrowserRouter as Router, Routes, Route, useLocation } from "react-route
 import { motion, AnimatePresence } from "motion/react";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
+import Services from "./components/Services";
+import ServiceShowcase from "./components/ServiceShowcase";
+import WhyDevQuilt from "./components/WhyDevQuilt";
+import Process from "./components/Process";
+import Pricing from "./components/Pricing";
+import Projects from "./components/Projects";
+import TestimonialCircle from "./components/TestimonialCircle";
+import CTA from "./components/CTA";
+import Footer from "./components/Footer";
 
-// Lazy load non-critical components
-const Gallery = React.lazy(() => import("./components/gallery"));
-const Services = React.lazy(() => import("./components/Services"));
-const ServiceShowcase = React.lazy(() => import("./components/ServiceShowcase"));
-const WhyDevQuilt = React.lazy(() => import("./components/WhyDevQuilt"));
-const Process = React.lazy(() => import("./components/Process"));
-const Pricing = React.lazy(() => import("./components/Pricing"));
-const Projects = React.lazy(() => import("./components/Projects"));
-const TestimonialCircle = React.lazy(() => import("./components/TestimonialCircle"));
-const CTA = React.lazy(() => import("./components/CTA"));
-const Footer = React.lazy(() => import("./components/Footer"));
+// Lazy load other route pages
 const ProjectsPage = React.lazy(() => import("./components/ProjectsPage"));
 const ServicesPage = React.lazy(() => import("./components/ServicesPage"));
 const AboutPage = React.lazy(() => import("./components/AboutPage"));
@@ -150,7 +149,7 @@ function InnerApp({ mainRef }) {
             <Navbar />
             <main
                 ref={mainRef}
-                className="overflow-y-scroll h-screen"
+                className="overflow-y-scroll overflow-x-hidden h-screen relative"
                 style={{ overscrollBehavior: "none" }}
             >
                 <Suspense fallback={
@@ -189,25 +188,19 @@ function InnerApp({ mainRef }) {
                                         <ServiceShowcase />
                                     </section>
 
-                                    <section className="relative h-[200vh] z-20">
-                                        <div className="sticky top-0 h-screen overflow-hidden bg-[#0a0a0a]">
-                                            <Gallery />
-                                        </div>
-                                    </section>
-
-                                    <section className="relative h-[200vh] z-40 -mt-[100vh]">
-                                        <div className="sticky top-0 h-screen overflow-hidden bg-[#0a0a0a]">
+                                    <section className="relative w-full lg:h-[200vh] z-20">
+                                        <div className="relative w-full lg:sticky lg:top-0 lg:h-screen lg:overflow-hidden bg-[#0a0a0a]">
                                             <Process />
                                         </div>
                                     </section>
 
-                                    <section className="relative h-[200vh] z-30 -mt-[100vh]">
-                                        <div className="sticky top-0 h-screen overflow-hidden bg-[#0a0a0a]">
+                                    <section className="relative w-full lg:h-[200vh] z-30 lg:-mt-[100vh]">
+                                        <div className="relative w-full lg:sticky lg:top-0 lg:h-screen lg:overflow-hidden bg-[#0a0a0a]">
                                             <WhyDevQuilt />
                                         </div>
                                     </section>
 
-                                    <section className={`relative z-50 pt-20 transition-colors duration-400 ${isDarkMode ? 'bg-[#0a0a0a]' : 'bg-white'}`}>
+                                    <section className={`relative z-50 pt-20 overflow-hidden transition-colors duration-400 ${isDarkMode ? 'bg-[#0a0a0a]' : 'bg-white'}`}>
                                         <Projects />
                                         <Pricing />
                                         <TestimonialCircle />
@@ -228,12 +221,10 @@ function InnerApp({ mainRef }) {
                     </AnimatePresence>
                 </Suspense>
 
-                <Suspense fallback={<div className={`h-40 ${isDarkMode ? 'bg-[#0a0a0a]' : 'bg-white'}`} />}>
-                    <section className={`relative z-50 transition-colors duration-300 ${isDarkMode ? 'bg-[#0a0a0a]' : 'bg-white'}`}>
-                        <CTA />
-                        <Footer />
-                    </section>
-                </Suspense>
+                <section className={`relative z-50 transition-colors duration-300 ${isDarkMode ? 'bg-[#0a0a0a]' : 'bg-white'}`}>
+                    <CTA />
+                    <Footer />
+                </section>
             </main>
         </div >
     );

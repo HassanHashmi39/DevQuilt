@@ -2,8 +2,8 @@ import React, { useState, useRef, useEffect, useCallback } from "react";
 import { motion } from "motion/react";
 import { useTheme } from "../context/ThemeContext";
 // Images imported normally — Vite handles webp efficiently
-import contactVisual from "../assets/contact1.png";
-import contactBg from "../assets/contact2.png";
+import contactVisual from "../assets/contact-visual.webp";
+import contactBg from "../assets/contact2.webp";
 
 const ContactPage = () => {
     const { isDarkMode } = useTheme();
