@@ -4,34 +4,17 @@ import { useTheme } from "../context/ThemeContext";
 import starImg from "../assets/Star 3.webp";
 import ProjectDetail from "./ProjectDetail";
 
-// ── Project images served from /public/projects/ (no Vite hashing → reliable on Netlify) ──
-const skinzyImg              = "/projects/skinzy.jpg";
-const skinzyDetail1          = "/projects/skinzy-detail-1.jpg";
-const skinzyDetail2          = "/projects/skinzy-detail-2.jpg";
+import skinzyImg from "../assets/projects/skinzy.jpg";
+import skinzyDetail1 from "../assets/projects/skinzy-detail-1.jpg";
+import skinzyDetail2 from "../assets/projects/skinzy-detail-2.jpg";
 
-const reactNativePortfolioImg    = "/projects/react-native-portfolio.jpg";
-const reactNativePortfolioDetail1 = "/projects/react-native-portfolio-detail-1.jpg";
-const reactNativePortfolioDetail2 = "/projects/react-native-portfolio-detail-2.jpg";
+import reactNativePortfolioImg from "../assets/projects/react-native-portfolio.jpg";
+import reactNativePortfolioDetail1 from "../assets/projects/react-native-portfolio-detail-1.jpg";
+import reactNativePortfolioDetail2 from "../assets/projects/react-native-portfolio-detail-2.jpg";
 
-const reactjsPortfolioImg    = "/projects/reactjs-portfolio.jpg";
-const reactjsPortfolioDetail1 = "/projects/reactjs-portfolio-detail-1.jpg";
-const reactjsPortfolioDetail2 = "/projects/reactjs-portfolio-detail-2.jpg";
-
-const javaTaskManagerImg     = "/projects/java-task-manager.jpg";
-const javaTaskManagerDetail1 = "/projects/java-task-manager-detail-1.jpg";
-const javaTaskManagerDetail2 = "/projects/java-task-manager-detail-2.jpg";
-
-const apexSaasImg            = "/projects/apex-saas.jpg";
-const apexSaasDetail1        = "/projects/apex-saas-detail-1.jpg";
-const apexSaasDetail2        = "/projects/apex-saas-detail-2.jpg";
-
-const aiMedicalImg           = "/projects/ai-medical-diagnostics.jpg";
-const aiMedicalDetail1       = "/projects/ai-medical-diagnostics-detail-1.jpg";
-const aiMedicalDetail2       = "/projects/ai-medical-diagnostics-detail-2.jpg";
-
-const cloudInfraImg          = "/projects/cloud-infrastructure.jpg";
-const cloudInfraDetail1      = "/projects/cloud-infrastructure-detail-1.jpg";
-const cloudInfraDetail2      = "/projects/cloud-infrastructure-detail-2.jpg";
+import reactjsPortfolioImg from "../assets/projects/reactjs-portfolio.jpg";
+import reactjsPortfolioDetail1 from "../assets/projects/reactjs-portfolio-detail-1.jpg";
+import reactjsPortfolioDetail2 from "../assets/projects/reactjs-portfolio-detail-2.jpg";
 
 
 const QuickView = ({ project, onClose }) => {
@@ -98,7 +81,7 @@ const ProjectsPage = () => {
             image: skinzyImg,
             detailImage1: skinzyDetail1,
             detailImage2: skinzyDetail2,
-            span: "lg:col-span-2 lg:row-span-2"
+            span: "col-span-1 md:col-span-2 lg:col-span-2 lg:row-span-2"
         },
         {
             title: "Personal Website",
@@ -109,7 +92,7 @@ const ProjectsPage = () => {
             image: reactNativePortfolioImg,
             detailImage1: reactNativePortfolioDetail1,
             detailImage2: reactNativePortfolioDetail2,
-            span: "lg:col-span-1 lg:row-span-1"
+            span: "col-span-1 lg:col-span-1 lg:row-span-1"
         },
         {
             title: "ReactJs Portfolio Website",
@@ -120,53 +103,10 @@ const ProjectsPage = () => {
             image: reactjsPortfolioImg,
             detailImage1: reactjsPortfolioDetail1,
             detailImage2: reactjsPortfolioDetail2,
-            span: "lg:col-span-1 lg:row-span-1"
-        },
-        {
-            title: "Java GUI Task Manager",
-            category: "Desktop Application",
-            tech: "Java • Java Swing • OOP",
-            github: "https://github.com/HassanHashmi39/Java-GUI-based-Task-Manager-application",
-            description: "Modular desktop task management system built using Java Swing for daily task scheduling, productivity tracking, and workflow efficiency.",
-            image: javaTaskManagerImg,
-            detailImage1: javaTaskManagerDetail1,
-            detailImage2: javaTaskManagerDetail2,
-            span: "lg:col-span-1 lg:row-span-1"
-        },
-        {
-            title: "Apex SaaS Platform",
-            category: "B2B Startup Launchpad",
-            tech: "Next.js • Tailwind CSS • PostgreSQL",
-            github: "https://github.com/HassanHashmi39",
-            description: "High-converting B2B SaaS web application with onboarding funnels, analytics dashboard, and subscription billing.",
-            image: apexSaasImg,
-            detailImage1: apexSaasDetail1,
-            detailImage2: apexSaasDetail2,
-            span: "lg:col-span-1 lg:row-span-1"
-        },
-        {
-            title: "AI Medical Diagnostics",
-            category: "Machine Learning & Vision",
-            tech: "PyTorch • Python • FastAPI",
-            github: "https://github.com/HassanHashmi39/Skinzy",
-            description: "Computer vision pipeline for automated condition classification, diagnostic reporting, and secure patient records.",
-            image: aiMedicalImg,
-            detailImage1: aiMedicalDetail1,
-            detailImage2: aiMedicalDetail2,
-            span: "lg:col-span-2 lg:row-span-1"
-        },
-        {
-            title: "Cloud Infrastructure Setup",
-            category: "DevOps & Cloud Architecture",
-            tech: "Docker • AWS • CI/CD",
-            github: "https://github.com/HassanHashmi39",
-            description: "Containerized deployment pipeline with automated testing, SSL provisioning, and load balancing for high-traffic apps.",
-            image: cloudInfraImg,
-            detailImage1: cloudInfraDetail1,
-            detailImage2: cloudInfraDetail2,
-            span: "lg:col-span-2 lg:row-span-1"
+            span: "col-span-1 lg:col-span-1 lg:row-span-1"
         }
     ];
+
 
     return (
         <motion.div
@@ -254,7 +194,7 @@ const ProjectsPage = () => {
             <section className={`relative z-20 px-4 sm:px-8 lg:px-16 pb-32 pt-10 max-w-[1500px] mx-auto transition-colors duration-300 ${isDarkMode ? "bg-[#0a0a0a]" : "bg-white"
                 }`}>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 auto-rows-[250px] sm:auto-rows-[300px]">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-[300px] sm:auto-rows-[340px]">
                     {projects.map((project, index) => {
                         const themes = [
                             { shadow: "hover:shadow-[0_0_40px_rgba(168,85,247,0.5)]", overlay: "bg-purple-900/30", grad: "from-purple-900/95 via-purple-900/60" },

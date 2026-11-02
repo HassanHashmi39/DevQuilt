@@ -4,17 +4,15 @@ import { Link } from "react-router-dom";
 import { useScrollContainer } from "../context/ScrollContext";
 import { useTheme } from "../context/ThemeContext";
 
-// Real project screenshots served from /public/projects/
-const imgSkinzy    = "/projects/skinzy.jpg";
-const imgSkinzyD1  = "/projects/skinzy-detail-1.jpg";
-const imgSkinzyD2  = "/projects/skinzy-detail-2.jpg";
-const imgPortfolio = "/projects/reactjs-portfolio.jpg";
-const imgPortfolioD1 = "/projects/reactjs-portfolio-detail-1.jpg";
-const imgAgency    = "/projects/react-native-portfolio.jpg";
-const imgAgencyD1  = "/projects/react-native-portfolio-detail-1.jpg";
-const imgSaas      = "/projects/apex-saas.jpg";
-const imgSaasD1    = "/projects/apex-saas-detail-1.jpg";
-const imgSaasD2    = "/projects/apex-saas-detail-2.jpg";
+import imgSkinzy from "../assets/projects/skinzy.jpg";
+import imgSkinzyD1 from "../assets/projects/skinzy-detail-1.jpg";
+import imgSkinzyD2 from "../assets/projects/skinzy-detail-2.jpg";
+import imgPortfolio from "../assets/projects/reactjs-portfolio.jpg";
+import imgPortfolioD1 from "../assets/projects/reactjs-portfolio-detail-1.jpg";
+import imgPortfolioD2 from "../assets/projects/reactjs-portfolio-detail-2.jpg";
+import imgAgency from "../assets/projects/react-native-portfolio.jpg";
+import imgAgencyD1 from "../assets/projects/react-native-portfolio-detail-1.jpg";
+import imgAgencyD2 from "../assets/projects/react-native-portfolio-detail-2.jpg";
 
 
 const services = [
@@ -63,9 +61,9 @@ const services = [
         ctaText: "EXPLORE OUR PROJECTS",
         ctaLink: "/projects",
         previews: [
-            { img: imgSaas,   caption: "SaaS Dashboard" },
-            { img: imgSaasD1, caption: "Analytics View" },
-            { img: imgSkinzy, caption: "AI Product" },
+            { img: imgPortfolioD1, caption: "Booking Platform" },
+            { img: imgSkinzyD2,    caption: "Product Dashboard" },
+            { img: imgSkinzy,      caption: "AI Product" },
         ],
     },
     {
@@ -115,7 +113,7 @@ const services = [
         previews: [
             { img: imgPortfolioD1, caption: "Service Booking UI" },
             { img: imgAgencyD1,    caption: "Agency Website" },
-            { img: imgSaasD2,      caption: "Dashboard UI" },
+            { img: imgPortfolioD2, caption: "Dark Mode UI" },
         ],
     },
     {
@@ -139,7 +137,7 @@ const services = [
         ctaLink: "/contact",
         previews: [
             { img: imgAgency,    caption: "Optimised Website" },
-            { img: imgSaas,      caption: "Performance Metrics" },
+            { img: imgAgencyD2,  caption: "Responsive Mobile UI" },
             { img: imgPortfolio, caption: "Clean Architecture" },
         ],
     },

@@ -3,12 +3,12 @@ import { motion } from "motion/react";
 import { Link, useNavigate } from "react-router-dom";
 import { useTheme } from "../context/ThemeContext";
 
-const reactjsPortfolioImg = "/projects/reactjs-portfolio.jpg";
-const apexSaasImg         = "/projects/apex-saas.jpg";
-const skinzyImg           = "/projects/skinzy.jpg";
-const aiMedicalImg        = "/projects/ai-medical-diagnostics.jpg";
-const javaTaskManagerImg  = "/projects/java-task-manager.jpg";
-const cloudInfraImg       = "/projects/cloud-infrastructure.jpg";
+import skinzyImg from "../assets/projects/skinzy.jpg";
+import skinzyDetail1 from "../assets/projects/skinzy-detail-1.jpg";
+import skinzyDetail2 from "../assets/projects/skinzy-detail-2.jpg";
+import reactNativePortfolioImg from "../assets/projects/react-native-portfolio.jpg";
+import reactjsPortfolioImg from "../assets/projects/reactjs-portfolio.jpg";
+import reactjsPortfolioDetail1 from "../assets/projects/reactjs-portfolio-detail-1.jpg";
 
 const Gallery = () => {
     const navigate = useNavigate();
@@ -34,9 +34,9 @@ const Gallery = () => {
         },
         {
             id: 2,
-            title: "Apex SaaS Platform",
-            category: "B2B SaaS Launchpad",
-            image: apexSaasImg,
+            title: "Skinzy Consultation",
+            category: "Healthcare UI & Chat",
+            image: skinzyDetail1,
             rotation: -8,
             x: -60,
             y: 5
@@ -52,27 +52,27 @@ const Gallery = () => {
         },
         {
             id: 4,
-            title: "AI Medical Diagnostics",
-            category: "Machine Learning & Vision",
-            image: aiMedicalImg,
+            title: "Skinzy Daily Routine",
+            category: "Personalized Action Plans",
+            image: skinzyDetail2,
             rotation: 4,
             x: 60,
             y: 5
         },
         {
             id: 5,
-            title: "Java Task Manager",
-            category: "Desktop Application",
-            image: javaTaskManagerImg,
+            title: "Personal Website",
+            category: "Digital Services & Portfolio",
+            image: reactNativePortfolioImg,
             rotation: 10,
             x: 120,
             y: 10
         },
         {
             id: 6,
-            title: "Cloud Infrastructure",
-            category: "DevOps & Cloud Architecture",
-            image: cloudInfraImg,
+            title: "Client Booking System",
+            category: "Modern Web Experience",
+            image: reactjsPortfolioDetail1,
             rotation: 18,
             x: 180,
             y: 20

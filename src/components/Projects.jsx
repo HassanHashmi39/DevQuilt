@@ -2,11 +2,9 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 import { motion, AnimatePresence, useInView } from 'motion/react';
 import { Link } from 'react-router-dom';
 import { useTheme } from '../context/ThemeContext';
-const skinzyImg              = '/projects/skinzy.jpg';
-const reactNativePortfolioImg = '/projects/react-native-portfolio.jpg';
-const reactjsPortfolioImg    = '/projects/reactjs-portfolio.jpg';
-const javaTaskManagerImg     = '/projects/java-task-manager.jpg';
-const apexSaasImg            = '/projects/apex-saas.jpg';
+import skinzyImg from '../assets/projects/skinzy.jpg';
+import reactNativePortfolioImg from '../assets/projects/react-native-portfolio.jpg';
+import reactjsPortfolioImg from '../assets/projects/reactjs-portfolio.jpg';
 
 export default function Projects() {
     const { isDarkMode } = useTheme();
@@ -56,34 +54,9 @@ export default function Projects() {
                 "Client consultation booking flow and interactive service catalog",
                 "Fast performance metrics, semantic SEO, and micro-interactions"
             ]
-        },
-        {
-            title: "Java GUI Task Manager",
-            category: "Desktop Application",
-            tech: "Java • Java Swing • OOP",
-            github: "https://github.com/HassanHashmi39/Java-GUI-based-Task-Manager-application",
-            image: javaTaskManagerImg,
-            color: "bg-amber-500",
-            highlights: [
-                "Modular desktop task management system built using Java Swing",
-                "Daily task scheduling, priority workflows, and progress tracking",
-                "Robust object-oriented design built for collaborative extension"
-            ]
-        },
-        {
-            title: "Apex SaaS Platform",
-            category: "B2B Startup Launchpad",
-            tech: "Next.js • Tailwind CSS • PostgreSQL",
-            github: "https://github.com/HassanHashmi39",
-            image: apexSaasImg,
-            color: "bg-emerald-400",
-            highlights: [
-                "Conversion-optimized landing page and onboarding funnel",
-                "SaaS dashboard analytics with real-time metrics tracking",
-                "Stripe subscription integration and auth workflows"
-            ]
         }
     ];
+
 
 
     const nextSlide = useCallback(() => {

@@ -2,11 +2,9 @@ import React from "react";
 import { useParams, Link } from "react-router-dom";
 import { motion } from "motion/react";
 import { useTheme } from "../context/ThemeContext";
-const skinzyImg               = "/projects/skinzy.jpg";
-const reactNativePortfolioImg = "/projects/react-native-portfolio.jpg";
-const reactjsPortfolioImg     = "/projects/reactjs-portfolio.jpg";
-const javaTaskManagerImg      = "/projects/java-task-manager.jpg";
-
+import skinzyImg from "../assets/projects/skinzy.jpg";
+import reactNativePortfolioImg from "../assets/projects/react-native-portfolio.jpg";
+import reactjsPortfolioImg from "../assets/projects/reactjs-portfolio.jpg";
 
 const caseStudiesData = {
     "1": {
@@ -58,22 +56,6 @@ const caseStudiesData = {
             "Client Meeting Scheduler: Direct online appointment booking and consultation requests",
             "Performance & SEO: Optimized asset loading, semantic HTML hierarchy, and clean metadata",
             "Interactive Component System: Modular, reusable React components with smooth hover effects"
-        ]
-    },
-    "4": {
-        title: "Java GUI Task Manager Application",
-        category: "Desktop Application",
-        tech: "Java • Java Swing • OOP",
-        github: "https://github.com/HassanHashmi39/Java-GUI-based-Task-Manager-application",
-        color: "bg-amber-500",
-        text: "text-black",
-        image: javaTaskManagerImg,
-        overview: "A desktop productivity application built in Java Swing designed for organizing daily tasks, tracking project milestones, and streamlining task management with a clean modular structure.",
-        features: [
-            "Modular Architecture: Object-oriented design separating UI components, task models, and controllers",
-            "Task Lifecycle Management: Creation, editing, priority setting, and status updates",
-            "Intuitive Swing GUI: Lightweight desktop interface built with responsive Swing layouts",
-            "Data Persistence: Structured storage to preserve user task states across sessions"
         ]
     }
 };

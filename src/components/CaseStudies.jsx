@@ -7,7 +7,6 @@ const caseStudies = [
     { id: 1, title: "Skinzy — AI Skin Care & Wellness App", category: "AI & Mobile App", color: "bg-purple-600", text: "text-white" },
     { id: 2, title: "React Native Portfolio App", category: "Cross-Platform", color: "bg-blue-600", text: "text-white" },
     { id: 3, title: "ReactJs Portfolio Website", category: "Modern Web", color: "bg-lime-400", text: "text-black" },
-    { id: 4, title: "Java GUI Task Manager", category: "Desktop Application", color: "bg-amber-500", text: "text-black" },
 ];
 
 const CaseStudies = () => {
