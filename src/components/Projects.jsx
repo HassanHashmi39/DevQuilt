@@ -2,11 +2,11 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 import { motion, AnimatePresence, useInView } from 'motion/react';
 import { Link } from 'react-router-dom';
 import { useTheme } from '../context/ThemeContext';
-import skinzyImg from '../assets/projects/skinzy.jpg';
-import reactNativePortfolioImg from '../assets/projects/react-native-portfolio.jpg';
-import reactjsPortfolioImg from '../assets/projects/reactjs-portfolio.jpg';
-import javaTaskManagerImg from '../assets/projects/java-task-manager.jpg';
-import apexSaasImg from '../assets/projects/apex-saas.jpg';
+const skinzyImg              = '/projects/skinzy.jpg';
+const reactNativePortfolioImg = '/projects/react-native-portfolio.jpg';
+const reactjsPortfolioImg    = '/projects/reactjs-portfolio.jpg';
+const javaTaskManagerImg     = '/projects/java-task-manager.jpg';
+const apexSaasImg            = '/projects/apex-saas.jpg';
 
 export default function Projects() {
     const { isDarkMode } = useTheme();

@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { useTheme } from "../context/ThemeContext";
-import defaultDetail1 from "../assets/projects/project-detail-1.jpg";
-import defaultDetail2 from "../assets/projects/project-detail-2.jpg";
+const defaultDetail1 = "/projects/project-detail-1.jpg";
+const defaultDetail2 = "/projects/project-detail-2.jpg";
 
 const ProjectDetail = ({ project, projects, onSelectProject, onClose }) => {
     const [showCredits, setShowCredits] = useState(false);

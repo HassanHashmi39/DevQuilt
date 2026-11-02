@@ -3,33 +3,36 @@ import { motion, AnimatePresence } from "motion/react";
 import { useTheme } from "../context/ThemeContext";
 import starImg from "../assets/Star 3.webp";
 import ProjectDetail from "./ProjectDetail";
-import skinzyImg from "../assets/projects/skinzy.jpg";
-import skinzyDetail1 from "../assets/projects/skinzy-detail-1.jpg";
-import skinzyDetail2 from "../assets/projects/skinzy-detail-2.jpg";
 
-import reactNativePortfolioImg from "../assets/projects/react-native-portfolio.jpg";
-import reactNativePortfolioDetail1 from "../assets/projects/react-native-portfolio-detail-1.jpg";
-import reactNativePortfolioDetail2 from "../assets/projects/react-native-portfolio-detail-2.jpg";
+// ── Project images served from /public/projects/ (no Vite hashing → reliable on Netlify) ──
+const skinzyImg              = "/projects/skinzy.jpg";
+const skinzyDetail1          = "/projects/skinzy-detail-1.jpg";
+const skinzyDetail2          = "/projects/skinzy-detail-2.jpg";
 
-import reactjsPortfolioImg from "../assets/projects/reactjs-portfolio.jpg";
-import reactjsPortfolioDetail1 from "../assets/projects/reactjs-portfolio-detail-1.jpg";
-import reactjsPortfolioDetail2 from "../assets/projects/reactjs-portfolio-detail-2.jpg";
+const reactNativePortfolioImg    = "/projects/react-native-portfolio.jpg";
+const reactNativePortfolioDetail1 = "/projects/react-native-portfolio-detail-1.jpg";
+const reactNativePortfolioDetail2 = "/projects/react-native-portfolio-detail-2.jpg";
 
-import javaTaskManagerImg from "../assets/projects/java-task-manager.jpg";
-import javaTaskManagerDetail1 from "../assets/projects/java-task-manager-detail-1.jpg";
-import javaTaskManagerDetail2 from "../assets/projects/java-task-manager-detail-2.jpg";
+const reactjsPortfolioImg    = "/projects/reactjs-portfolio.jpg";
+const reactjsPortfolioDetail1 = "/projects/reactjs-portfolio-detail-1.jpg";
+const reactjsPortfolioDetail2 = "/projects/reactjs-portfolio-detail-2.jpg";
 
-import apexSaasImg from "../assets/projects/apex-saas.jpg";
-import apexSaasDetail1 from "../assets/projects/apex-saas-detail-1.jpg";
-import apexSaasDetail2 from "../assets/projects/apex-saas-detail-2.jpg";
+const javaTaskManagerImg     = "/projects/java-task-manager.jpg";
+const javaTaskManagerDetail1 = "/projects/java-task-manager-detail-1.jpg";
+const javaTaskManagerDetail2 = "/projects/java-task-manager-detail-2.jpg";
 
-import aiMedicalImg from "../assets/projects/ai-medical-diagnostics.jpg";
-import aiMedicalDetail1 from "../assets/projects/ai-medical-diagnostics-detail-1.jpg";
-import aiMedicalDetail2 from "../assets/projects/ai-medical-diagnostics-detail-2.jpg";
+const apexSaasImg            = "/projects/apex-saas.jpg";
+const apexSaasDetail1        = "/projects/apex-saas-detail-1.jpg";
+const apexSaasDetail2        = "/projects/apex-saas-detail-2.jpg";
 
-import cloudInfraImg from "../assets/projects/cloud-infrastructure.jpg";
-import cloudInfraDetail1 from "../assets/projects/cloud-infrastructure-detail-1.jpg";
-import cloudInfraDetail2 from "../assets/projects/cloud-infrastructure-detail-2.jpg";
+const aiMedicalImg           = "/projects/ai-medical-diagnostics.jpg";
+const aiMedicalDetail1       = "/projects/ai-medical-diagnostics-detail-1.jpg";
+const aiMedicalDetail2       = "/projects/ai-medical-diagnostics-detail-2.jpg";
+
+const cloudInfraImg          = "/projects/cloud-infrastructure.jpg";
+const cloudInfraDetail1      = "/projects/cloud-infrastructure-detail-1.jpg";
+const cloudInfraDetail2      = "/projects/cloud-infrastructure-detail-2.jpg";
+
 
 const QuickView = ({ project, onClose }) => {
     useEffect(() => {

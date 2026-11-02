@@ -3,12 +3,12 @@ import { motion } from "motion/react";
 import { Link, useNavigate } from "react-router-dom";
 import { useTheme } from "../context/ThemeContext";
 
-import reactjsPortfolioImg from "../assets/projects/reactjs-portfolio.jpg";
-import apexSaasImg from "../assets/projects/apex-saas.jpg";
-import skinzyImg from "../assets/projects/skinzy.jpg";
-import aiMedicalImg from "../assets/projects/ai-medical-diagnostics.jpg";
-import javaTaskManagerImg from "../assets/projects/java-task-manager.jpg";
-import cloudInfraImg from "../assets/projects/cloud-infrastructure.jpg";
+const reactjsPortfolioImg = "/projects/reactjs-portfolio.jpg";
+const apexSaasImg         = "/projects/apex-saas.jpg";
+const skinzyImg           = "/projects/skinzy.jpg";
+const aiMedicalImg        = "/projects/ai-medical-diagnostics.jpg";
+const javaTaskManagerImg  = "/projects/java-task-manager.jpg";
+const cloudInfraImg       = "/projects/cloud-infrastructure.jpg";
 
 const Gallery = () => {
     const navigate = useNavigate();

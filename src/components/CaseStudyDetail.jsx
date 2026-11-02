@@ -2,10 +2,11 @@ import React from "react";
 import { useParams, Link } from "react-router-dom";
 import { motion } from "motion/react";
 import { useTheme } from "../context/ThemeContext";
-import skinzyImg from "../assets/projects/skinzy.jpg";
-import reactNativePortfolioImg from "../assets/projects/react-native-portfolio.jpg";
-import reactjsPortfolioImg from "../assets/projects/reactjs-portfolio.jpg";
-import javaTaskManagerImg from "../assets/projects/java-task-manager.jpg";
+const skinzyImg               = "/projects/skinzy.jpg";
+const reactNativePortfolioImg = "/projects/react-native-portfolio.jpg";
+const reactjsPortfolioImg     = "/projects/reactjs-portfolio.jpg";
+const javaTaskManagerImg      = "/projects/java-task-manager.jpg";
+
 
 const caseStudiesData = {
     "1": {
