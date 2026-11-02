@@ -4,15 +4,17 @@ import { Link } from "react-router-dom";
 import { useScrollContainer } from "../context/ScrollContext";
 import { useTheme } from "../context/ThemeContext";
 
-import imgSkinzy from "../assets/projects/skinzy.jpg";
-import imgSkinzyD1 from "../assets/projects/skinzy-detail-1.jpg";
-import imgSkinzyD2 from "../assets/projects/skinzy-detail-2.jpg";
-import imgPortfolio from "../assets/projects/reactjs-portfolio.jpg";
-import imgPortfolioD1 from "../assets/projects/reactjs-portfolio-detail-1.jpg";
-import imgPortfolioD2 from "../assets/projects/reactjs-portfolio-detail-2.jpg";
-import imgAgency from "../assets/projects/react-native-portfolio.jpg";
-import imgAgencyD1 from "../assets/projects/react-native-portfolio-detail-1.jpg";
-import imgAgencyD2 from "../assets/projects/react-native-portfolio-detail-2.jpg";
+import {
+    skinzyImg as imgSkinzy,
+    skinzyDetail1 as imgSkinzyD1,
+    skinzyDetail2 as imgSkinzyD2,
+    reactjsPortfolioImg as imgPortfolio,
+    reactjsPortfolioDetail1 as imgPortfolioD1,
+    reactjsPortfolioDetail2 as imgPortfolioD2,
+    reactNativePortfolioImg as imgAgency,
+    reactNativePortfolioDetail1 as imgAgencyD1,
+    reactNativePortfolioDetail2 as imgAgencyD2
+} from "../constants/projectImages";
 
 
 const services = [

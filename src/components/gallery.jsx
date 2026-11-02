@@ -3,12 +3,14 @@ import { motion } from "motion/react";
 import { Link, useNavigate } from "react-router-dom";
 import { useTheme } from "../context/ThemeContext";
 
-import skinzyImg from "../assets/projects/skinzy.jpg";
-import skinzyDetail1 from "../assets/projects/skinzy-detail-1.jpg";
-import skinzyDetail2 from "../assets/projects/skinzy-detail-2.jpg";
-import reactNativePortfolioImg from "../assets/projects/react-native-portfolio.jpg";
-import reactjsPortfolioImg from "../assets/projects/reactjs-portfolio.jpg";
-import reactjsPortfolioDetail1 from "../assets/projects/reactjs-portfolio-detail-1.jpg";
+import {
+    skinzyImg,
+    skinzyDetail1,
+    skinzyDetail2,
+    reactNativePortfolioImg,
+    reactjsPortfolioImg,
+    reactjsPortfolioDetail1
+} from "../constants/projectImages";
 
 const Gallery = () => {
     const navigate = useNavigate();

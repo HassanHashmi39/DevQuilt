@@ -2,9 +2,7 @@ import React from "react";
 import { useParams, Link } from "react-router-dom";
 import { motion } from "motion/react";
 import { useTheme } from "../context/ThemeContext";
-import skinzyImg from "../assets/projects/skinzy.jpg";
-import reactNativePortfolioImg from "../assets/projects/react-native-portfolio.jpg";
-import reactjsPortfolioImg from "../assets/projects/reactjs-portfolio.jpg";
+import { skinzyImg, reactNativePortfolioImg, reactjsPortfolioImg } from "../constants/projectImages";
 
 const caseStudiesData = {
     "1": {

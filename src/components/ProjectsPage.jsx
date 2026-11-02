@@ -4,17 +4,17 @@ import { useTheme } from "../context/ThemeContext";
 import starImg from "../assets/Star 3.webp";
 import ProjectDetail from "./ProjectDetail";
 
-import skinzyImg from "../assets/projects/skinzy.jpg";
-import skinzyDetail1 from "../assets/projects/skinzy-detail-1.jpg";
-import skinzyDetail2 from "../assets/projects/skinzy-detail-2.jpg";
-
-import reactNativePortfolioImg from "../assets/projects/react-native-portfolio.jpg";
-import reactNativePortfolioDetail1 from "../assets/projects/react-native-portfolio-detail-1.jpg";
-import reactNativePortfolioDetail2 from "../assets/projects/react-native-portfolio-detail-2.jpg";
-
-import reactjsPortfolioImg from "../assets/projects/reactjs-portfolio.jpg";
-import reactjsPortfolioDetail1 from "../assets/projects/reactjs-portfolio-detail-1.jpg";
-import reactjsPortfolioDetail2 from "../assets/projects/reactjs-portfolio-detail-2.jpg";
+import {
+    skinzyImg,
+    skinzyDetail1,
+    skinzyDetail2,
+    reactNativePortfolioImg,
+    reactNativePortfolioDetail1,
+    reactNativePortfolioDetail2,
+    reactjsPortfolioImg,
+    reactjsPortfolioDetail1,
+    reactjsPortfolioDetail2
+} from "../constants/projectImages";
 
 
 const QuickView = ({ project, onClose }) => {

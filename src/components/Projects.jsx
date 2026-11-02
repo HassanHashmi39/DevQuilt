@@ -2,9 +2,7 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 import { motion, AnimatePresence, useInView } from 'motion/react';
 import { Link } from 'react-router-dom';
 import { useTheme } from '../context/ThemeContext';
-import skinzyImg from '../assets/projects/skinzy.jpg';
-import reactNativePortfolioImg from '../assets/projects/react-native-portfolio.jpg';
-import reactjsPortfolioImg from '../assets/projects/reactjs-portfolio.jpg';
+import { skinzyImg, reactNativePortfolioImg, reactjsPortfolioImg } from '../constants/projectImages';
 
 export default function Projects() {
     const { isDarkMode } = useTheme();
